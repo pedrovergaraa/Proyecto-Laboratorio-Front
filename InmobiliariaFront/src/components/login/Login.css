@@ -1,0 +1,30 @@
+/* src/components/Login.css */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa; /* Color de fondo claro */
+  }
+  
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .login-card .card-body {
+    padding: 2rem;
+  }
+  
+  .login-card .card-title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .btn-block {
+    width: 100%;
+  }
+  
