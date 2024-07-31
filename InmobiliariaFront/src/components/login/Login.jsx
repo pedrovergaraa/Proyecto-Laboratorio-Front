@@ -6,19 +6,19 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  
+  const handleInputChange = (e, setState) => {
+    console.log("event", e)
+    setState(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(`Email: ${email}, Password: ${password}`);
   };
-
+console.log("email", email)
+console.log("password", password)
   return (
     <div className="login-container">
       <div className="card login-card">
@@ -32,7 +32,7 @@ function Login() {
                 id="email"
                 className="form-control"
                 value={email}
-                onChange={handleEmailChange}
+                onChange={(e) => handleInputChange(e, setEmail)}
               />
             </div>
             <div className="form-group">
@@ -42,7 +42,7 @@ function Login() {
                 id="password"
                 className="form-control"
                 value={password}
-                onChange={handlePasswordChange}
+                onChange={(e) =>handleInputChange(e, setPassword)}
               />
             </div>
             <button type="submit" className="btn btn-primary btn-block">Login</button>
