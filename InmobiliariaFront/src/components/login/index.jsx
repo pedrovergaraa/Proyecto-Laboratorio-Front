@@ -1,6 +1,6 @@
 // src/components/Login.jsx
 import React, { useState } from 'react';
-import './Login.css'; // Importa tu archivo CSS personalizado
+import './Login.css'; 
 
 function Login() {
   const [email, setEmail] = useState('');
