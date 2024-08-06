@@ -6,6 +6,7 @@ import loginImage from '../../assets/images/login-image.webp'
 function Register() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
+  const [lastname, setLastName] = useState('');
   const [password, setPassword] = useState('');
 
   
@@ -22,65 +23,68 @@ function Register() {
 console.log("username", username)
 console.log("email", email)
 console.log("password", password)
+
   return (
-    <div className="login-container">
-      <div className="login box">
-        <div className="form-container">
-        <h1>Gestión Inmobiliaria</h1>
-          <h2>Register</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="username">Username:</label>
-              <input
-                placeholder="Username"
-                type="username"
-                id="username"
-                className="form-control"
-                value={username}
-                onChange={(e) => handleInputChange(e, setUsername)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="username">Repeat Username:</label>
-              <input
-                placeholder="Username"
-                type="name"
-                id="name"
-                className="form-control"
-                value={username}
-                onChange={(e) => handleInputChange(e, setUsername)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email:</label>
-              <input
-               placeholder="Email"
-                type="email"
-                id="email"
-                className="form-control"
-                value={email}
-                onChange={(e) => handleInputChange(e, setEmail)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password:</label>
-              <input
-                placeholder="Password"
-                type="password"
-                id="password"
-                className="form-control"
-                value={password}
-                onChange={(e) =>handleInputChange(e, setPassword)}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary btn-block">Iniciar sesion</button>
-          </form>
+    <div class="login-container">
+  <div class="login-box">
+    <div class="form-container">
+      <h1>Gestión Inmobiliaria</h1>
+      <h2 class="card-title">Register</h2>
+      <form onSubmit={handleSubmit}>
+        <div class="form-group">
+          <label for="username"></label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            placeholder='Username'
+            value={username}
+            onChange={(e) => handleInputChange(e, setUsername)}
+          />
         </div>
-        <div className="image-container">
-          <img src={loginImage} alt="login-image" />
+        <div class="form-group">
+          <label for="lastname"></label>
+          <input
+            type="text"
+            id="lastname"
+            class="form-control"
+            placeholder='LastName'
+            value={lastname}
+            onChange={(e) => handleInputChange(e, setLastName)}
+          />
         </div>
-      </div>
+        <div class="form-group">
+          <label for="email"></label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            placeholder='Email'
+            value={email}
+            onChange={(e) => handleInputChange(e, setEmail)}
+          />
+        </div>
+        <div class="form-group">
+          <label for="password"></label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder='Password'
+            value={password}
+            onChange={(e) => handleInputChange(e, setPassword)}
+          />
+        </div>
+        <p>Olvidaste tu contraseña? <a href="/register" class="btn btn-secondary">Register</a></p>
+        <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+      </form>
     </div>
+    <div class="image-container">
+      <img src={loginImage} alt="background" />
+    </div>
+  </div>
+</div>
+
   );
 }
 
