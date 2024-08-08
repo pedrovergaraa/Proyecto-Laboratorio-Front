@@ -1,22 +1,46 @@
 // src/components/Login.jsx
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css'; 
 import loginImage from '../../assets/images/login-image.webp'; 
+
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false,
+  });  
   
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const navigate = useNavigate();
+
   const handleInputChange = (e, setState) => {
     console.log("event", e)
     setState(e.target.value);
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (usernameRef.current.value.length <= 0) {
+      usernameRef.current.focus();
+      setErrors({ username: true, password: false });
+      return;
+  }
+
+  if (password.length <= 0) {
+      passwordRef.current.focus();
+      setErrors({ username: false, password: true });
+      return;
+  }
+
+  handleInputChange(username);
+
+  navigate("/")
+
     console.log(`Username: ${username}, Password: ${password}`);
   };
 console.log("username", username)
@@ -31,21 +55,28 @@ console.log("password", password)
         <div className="form-group">
           <label ></label>
           <input
+          className={errors.email ?
+            "border border-danger" :
+            ""}
             placeholder='Usuario'
             type="text"
             id="username"
-            className="form-control"
+            ref={usernameRef}
             value={username}
             onChange={(e) => handleInputChange(e, setUsername)}
           />
+          {errors.username && <p className="pt-2 ps-2 text-danger">El usuario es obligatorio</p>}
         </div>
         <div className="form-group">
           <label ></label>
           <input
+          className={errors.password ?
+            "border border-danger" :
+            ""}
             placeholder='Contraseña'
             type="password"
             id="password"
-            className="form-control"
+            ref={passwordRef}
             value={password}
             onChange={(e) => handleInputChange(e, setPassword)}
           />
