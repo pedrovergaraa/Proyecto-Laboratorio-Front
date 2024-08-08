@@ -1,7 +1,7 @@
 // src/components/Login.jsx
 import React, { useState } from 'react';
 import loginImage from '../../assets/images/login-image.webp'
-
+import { Link } from 'react-router-dom';
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -25,61 +25,61 @@ console.log("email", email)
 console.log("password", password)
 
   return (
-    <div class="login-container">
-  <div class="login-box">
-    <div class="form-container">
+    <div className="login-container">
+  <div className="login-box">
+    <div className="form-container">
       <h1>Gestión Inmobiliaria</h1>
-      <h2 class="card-title">Register</h2>
+      <h2 className="card-title">Register</h2>
       <form onSubmit={handleSubmit}>
-        <div class="form-group">
-          <label for="username"></label>
+        <div className="form-group">
+          <label ></label>
           <input
             type="text"
             id="username"
-            class="form-control"
-            placeholder='Username'
+            className="form-control"
+            placeholder='Usuario'
             value={username}
             onChange={(e) => handleInputChange(e, setUsername)}
           />
         </div>
-        <div class="form-group">
-          <label for="lastname"></label>
+        <div className="form-group">
+          <label ></label>
           <input
             type="text"
             id="lastname"
-            class="form-control"
-            placeholder='LastName'
+            className="form-control"
+            placeholder='Apellido'
             value={lastname}
             onChange={(e) => handleInputChange(e, setLastName)}
           />
         </div>
-        <div class="form-group">
-          <label for="email"></label>
+        <div className="form-group">
+          <label ></label>
           <input
             type="email"
             id="email"
-            class="form-control"
+            className="form-control"
             placeholder='Email'
             value={email}
             onChange={(e) => handleInputChange(e, setEmail)}
           />
         </div>
-        <div class="form-group">
-          <label for="password"></label>
+        <div className="form-group">
+          <label ></label>
           <input
             type="password"
             id="password"
-            class="form-control"
-            placeholder='Password'
+            className="form-control"
+            placeholder='Contraseña'
             value={password}
             onChange={(e) => handleInputChange(e, setPassword)}
           />
         </div>
-        <p>Olvidaste tu contraseña? <a href="/register" class="btn btn-secondary">Register</a></p>
-        <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+        <p>Ya tienes cuenta? <Link to="/login">Login</Link> </p>
+        <button type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
       </form>
     </div>
-    <div class="image-container">
+    <div className="image-container">
       <img src={loginImage} alt="background" />
     </div>
   </div>

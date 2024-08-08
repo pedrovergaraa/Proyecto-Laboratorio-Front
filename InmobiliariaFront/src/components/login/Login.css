@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f0f0;
+  background-color: white;
 }
 
 .login-box {
@@ -11,7 +11,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
-  background-color: white;
+  background-color: E3DCD5;
 }
 
 .form-container {
@@ -45,15 +45,19 @@
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 20px;
+  margin: 2px 0; 
 }
 
 h1 {
   margin-bottom: 20px;
+  color:#D87519;
+  text-align: center;
 }
 
 h2.card-title {
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .btn {

@@ -22,37 +22,39 @@ function Login() {
 console.log("username", username)
 console.log("password", password)
   return (
-    <div class="login-container">
-  <div class="login-box">
-    <div class="form-container">
+    <div className="login-container">
+  <div className="login-box">
+    <div className="form-container">
       <h1>Gestión Inmobiliaria</h1>
-      <h2 class="card-title">Login</h2>
+      <h2 className="card-title">Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
-        <div class="form-group">
-          <label for="username">Username:</label>
+        <div className="form-group">
+          <label ></label>
           <input
+            placeholder='Usuario'
             type="text"
             id="username"
-            class="form-control"
+            className="form-control"
             value={username}
             onChange={(e) => handleInputChange(e, setUsername)}
           />
         </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
+        <div className="form-group">
+          <label ></label>
           <input
+            placeholder='Contraseña'
             type="password"
             id="password"
-            class="form-control"
+            className="form-control"
             value={password}
             onChange={(e) => handleInputChange(e, setPassword)}
           />
         </div>
-        <p>Olvidaste tu contraseña? <a href="/register" class="btn btn-secondary">Register</a></p>
-        <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+        <p>Olvidaste tu contraseña? <Link to="/register">Registrate</Link></p>
+        <button type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
       </form>
     </div>
-    <div class="image-container">
+    <div className="image-container">
       <img src={loginImage} alt="background" />
     </div>
   </div>
