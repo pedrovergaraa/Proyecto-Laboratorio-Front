@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: #F8EFE6; /* Color de fondo */
-  padding: 10px 20px;
+  padding: 20px 50px;
   border-bottom: 1px solid #333; /* Línea de separación */
   width: 100%;
   position: fixed; /* Fija la navbar en la parte superior */
@@ -37,7 +37,19 @@ body {
 }
 
 .navItem {
-  padding: 0 10px;
+  padding: 0 40px;
+  position: relative;
+}
+
+.navItem:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 1px;
+  background-color: #333; /* Color de la línea de separación */
 }
 
 .navLink {
@@ -45,10 +57,11 @@ body {
   color: #333;
   font-weight: 600;
   font-size: 1rem;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .navLink:hover {
-  color: #D87519; /* Efecto hover */
+  color: #7190A8; /* Efecto hover */
 }
 
 h1{
