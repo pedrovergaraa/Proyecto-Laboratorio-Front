@@ -50,3 +50,9 @@ body {
 .navLink:hover {
   color: #D87519; /* Efecto hover */
 }
+
+h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
