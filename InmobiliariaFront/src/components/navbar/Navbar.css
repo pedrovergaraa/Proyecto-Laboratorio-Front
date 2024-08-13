@@ -2,17 +2,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #F8EFE6; /* Color de fondo */
+  background-color: #F8EFE6;
   padding: 20px 50px;
-  border-bottom: 1px solid #333; /* Línea de separación */
+  border-bottom: 1px solid #333;
   width: 100%;
-  position: fixed; /* Fija la navbar en la parte superior */
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  z-index: 1000;
 }
+
 body {
-  margin: 0; /* Elimina el margen predeterminado del body */
+  margin: 0;
   padding: 0;
 }
 
@@ -37,7 +38,7 @@ body {
 }
 
 .navItem {
-  padding: 0 40px;
+  padding: 0 20px;
   position: relative;
 }
 
@@ -49,7 +50,7 @@ body {
   bottom: 0;
   height: 100%;
   width: 1px;
-  background-color: #333; /* Color de la línea de separación */
+  background-color: #333;
 }
 
 .navLink {
@@ -57,15 +58,60 @@ body {
   color: #333;
   font-weight: 600;
   font-size: 1rem;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .navLink:hover {
-  color: #7190A8; /* Efecto hover */
+  color: #7190A8;
 }
 
-h1{
+h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .navList {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navItem {
+    padding: 10px 0;
+    width: 100%;
+    text-align: left;
+  }
+
+  .navItem:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #333;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .logo a {
+    font-size: 1rem;
+  }
+
+  .navLink {
+    font-size: 0.9rem;
+  }
 }
