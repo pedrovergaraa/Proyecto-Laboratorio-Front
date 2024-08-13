@@ -10,19 +10,20 @@ const Navbar = () => {
   </div>
   <ul className="navList">
     <li className="navItem">
-      <Link to="/propiedades" className="navLink">Propiedades</Link>
+      <Link to="/properties" className="navLink">Propiedades</Link>
     </li>
     <li className="navItem">
-      <Link to="/inquilinos" className="navLink">Inquilinos</Link>
+      <Link to="/tenants" className="navLink">Inquilinos</Link>
     </li>
     <li className="navItem">
-      <Link to="/contratos" className="navLink">Contratos</Link>
+      <Link to="/contracts" className="navLink">Contratos</Link>
     </li>
     <li className="navItem">
-      <Link to="/propietarios" className="navLink">Propietarios</Link>
+      <Link to="/owners" className="navLink">Propietarios</Link>
     </li>
   </ul>
 </nav>
+
 
   );
 };
