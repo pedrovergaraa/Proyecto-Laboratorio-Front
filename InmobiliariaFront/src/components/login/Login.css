@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: white;
+  background-color: #E3DCD5;
 }
 
 .login-box {
@@ -11,7 +11,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
-  background-color: E3DCD5;
+  background-color: #D9D9D9;
+  max-width: 700px; /* Establece un ancho máximo para el contenedor */
+  width: 100%; /* Permite que el contenedor se ajuste al ancho disponible */
+  margin: 0 20px; /* Añade un margen lateral para evitar que toque los bordes de la pantalla */
 }
 
 .form-container {
