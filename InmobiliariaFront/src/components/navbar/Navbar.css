@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: space-between;
   background-color: #F8EFE6;
-  padding: 30px 50px;
+  padding: 0 30px;
+  height: 60px;
   width: 100%;
   position: fixed;
   top: 0;
@@ -17,14 +18,18 @@ body {
 }
 
 .logo {
-  flex: 1;
+  flex: 1; /* Asegura que ocupe el espacio necesario */
+  display: flex;
+  align-items: center; /* Centra verticalmente la imagen dentro del navbar */
+  justify-content: flex-start; /* Alinea la imagen a la izquierda */
 }
 
-.logo a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  font-size: 1.2rem;
+
+.logo img {
+  height: 100%; /* Asegura que el logo ocupe toda la altura del navbar */
+  max-height: 60px; /* Ajusta este valor según la altura del navbar */
+  width: auto; /* Mantén la proporción de la imagen */
+  object-fit: contain; /* Asegura que la imagen no se deforme */
 }
 
 .navList {
