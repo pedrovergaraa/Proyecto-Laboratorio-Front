@@ -3,8 +3,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: #F8EFE6;
-  padding: 20px 50px;
-  border-bottom: 1px solid #333;
+  padding: 30px 50px;
   width: 100%;
   position: fixed;
   top: 0;
@@ -45,7 +44,7 @@ body {
 .navItem:not(:last-child)::after {
   content: "";
   position: absolute;
-  right: 0;
+  right: -20px;
   top: 0;
   bottom: 0;
   height: 100%;
@@ -54,6 +53,8 @@ body {
 }
 
 .navLink {
+  display: inline-block;
+  text-align: center;
   text-decoration: none;
   color: #333;
   font-weight: 600;

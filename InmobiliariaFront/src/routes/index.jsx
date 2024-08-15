@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from '../components/login';
 import Register from '../components/register/Register';
 import Users from '../components/users/Users';
@@ -8,14 +8,18 @@ import Properties from '../components/properties/Properties';
 import Tenants from '../components/tenants/Tenants';
 import Contracts from '../components/contracts/Contracts';
 import Owners from '../components/owners/Owners';
+import "./index.css"
 
 function HandleRoutes() {
+
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
+
   return (
     <>
-   
+   <div className={isAuthPage ? 'no-background' : 'background'}>
       <Router>
-        {/* Mostrar Navbar solo si no estás en /login o /register */}
         {location.pathname !== "/login" && location.pathname !== "/register" && <Navbar />}
+        <div >
         <Routes>
           <Route path="/users" element={<Users />} />
           <Route path="/register" element={<Register />} />
@@ -25,7 +29,9 @@ function HandleRoutes() {
           <Route path="/contracts" element={<Contracts />} />
           <Route path="/owners" element={<Owners />} />
         </Routes>
+        </div>
       </Router>
+     </div>
     </>
   );
 }
