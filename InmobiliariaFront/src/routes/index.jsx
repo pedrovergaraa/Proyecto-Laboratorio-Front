@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Login from '../components/login';
 import Register from '../components/register/Register';
 import Users from '../components/users/Users';
@@ -11,19 +11,21 @@ import Owners from '../components/owners/Owners';
 
 function HandleRoutes() {
   return (
-    <>  
-    <Router>
-    <Navbar></Navbar>
-      <Routes>
-        <Route path="/users" element={<Users />} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/properties" element={<Properties />} />
-        <Route path="/tenants" element={<Tenants />} />
-        <Route path="/contracts" element={<Contracts/>} />
-        <Route path="/owners" element={<Owners />} />
-      </Routes>
-    </Router>
+    <>
+   
+      <Router>
+        {/* Mostrar Navbar solo si no estás en /login o /register */}
+        {location.pathname !== "/login" && location.pathname !== "/register" && <Navbar />}
+        <Routes>
+          <Route path="/users" element={<Users />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/properties" element={<Properties />} />
+          <Route path="/tenants" element={<Tenants />} />
+          <Route path="/contracts" element={<Contracts />} />
+          <Route path="/owners" element={<Owners />} />
+        </Routes>
+      </Router>
     </>
   );
 }
