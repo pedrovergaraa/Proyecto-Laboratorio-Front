@@ -1,0 +1,48 @@
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff5f;
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    background-color: skyblue;
+
+  }
+  
+  .card-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    background-position: center;
+    
+  }
+  
+  .card-body {
+    font-size: 1rem;
+    padding: 1%;
+  }
+
+  .card-content {
+    flex: 1;
+  }
+
+ 
+  .card-add-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 92%;
+    position: unset;
+  }
+  
+  .card-add-button:hover {
+    background-color: #0056b3;
+  }
