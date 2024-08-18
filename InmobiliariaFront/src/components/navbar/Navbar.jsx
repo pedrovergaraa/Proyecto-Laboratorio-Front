@@ -2,24 +2,27 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css'; // Importa el archivo CSS
 
+import logoImage from '../../assets/images/Logo-Inmobiliaria.png';
+
+
 const Navbar = () => {
   return (
     <nav className="navbar">
-  <div className="logo">
-    <a href="#">LOGO</a>
+  <div>
+  <img src={logoImage} alt="Inmobiliaria Logo" />
   </div>
   <ul className="navList">
     <li className="navItem">
-      <Link to="/properties" className="navLink">Propiedades</Link>
+      <Link to="/properties" className="navLink">PROPIEDADES</Link>
     </li>
     <li className="navItem">
-      <Link to="/tenants" className="navLink">Inquilinos</Link>
+      <Link to="/tenants" className="navLink">INQUILINOS</Link>
     </li>
     <li className="navItem">
-      <Link to="/contracts" className="navLink">Contratos</Link>
+      <Link to="/contracts" className="navLink">CONTRATOS</Link>
     </li>
     <li className="navItem">
-      <Link to="/owners" className="navLink">Propietarios</Link>
+      <Link to="/owners" className="navLink">PROPIETARIOS</Link>
     </li>
   </ul>
 </nav>
