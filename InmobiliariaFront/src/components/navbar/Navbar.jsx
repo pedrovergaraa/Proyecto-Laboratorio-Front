@@ -8,7 +8,7 @@ import logoImage from '../../assets/images/Logo-Inmobiliaria.png';
 const Navbar = () => {
   return (
     <nav className="navbar">
-  <div>
+  <div className='logo'>
   <img src={logoImage} alt="Inmobiliaria Logo" />
   </div>
   <ul className="navList">
