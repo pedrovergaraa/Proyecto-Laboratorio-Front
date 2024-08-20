@@ -6,6 +6,22 @@ import { getAllOwners } from '../../services/OwnerService';
 const Owners = () => {
   const [owners, setOwners] = useState([]);
 
+
+  const fetchAll = async (endpoint) => {
+    try {
+      const response = await fetch(`http://localhost:8080/Admin/all`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return [];
+    }
+  };
+
+  
+
   const columns = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'Name', accessor: 'name' },
@@ -13,16 +29,22 @@ const Owners = () => {
     // Añade más columnas según lo necesario
   ];
 
+
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllOwners();
-      if (data) {
-        setOwners(data);
+      try {
+        const data = await getAllOwners();
+        if (data) {
+          setOwners(data);
+        }
+      } catch (error) {
+        console.error('Error fetching owners:', error);
+        // Puedes agregar un estado para manejar los errores y mostrar un mensaje al usuario.
       }
     };
     fetchData();
   }, []);
-
+  
   return (
     <div>
       <h1>Owners</h1>
