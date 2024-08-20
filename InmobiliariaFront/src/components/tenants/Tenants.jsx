@@ -4,6 +4,8 @@ import Table from '../../shared-components/table/Table';
 
 
 const Tenants = () => {
+
+
   return (
     <div>
       <h1>Tenants</h1>

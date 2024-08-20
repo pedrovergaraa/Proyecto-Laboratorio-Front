@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import './Table.css'; // Opcionalmente, puedes agregar estilos personalizados
 
 const Table = () => {
+
+  if (!value || value.length === 0) {
+    return <p>No data available</p>;
+  }
     return(
         <div className="table-container">
         <table>
@@ -56,6 +60,38 @@ const Table = () => {
       </div>
     )
 }
+
+//Este es el codigo que iria conectado con el back
+
+// const Table = ({ columns, data }) => {
+//   if (!data || data.length === 0) {
+//     return <p>No data available</p>;
+//   }
+
+//   return (
+//     <table>
+//       <thead>
+//         <tr>
+//           {columns.map((column) => (
+//             <th key={column.accessor}>{column.Header}</th>
+//           ))}
+//         </tr>
+//       </thead>
+//       <tbody>
+//         {data.map((row, index) => (
+//           <tr key={index}>
+//             {columns.map((column) => (
+//               <td key={column.accessor}>{row[column.accessor]}</td>
+//             ))}
+//           </tr>
+//         ))}
+//       </tbody>
+//     </table>
+//   );
+// };
+
+//export default Table;
+
 
 
 export default Table;
