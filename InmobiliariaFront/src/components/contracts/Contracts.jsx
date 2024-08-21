@@ -1,11 +1,9 @@
 import React from 'react'
 
-import Card from '../../shared-components/card/card';
-import Table from '../../shared-components/table/Table';
+import Card from '../../usable/card/Card';
+import Table from '../../usable/table/Table';
 
 const Contracts = () => {
- 
-
   return (
     <div>
       <h1>Contracts</h1>

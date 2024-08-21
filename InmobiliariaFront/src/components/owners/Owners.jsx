@@ -1,54 +1,35 @@
-import { useState, useEffect } from 'react';
-import Card from '../../shared-components/card/card';
+import React, { useState, useEffect } from 'react';
+import Card from '../../shared-components/card/Card';
 import Table from '../../shared-components/table/Table';
 import { getAllOwners } from '../../services/OwnerService';
 
 const Owners = () => {
   const [owners, setOwners] = useState([]);
 
-
-  const fetchAll = async (endpoint) => {
-    try {
-      const response = await fetch(`http://localhost:8080/Admin/all`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      return [];
-    }
-  };
-
-  
-
+  // Define las columnas que quieres mostrar en la tabla
   const columns = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'Name', accessor: 'name' },
-    { Header: 'Email', accessor: 'email' },
-    // Añade más columnas según lo necesario
+    { Header: 'Role', accessor: 'role' },
+    { Header: 'Admin ID', accessor: 'adminId' },
+    // Añade más columnas si es necesario
   ];
-
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await getAllOwners();
-        if (data) {
-          setOwners(data);
-        }
-      } catch (error) {
-        console.error('Error fetching owners:', error);
-        // Puedes agregar un estado para manejar los errores y mostrar un mensaje al usuario.
+      const data = await getAllOwners();
+      if (data) {
+        setOwners(data);
       }
     };
+
     fetchData();
   }, []);
-  
+
   return (
     <div>
       <h1>Owners</h1>
-      <Card title='Owners'>
+      <Card title="Owners">
         <Table columns={columns} data={owners} />
       </Card>
     </div>
