@@ -1,5 +1,7 @@
 .table-container {
     margin-top: 20px;
+    border-radius: 10px; /* Redondear bordes de la tabla */
+    overflow: hidden; /* Para asegurar que los bordes no se corten */
   }
   
   table {
@@ -11,8 +13,4 @@
     padding: 12px;
     border: 1px solid #ddd;
     text-align: left;
-  }
-  
-  th {
-    background-color: #f4f4f4;
   }

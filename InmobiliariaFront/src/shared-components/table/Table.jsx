@@ -4,9 +4,6 @@ import './Table.css'; // Opcionalmente, puedes agregar estilos personalizados
 
 const Table = () => {
 
-  if (!value || value.length === 0) {
-    return <p>No data available</p>;
-  }
     return(
         <div className="table-container">
         <table>

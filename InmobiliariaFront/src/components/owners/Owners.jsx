@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
-import { getAllOwners } from '../../services/OwnerService';
 
 const Owners = () => {
   const [owners, setOwners] = useState([]);
 
 
-  const fetchAll = async (endpoint) => {
+  const getAllOwners = async (owners) => {
     try {
       const response = await fetch(`http://localhost:8080/Admin/all`);
       if (!response.ok) {
