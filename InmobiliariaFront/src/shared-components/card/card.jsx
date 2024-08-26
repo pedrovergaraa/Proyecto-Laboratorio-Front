@@ -1,8 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Card.css'; // Opcionalmente, puedes agregar estilos personalizados
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Card = ({ title, children, onAdd }) => {
+
+  const handleAddClick = () => {
+    if (onAdd) {
+      onAdd(); // Ejecuta cualquier función que se pase a través de props
+    }
+    toast.success("User added successfully!"); // Muestra la notificación de éxito
+  };
+
   return (
     <div className="card">
       <div className="card-header">
@@ -12,9 +22,13 @@ const Card = ({ title, children, onAdd }) => {
       <div className="card-content">
           {children}
         </div>
-        <button className="card-add-button" onClick={onAdd}>
+        <button className="card-add-button" onClick={handleAddClick}
+        >
           + Agregar
         </button>
+        <div>
+        <ToastContainer />
+        </div>
       </div>
     </div>
   );
