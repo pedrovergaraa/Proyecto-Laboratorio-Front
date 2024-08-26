@@ -10,7 +10,7 @@ const Card = ({ title, children, onAdd }) => {
     if (onAdd) {
       onAdd(); // Ejecuta cualquier función que se pase a través de props
     }
-    toast.success("User added successfully!"); // Muestra la notificación de éxito
+    toast.success("Usuario agregado corectamente!"); // Muestra la notificación de éxito
   };
 
   return (
@@ -22,8 +22,7 @@ const Card = ({ title, children, onAdd }) => {
       <div className="card-content">
           {children}
         </div>
-        <button className="card-add-button" onClick={handleAddClick}
-        >
+        <button className="card-add-button" onClick={handleAddClick} >
           + Agregar
         </button>
         <div>
