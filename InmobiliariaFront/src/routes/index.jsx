@@ -10,7 +10,9 @@ import Tenants from '../components/tenants/Tenants';
 import Contracts from '../components/contracts/Contracts';
 import Owners from '../components/owners/Owners';
 
+
 import "./index.css"
+
 
 
 function HandleRoutes() {
