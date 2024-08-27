@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Card from '../../shared-components/card/Card';
+import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
 
 const Owners = () => {
   const [owners, setOwners] = useState([]);
 
-<<<<<<< HEAD
-=======
 
   const getAllOwners = async (owners) => {
     try {
@@ -22,8 +20,6 @@ const Owners = () => {
   };
 
   
-
->>>>>>> 5edb6395f28c5ecfa3b22c943c03ff45a2b42c3e
   const columns = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'Name', accessor: 'name' },

@@ -14,6 +14,7 @@ import Owners from '../components/owners/Owners';
 import "./index.css"
 
 
+
 function HandleRoutes() {
 
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
