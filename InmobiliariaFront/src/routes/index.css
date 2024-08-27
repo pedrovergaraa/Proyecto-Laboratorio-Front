@@ -1,6 +1,6 @@
 
 .background{
-background-image: url('/src/assets/images/download_LE_auto_x2.jpg'); /* Ruta de la imagen en la carpeta assets */
+background-image: url('/src/assets/images/pexels-lkloeppel-466685.jpg'); /* Ruta de la imagen en la carpeta assets */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -10,6 +10,7 @@ background-image: url('/src/assets/images/download_LE_auto_x2.jpg'); /* Ruta de 
   top: 0;
   left: 0;
   z-index: -1;
+  opacity: 0.8;
 }
 
 .background::before {
