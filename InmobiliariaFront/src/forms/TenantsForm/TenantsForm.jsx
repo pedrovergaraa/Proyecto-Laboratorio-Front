@@ -11,7 +11,7 @@ const TenantsForm = () =>{
         <label>Email:</label>
         <input type="email" name="email" />
       </div>
-      <button type="submit">Enviar</button>
+      <button type="submit">Agregar</button>
     </form>
     );
 };

@@ -15,7 +15,7 @@ const ContractsForm = () => {
         <label>Fecha fin:</label>
         <input type="date" name="email" />
       </div>
-      <button type="submit">Enviar</button>
+      <button type="submit">Agregar</button>
     </form>
   );
 };

@@ -29,7 +29,7 @@ console.log("password", password)
   <div className="login-box">
     <div className="form-container">
       <h1>Gestión Inmobiliaria</h1>
-      <h2 className="card-title">Register</h2>
+      <h2 className="card-title">Registrate</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label ></label>
@@ -75,7 +75,7 @@ console.log("password", password)
             onChange={(e) => handleInputChange(e, setPassword)}
           />
         </div>
-        <p>Ya tienes cuenta? <Link to="/login">Login</Link> </p>
+        <p>Ya tienes cuenta? <Link to="/login">Logueate</Link> </p>
         <button type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
       </form>
     </div>

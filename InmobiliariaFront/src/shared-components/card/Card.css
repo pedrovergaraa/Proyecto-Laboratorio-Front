@@ -4,7 +4,6 @@
     margin: 5%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #ffffffb8;
-    
   }
   
   .card-header {
@@ -13,7 +12,7 @@
     justify-content: center;
     margin-bottom: 16px;
     background-color: skyblue;
-
+    font-family:Arial, Helvetica, sans-serif;
   }
   
   .card-header h2 {
@@ -34,14 +33,16 @@
 
  
   .card-add-button {
-    padding: 6px 14px;
+    position: absolute;
+    padding: 7px 12px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: 92%;
+    margin-left: 90%;
     position: unset;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para el botón */
   }
   
   .card-add-button:hover {

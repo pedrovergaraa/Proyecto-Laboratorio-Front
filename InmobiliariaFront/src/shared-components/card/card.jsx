@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css'; // Opcionalmente, puedes agregar estilos personalizados
-import ModalForm from '../modalForm/modalForm'
+import ModalForm from '../modal/modalForm'
+
+
+
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 
 const Card = ({ title, children, FormComponent }) => {
@@ -14,6 +19,13 @@ const Card = ({ title, children, FormComponent }) => {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
+
+
+//VINIETA DE USUARIO AGREGADO
+
+// const Card = ({ title, children, onAdd }) => {
+
+
 
   return (
     <div className="card">

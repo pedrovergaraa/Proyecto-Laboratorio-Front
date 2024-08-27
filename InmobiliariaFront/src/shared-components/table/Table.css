@@ -1,0 +1,27 @@
+.table-container {
+    margin-top: 20px;
+    border-radius: 10px; /* Redondear bordes de la tabla */
+    overflow: hidden; /* Para asegurar que los bordes no se corten */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+<<<<<<< HEAD:InmobiliariaFront/src/usable/table/Table.css
+  
+  th {
+    background-color: #f4f4f4;
+    color: black;
+  }
+
+=======
+>>>>>>> main:InmobiliariaFront/src/shared-components/table/Table.css
+
+  
