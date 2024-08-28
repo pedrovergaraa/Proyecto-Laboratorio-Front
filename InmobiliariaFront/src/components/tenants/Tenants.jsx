@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
+import TenantsForm from '../../forms/TenantsForm/TenantsForm';
 
 
 const Tenants = () => {
@@ -9,7 +10,7 @@ const Tenants = () => {
   return (
     <div>
       <h1>Tenants</h1>
-      <Card title='Inquilinos'>
+      <Card title='Inquilinos' FormComponent={TenantsForm}>
         <Table></Table>
       </Card>
     </div>

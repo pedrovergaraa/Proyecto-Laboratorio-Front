@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css'; // Opcionalmente, puedes agregar estilos personalizados
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import ModalForm from '../modal/modalForm'
 
-const Card = ({ title, children, onAdd }) => {
+
+
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
+
+const Card = ({ title, children, FormComponent }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const handleAddClick = () => {
-    if (onAdd) {
-      onAdd(); // Ejecuta cualquier función que se pase a través de props
-    }
-    toast.success("Usuario agregado corectamente!"); // Muestra la notificación de éxito
+    setModalOpen(true);
   };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+
+//VINIETA DE USUARIO AGREGADO
+
+// const Card = ({ title, children, onAdd }) => {
+
+
 
   return (
     <div className="card">
@@ -19,30 +33,26 @@ const Card = ({ title, children, onAdd }) => {
         <h2>{title}</h2>
       </div>
       <div className="card-body">
-      <div className="card-content">
+        <div className="card-content">
           {children}
         </div>
-        <button className="card-add-button" onClick={handleAddClick} >
+        <button className="card-add-button" onClick={handleAddClick}>
           + Agregar
         </button>
-        <div>
-        <ToastContainer />
-        </div>
       </div>
+      {/* Aquí se renderiza el ModalForm y se pasa FormComponent como contenido */}
+      <ModalForm isOpen={isModalOpen} onClose={handleCloseModal}>
+        <FormComponent />
+      </ModalForm>
     </div>
   );
 };
-
-
-// Event: id, fecha, tenantId, propertyId, landlordId
-// pagos: lo mismo + monto
-// contrato: lo mismo + fechaFinal
 
 // Definir los tipos de prop
 Card.propTypes = {
   title: PropTypes.string.isRequired, // El título es obligatorio y debe ser un string
   children: PropTypes.node, // Los hijos pueden ser cualquier cosa que React pueda renderizar
-  onAdd: PropTypes.func, // Función opcional para manejar el evento de click del botón
+  FormComponent: PropTypes.elementType.isRequired, // Recibe un componente de formulario
 };
 
 export default Card;
