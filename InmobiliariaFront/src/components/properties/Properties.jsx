@@ -1,7 +1,7 @@
 import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
 import React from 'react'
-import propertiesForm from '../../forms/prpertiesForm/propertiesForm';
+import propertiesForm from '../../forms/PropertiesForm/propertiesForm';
 
 // const URL = 'https://swapi.dev/api/people/1'
 
