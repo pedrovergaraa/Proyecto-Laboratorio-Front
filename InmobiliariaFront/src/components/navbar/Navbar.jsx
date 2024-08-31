@@ -22,7 +22,10 @@ const Navbar = () => {
       <Link to="/contracts" className="navLink">CONTRATOS</Link>
     </li>
     <li className="navItem">
-      <Link to="/owners" className="navLink">PROPIETARIOS</Link>
+      <Link to="/owners" className="navLink">INMOBILIARIA</Link>
+    </li>
+    <li className="navItem">
+      <Link to="/landlord" className="navLink">PROPIETARIOS</Link>
     </li>
   </ul>
 </nav>

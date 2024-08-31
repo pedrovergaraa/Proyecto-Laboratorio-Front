@@ -1,9 +1,8 @@
 // ExampleForm.js
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 
-const propertiesForm = ({ onAdd }) => {
-
+const PropertiesForm = ({ onAdd }) => {
   const handleAddClick = (event) => {
     event.preventDefault(); // Prevenir que el formulario se envíe
 
@@ -11,8 +10,9 @@ const propertiesForm = ({ onAdd }) => {
       onAdd(); // Ejecuta cualquier función que se pase a través de props
     }
 
-    toast.success("Usuario agregado correctamente!"); // Muestra la notificación de éxito
+    showSuccessToast("Usuario agregado con éxito!");
   };
+
   return (
     <form>
       <div>
@@ -28,14 +28,9 @@ const propertiesForm = ({ onAdd }) => {
         <input type="email" name="email" />
       </div>
       <button type="submit" onClick={handleAddClick}>Agregar</button>
-      <div>
-      <ToastContainer />
-      </div>
+      <ToastContainerComponent />
     </form>
   );
 };
 
-export default propertiesForm;
-
-
-
+export default PropertiesForm;

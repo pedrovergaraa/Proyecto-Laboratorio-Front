@@ -1,17 +1,20 @@
 import React from 'react'
-import OwnersForm from '../../forms/OwnersForm/ownersForm';
 import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
+import LandlordForm from '../../forms/LandlordsForm/LandlordsForm';
 
-const Owners = () => {
+
+const Landlord = () => {
+
+
   return (
     <div>
-      <h1>Inmobiliaria</h1>
-      <Card title='Inmobiliaria' FormComponent={OwnersForm}>
+      <h1>Landlord</h1>
+      <Card title='Propietario' FormComponent={LandlordForm}>
         <Table></Table>
       </Card>
     </div>
   )
 }
 
-export default Owners
+export default Landlord;
