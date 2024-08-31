@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
-import LandlordForm from '../../forms/LandlordsForm/landlordsFrom';
+import LandlordForm from '../../forms/LandlordsForm/LandlordsForm';
 
 
 const Landlord = () => {

@@ -1,31 +1,19 @@
+// Card.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css'; // Opcionalmente, puedes agregar estilos personalizados
-import ModalForm from '../modal/modalForm'
-
-
-
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-
+import ModalForm from '../modal/modalForm';
 
 const Card = ({ title, children, FormComponent }) => {
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar el modal
 
   const handleAddClick = () => {
-    setModalOpen(true);
+    setModalOpen(true); // Abrir el modal
   };
 
   const handleCloseModal = () => {
-    setModalOpen(false);
+    setModalOpen(false); // Cerrar el modal
   };
-
-
-//VINIETA DE USUARIO AGREGADO
-
-// const Card = ({ title, children, onAdd }) => {
-
-
 
   return (
     <div className="card">
@@ -40,10 +28,12 @@ const Card = ({ title, children, FormComponent }) => {
           + Agregar
         </button>
       </div>
-      {/* Aquí se renderiza el ModalForm y se pasa FormComponent como contenido */}
-      <ModalForm isOpen={isModalOpen} onClose={handleCloseModal}>
-        <FormComponent />
-      </ModalForm>
+      {/* Renderiza ModalForm solo si está abierto y pasa FormComponent como contenido */}
+      {isModalOpen && (
+        <ModalForm isOpen={isModalOpen} onClose={handleCloseModal}>
+          {FormComponent ? <FormComponent /> : null}
+        </ModalForm>
+      )}
     </div>
   );
 };
