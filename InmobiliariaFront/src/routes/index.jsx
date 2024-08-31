@@ -12,6 +12,7 @@ import Owners from '../components/owners/Owners';
 
 
 import "./index.css"
+import Landlord from '../components/landlord/Landlord';
 
 
 
@@ -33,6 +34,7 @@ function HandleRoutes() {
           <Route path="/tenants" element={<Tenants />} />
           <Route path="/contracts" element={<Contracts />} />
           <Route path="/owners" element={<Owners />} />
+          <Route path="/landlord" element={<Landlord />}/>
         </Routes>
         </div>
       </Router>
