@@ -2,29 +2,16 @@ import { createContext, useEffect, useState } from "react";
 
 export const ThemeContext = createContext();
 
-const themeValue = localStorage.getItem("theme");
-
 export const ThemeContextProvider = ({ children }) => {
-    const [theme, setTheme] = useState(themeValue ?? "light");
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
     useEffect(() => {
-        document.documentElement.setAttribute("data-bs-theme", themeValue);
-    }, []);
+        document.documentElement.setAttribute("data-bs-theme", theme);
+        localStorage.setItem("theme", theme);
+    }, [theme]);
 
     const toggleTheme = () => {
-        if (theme === "light") {
-            setTheme("dark");
-            localStorage.setItem("theme", "dark");
-            document.documentElement.setAttribute("data-bs-theme", "dark");
-
-        }
-        else {
-            localStorage.setItem("theme", "light");
-            document.documentElement.setAttribute("data-bs-theme", "light");
-            setTheme("light");
-        }
-        console.log(localStorage);
-
+        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
     };
 
     return (
@@ -32,5 +19,4 @@ export const ThemeContextProvider = ({ children }) => {
             {children}
         </ThemeContext.Provider>
     );
-
 };

@@ -48,3 +48,37 @@
   .card-add-button:hover {
     background-color: #0056b3;
   }
+  :root[data-bs-theme='light'] {
+    --background-color: white;
+    --text-color: black;
+    --table-background: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+    --table-text-color: black;
+    --card-background: #f8f9fa; /* Color de fondo claro para la card */
+    --card-border-color: #ddd; /* Color de borde claro para la card */
+  }
+  
+  :root[data-bs-theme='dark'] {
+    --background-color: #1e1e1e;
+    --text-color: white;
+    --table-background: rgba(50, 50, 50, 0.8); /* Fondo oscuro semi-transparente */
+    --table-text-color: white;
+    --card-background: #2e2e2e; /* Color de fondo oscuro para la card */
+    --card-border-color: #444; /* Color de borde oscuro para la card */
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  table {
+    background-color: var(--table-background);
+    color: var(--table-text-color);
+  }
+  
+  .card {
+    background-color: var(--card-background);
+    border-color: var(--card-border-color);
+    color: var(--text-color);
+  }
+  
