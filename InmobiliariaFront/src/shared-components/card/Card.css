@@ -1,53 +1,52 @@
 .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin: 5%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #ffffffb8;
-  }
-  
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-    background-color: skyblue;
-    font-family:Arial, Helvetica, sans-serif;
-  }
-  
-  .card-header h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    background-position: center;
-    
-  }
-  
-  .card-body {
-    font-size: 1rem;
-    padding: 1%;
-  }
+  border: 1px solid #ddd; /* Alinea con los bordes de la tabla */
+  border-radius: 10px; /* Redondez consistente con la tabla */
+  margin: 20px auto; /* Margen superior e inferior, centrado horizontalmente */
+  overflow: hidden; /* Asegura que el contenido no desborde los bordes */
+  width: 60%; /* Alinea el ancho con la tabla */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Mantiene la sombra */
+}
 
-  .card-content {
-    flex: 1;
-  }
+.card-header {
+  background-color: #007bff; /* Fondo consistente con el header de la tabla */
+  padding: 8px 10px; /* Alinea el padding con la tabla */
+  border-bottom: 1px solid #ddd; /* Borde inferior consistente con las celdas de la tabla */
+  text-align: center; /* Alinea el texto a la izquierda */
+  font-family: Arial, Helvetica, sans-serif;
+}
 
- 
-  .card-add-button {
-    position: absolute;
-    padding: 7px 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 90%;
-    position: unset;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para el botón */
-  }
-  
-  .card-add-button:hover {
-    background-color: #0056b3;
-  }
+.card-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card-body {
+  font-size: 1rem;
+  padding: 8px 10px; /* Ajusta el padding para coincidir con la tabla */
+}
+
+.card-content {
+  margin-bottom: 16px; /* Espacio debajo del contenido */
+  flex: 1;
+}
+
+.card-add-button {
+  display: block; /* Botón centrado */
+  margin: 20px auto; /* Centra el botón */
+  padding: 8px 16px; /* Relleno consistente */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para el botón */
+  transition: background-color 0.3s; /* Transición suave para hover */
+}
+
+.card-add-button:hover {
+  background-color: #0056b3;
+}
+
   :root[data-bs-theme='light'] {
     --background-color: white;
     --text-color: black;
