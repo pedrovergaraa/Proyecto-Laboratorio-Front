@@ -1,50 +1,85 @@
 .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin: 5%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #ffffffb8;
-  }
-  
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-    background-color: skyblue;
-    font-family:Arial, Helvetica, sans-serif;
-  }
-  
-  .card-header h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    background-position: center;
-    
-  }
-  
-  .card-body {
-    font-size: 1rem;
-    padding: 1%;
-  }
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 5%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffffb8;
+}
 
-  .card-content {
-    flex: 1;
-  }
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  background-color: skyblue;
+  font-family:Arial, Helvetica, sans-serif;
+}
 
- 
-  .card-add-button {
-    position: absolute;
-    padding: 7px 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 90%;
-    position: unset;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para el botón */
+.card-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  background-position: center;
+  
+}
+
+.card-body {
+  font-size: 1rem;
+  padding: 1%;
+}
+
+.card-content {
+  flex: 1;
+}
+
+
+.card-add-button {
+  position: absolute;
+  padding: 7px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 90%;
+  position: unset;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para el botón */
+}
+
+.card-add-button:hover {
+  background-color: #0056b3;
+}
+
+  :root[data-bs-theme='light'] {
+    --background-color: white;
+    --text-color: black;
+    --table-background: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+    --table-text-color: black;
+    --card-background: #f8f9fa; /* Color de fondo claro para la card */
+    --card-border-color: #ddd; /* Color de borde claro para la card */
   }
   
-  .card-add-button:hover {
-    background-color: #0056b3;
+  :root[data-bs-theme='dark'] {
+    --background-color: #1e1e1e;
+    --text-color: white;
+    --table-background: rgba(50, 50, 50, 0.8); /* Fondo oscuro semi-transparente */
+    --table-text-color: white;
+    --card-background: #2e2e2e; /* Color de fondo oscuro para la card */
+    --card-border-color: #444; /* Color de borde oscuro para la card */
   }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  table {
+    background-color: var(--table-background);
+    color: var(--table-text-color);
+  }
+  
+  .card {
+    background-color: var(--card-background);
+    border-color: var(--card-border-color);
+    color: var(--text-color);
+  }
+  

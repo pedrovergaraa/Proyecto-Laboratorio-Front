@@ -5,7 +5,7 @@ import { ThemeContext } from "../../../services/themeContext/theme.context";
 const ToggleTheme = ({ className }) => {
     const { toggleTheme, theme } = useContext(ThemeContext);
     return (
-        <Button className="theme-toggle-button" onClick={toggleTheme}> Cambiar a tema {theme === "light" ? "oscuro" : "claro"}</Button>
+        <Button className={className} onClick={toggleTheme}> Cambiar a tema {theme === "light" ? "oscuro" : "claro"}</Button>
         );
 };
 

@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #E3DCD5;
+  background-color: var(--background-color); /* Usando variable de tema */
 }
 
 .login-box {
@@ -11,7 +11,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
-  background-color: #D9D9D9;
+  background-color: var(--card-background); /* Usando variable de tema */
   max-width: 700px; /* Establece un ancho máximo para el contenedor */
   width: 100%; /* Permite que el contenedor se ajuste al ancho disponible */
   margin: 0 20px; /* Añade un margen lateral para evitar que toque los bordes de la pantalla */
@@ -23,6 +23,8 @@
   flex-direction: column;
   justify-content: center;
   width: 50%;
+  background-color: var(--card-background); /* Usando variable de tema */
+  color: var(--text-color); /* Usando variable de tema */
 }
 
 .image-container {
@@ -42,26 +44,33 @@
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  color: var(--text-color); /* Usando variable de tema */
 }
 
 .form-group input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--card-border-color); /* Usando variable de tema */
   border-radius: 20px;
-  margin: 2px 0; 
-  justify-content: center;
+  margin: 2px 0;
+  background-color: var(--background-color); /* Usando variable de tema */
+  color: var(--text-color); /* Usando variable de tema */
+}
+
+.form-group input::placeholder {
+  color: var(--text-color); /* Color del placeholder */
 }
 
 h1 {
   margin-bottom: 20px;
-  color:#D87519;
+  color: #D87519; /* Color específico */
   text-align: center;
 }
 
 h2.card-title {
   margin-bottom: 20px;
   text-align: center;
+  color: var(--text-color); /* Usando variable de tema */
 }
 
 .btn {
@@ -71,14 +80,12 @@ h2.card-title {
 }
 
 .btn-primary {
-  background-color: #D87519;
-  color: white;
+  background-color: #D87519; /* Color del botón */
+  color: var(--text-color); /* Usando variable de tema */
   border: none;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-
 
 .btn-block {
   width: 100%;
@@ -86,4 +93,9 @@ h2.card-title {
 
 p {
   margin-top: 10px;
+  color: var(--text-color); /* Usando variable de tema */
+}
+
+p a {
+  color: var(--link-color); /* Color del link adaptado al tema */
 }
