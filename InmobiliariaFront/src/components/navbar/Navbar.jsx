@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import './Navbar.css'; // Importa el archivo CSS
 
 import logoImage from '../../assets/images/Logo-Inmobiliaria.png';
+import finalLogo from '../../assets/images/final-logo.png'
 
 
 const Navbar = () => {
   return (
     <nav className="navbar">
   <div className='logo'>
-  <img src={logoImage} alt="Inmobiliaria Logo" />
+  <img src={finalLogo} alt="Inmobiliaria Logo" />
   </div>
   <ul className="navList">
     <li className="navItem">
