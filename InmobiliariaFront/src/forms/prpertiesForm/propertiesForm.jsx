@@ -11,6 +11,10 @@ const propertiesForm = () => {
   //     onAdd(); // Ejecuta cualquier función que se pase a través de props
   //   }
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> e367c5478c7dff2e941256de822c3a154986f39e
   //   toast.success("Usuario agregado correctamente!"); // Muestra la notificación de éxito
   // };
   return (

@@ -1,8 +1,8 @@
-import React from "react"
+// ExampleForm.js
+import React from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 
-
-const TenantsForm = ({ onAdd }) =>{
+const PropertiesForm = ({ onAdd }) => {
   const handleAddClick = (event) => {
     event.preventDefault(); // Prevenir que el formulario se envíe
 
@@ -12,20 +12,25 @@ const TenantsForm = ({ onAdd }) =>{
 
     showSuccessToast("Usuario agregado con éxito!");
   };
-    return(
-        <form>
+
+  return (
+    <form>
       <div>
         <label>Nombre:</label>
         <input type="text" name="name" />
       </div>
       <div>
+        <label>Direccion:</label>
+        <input type="text" name="address" />
+      </div>
+      <div>
         <label>Email:</label>
         <input type="email" name="email" />
       </div>
-      <button type="submit"onClick={handleAddClick}>Agregar</button>
+      <button type="submit" onClick={handleAddClick}>Agregar</button>
       <ToastContainerComponent />
     </form>
-    );
+  );
 };
 
-export default TenantsForm 
+export default PropertiesForm;

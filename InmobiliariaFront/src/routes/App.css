@@ -34,3 +34,20 @@ background-image: url('/src/assets/images/pexels-lkloeppel-466685.jpg'); /* Ruta
   background-color: #f5f5f5; /* Fondo simple para páginas sin imagen */
 }
 
+.app-container {
+  position: relative; /* Necesario para posicionar el botón correctamente */
+}
+
+.theme-toggle-button {
+  position: absolute;
+  top: 55px; /* Ajusta según sea necesario */
+  right: 10px; /* Ajusta según sea necesario */
+  background-color: #007bff; /* Color azul */
+  color: white;
+  border: none;
+  border-radius: 5px; /* Ajusta el borde según prefieras */
+}
+
+/* .navbar {
+  padding: 10px;
+} */

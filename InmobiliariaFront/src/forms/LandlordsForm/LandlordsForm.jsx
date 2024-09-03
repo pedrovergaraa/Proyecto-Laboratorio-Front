@@ -1,8 +1,7 @@
 import React from "react"
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 
-
-const TenantsForm = ({ onAdd }) =>{
+const LandlordsForm = ({ onAdd }) =>{
   const handleAddClick = (event) => {
     event.preventDefault(); // Prevenir que el formulario se envíe
 
@@ -22,10 +21,10 @@ const TenantsForm = ({ onAdd }) =>{
         <label>Email:</label>
         <input type="email" name="email" />
       </div>
-      <button type="submit"onClick={handleAddClick}>Agregar</button>
+      <button type="submit" onClick={handleAddClick}>Agregar</button>
       <ToastContainerComponent />
     </form>
     );
 };
 
-export default TenantsForm 
+export default LandlordsForm 

@@ -1,8 +1,7 @@
 // src/notification/toastHelper.js
 
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 export const showSuccessToast = (message) => {
     toast.success(message, {
@@ -15,3 +14,5 @@ export const showSuccessToast = (message) => {
         progress: undefined,
     });
 };
+
+export const ToastContainerComponent = () => <ToastContainer />;
