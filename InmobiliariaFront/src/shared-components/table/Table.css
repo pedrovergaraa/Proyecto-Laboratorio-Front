@@ -2,6 +2,11 @@
   margin-top: 20px;
   border-radius: 10px; /* Redondear bordes de la tabla */
   overflow: hidden; /* Para asegurar que los bordes no se corten */
+}
+.table-container {
+  margin-top: 20px;
+  border-radius: 10px; /* Redondear bordes de la tabla */
+  overflow: hidden; /* Para asegurar que los bordes no se corten */
   width: 100%; /* Ajusta el ancho de la tabla al 50% del contenedor */
   margin-right: auto; /* Centra la tabla a la izquierda */
 }

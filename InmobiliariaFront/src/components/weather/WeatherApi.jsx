@@ -28,10 +28,10 @@ const WeatherApi = () => {
             <div>
                 <input
                     type="text"
-                    placeholder="Enter city/town..."
+                    placeholder="Ingrese una ciudad..."
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <button onClick={searchPressed}>Search</button>
+                <button onClick={searchPressed}>Buscar</button>
             </div>
             {typeof weather.main !== "undefined" ? (
                 <div>
