@@ -1,10 +1,9 @@
-// Card.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css'; // Opcionalmente, puedes agregar estilos personalizados
 import ModalForm from '../modal/modalForm';
 
-const Card = ({ title, children, FormComponent }) => {
+const Card = ({ title, children, FormComponent, formProps }) => {
   const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar el modal
 
   const handleAddClick = () => {
@@ -31,7 +30,8 @@ const Card = ({ title, children, FormComponent }) => {
       {/* Renderiza ModalForm solo si está abierto y pasa FormComponent como contenido */}
       {isModalOpen && (
         <ModalForm isOpen={isModalOpen} onClose={handleCloseModal}>
-          {FormComponent ? <FormComponent /> : null}
+          {/* Renderiza el FormComponent con sus props si existe */}
+          {FormComponent ? <FormComponent {...formProps} /> : null}
         </ModalForm>
       )}
     </div>
@@ -43,6 +43,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired, // El título es obligatorio y debe ser un string
   children: PropTypes.node, // Los hijos pueden ser cualquier cosa que React pueda renderizar
   FormComponent: PropTypes.elementType.isRequired, // Recibe un componente de formulario
+  formProps: PropTypes.object, // Props adicionales para el componente del formulario
 };
 
 export default Card;
