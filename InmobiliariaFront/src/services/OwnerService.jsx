@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
   const updateOwner = (id, data) => update('owners', id, data);
   const deleteOwner = (id) => remove('owners', id);// src/services/OwnerService.js
@@ -52,6 +52,3 @@
   };
   
   // Puedes agregar más funciones para crear, actualizar y eliminar Owners
-  
-=======
->>>>>>> 5edb6395f28c5ecfa3b22c943c03ff45a2b42c3e
