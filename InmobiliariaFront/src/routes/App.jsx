@@ -15,6 +15,7 @@ import { ThemeContextProvider } from '../services/themeContext/theme.context';
 import "./App.css";
 import ToggleTheme from '../components/ui/toggleTheme/ToggleTheme';
 import WeatherApi from '../components/weather/WeatherApi';
+import Navbar from '../components/navbar/Navbar';
 
 
 
