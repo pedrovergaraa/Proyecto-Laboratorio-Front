@@ -15,6 +15,7 @@ import { ThemeContextProvider } from '../services/themeContext/theme.context';
 import "./App.css";
 import ToggleTheme from '../components/ui/toggleTheme/ToggleTheme';
 import WeatherApi from '../components/weather/WeatherApi';
+import { AuthenticationContextProvider } from '../services/authenticationContext/auth.context';
 
 
 
@@ -62,13 +63,15 @@ const App = () => {
   ]);
   return (
     <div className="d-flex flex-column align-items-center">
-    <ThemeContextProvider>
-      <div className="app-container">
-        <ToggleTheme className="theme-toggle-button" /> {/* Botón en contenedor superior */}
-        <RouterProvider router={router} />
-        <WeatherApi /> {/* Componente de clima siempre visible */}
-      </div>
-    </ThemeContextProvider>
+      <AuthenticationContextProvider>
+      <ThemeContextProvider>
+        <div className="app-container">
+          <ToggleTheme className="theme-toggle-button" /> {/* Botón en contenedor superior */}
+          <RouterProvider router={router} />
+          <WeatherApi /> {/* Componente de clima siempre visible */}
+        </div>
+      </ThemeContextProvider>
+      </AuthenticationContextProvider>
     </div>
   );
 };
