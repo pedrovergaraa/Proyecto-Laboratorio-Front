@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css'; // Importa el archivo CSS
+import './Navbar.css'; 
 
-import logoImage from '../../assets/images/Logo-Inmobiliaria.png';
 import finalLogo from '../../assets/images/final-logo.png'
 
 
@@ -36,3 +35,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

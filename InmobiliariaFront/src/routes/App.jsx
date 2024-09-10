@@ -66,8 +66,9 @@ const App = () => {
       <div className="app-container">
         <ToggleTheme className="theme-toggle-button" /> {/* Botón en contenedor superior */}
         <RouterProvider router={router} />
-        <WeatherApi /> {/* Componente de clima siempre visible */}
+        {<WeatherApi /> /*Componente de clima siempre visible */}
       </div>
+      {/* <WeatherApi/> */}
     </ThemeContextProvider>
     </div>
   );

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css'; // Opcionalmente, puedes agregar estilos personalizados
 import ModalForm from '../modal/modalForm';
+import WeatherApi from '../../components/weather/WeatherApi';
+
 
 const Card = ({ title, children, FormComponent }) => {
   const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar el modal

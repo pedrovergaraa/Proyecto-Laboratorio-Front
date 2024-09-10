@@ -1,11 +1,14 @@
 /* Estilo general para el contenedor principal */
-.app-container {
-    position: relative; /* Necesario para el posicionamiento del componente fijo */
-    padding-right: 270px; /* Espacio para el componente de clima */
-  }
+/* .app-container {
+    /* position: relative; /* Necesario para el posicionamiento del componente fijo */
+    /* padding-right: 270px; /* Espacio para el componente de clima */
+    /* display: flex;
+    width: auto;  
+    
+  }/*
   
   /* Estilo para el componente WeatherApi */
-  .weather-card {
+  /* .weather-card {
     background-color: var(--card-background);
     border: 1px solid var(--card-border-color);
     border-radius: 8px;
@@ -19,4 +22,72 @@
   }
  p{
     text-align: center;
- }
+ } */
+
+
+.app-container {
+  position: relative; 
+}
+
+.weather-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--card-border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 250px;
+  position: fixed;
+  top: 55%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 1000;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+
+.weather-card h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  margin-bottom: 10px; 
+  color: #007bff;
+}
+
+
+.weather-card .message p {
+  text-align: center;
+  margin: 10px 0; 
+}
+
+
+.weather-card input {
+  margin-bottom: 10px; 
+  padding: 8px;
+  width: calc(100% - 20px); 
+  border: 1px solid var(--card-border-color);
+  border-radius: 4px;
+  box-sizing: border-box; 
+}
+
+
+.weather-card button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  width: calc(100% - 20px); 
+  box-sizing: border-box; 
+}
+
+.weather-card button:hover {
+  background-color: #0056b3;
+}
+
+
+.weather-card div {
+  text-align: center;
+}

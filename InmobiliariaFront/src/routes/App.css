@@ -39,7 +39,7 @@ background-image: url('/src/assets/images/pexels-lkloeppel-466685.jpg'); /* Ruta
 }
 
 .theme-toggle-button {
-  position: absolute;
+  position: fixed;
   top: 55px; /* Ajusta según sea necesario */
   right: 10px; /* Ajusta según sea necesario */
   background-color: #007bff; /* Color azul */
