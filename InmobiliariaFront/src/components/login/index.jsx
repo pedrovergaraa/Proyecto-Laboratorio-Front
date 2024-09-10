@@ -10,7 +10,8 @@ function Login() {
   const [errors, setErrors] = useState({
     dni: false,
     password: false,
-  });  
+  });
+  const [error, setError] = useState('');
   
   const dniRef = useRef(null);
   const passwordRef = useRef(null);
@@ -21,7 +22,7 @@ function Login() {
     setState(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (dniRef.current.value.length <= 0) {
@@ -36,10 +37,12 @@ function Login() {
       return;
     }
 
-    // Lógica de autenticación aquí...
-
-    navigate("/");
-    console.log(`DNI: ${dni}, Password: ${password}`);
+    try {
+      await loginUser(dni, password);
+      navigate("/");
+    } catch (error) {
+      setError('Invalid DNI or password.');
+    }
   };
 
   return (

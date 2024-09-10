@@ -16,6 +16,7 @@ import "./App.css";
 import ToggleTheme from '../components/ui/toggleTheme/ToggleTheme';
 import WeatherApi from '../components/weather/WeatherApi';
 import { AuthenticationContextProvider } from '../services/authenticationContext/auth.context';
+import UsersList from '../components/users/Users';
 
 
 
@@ -45,6 +46,10 @@ const App = () => {
         {
           path: "/landlord",
           element: <Landlord />,
+        },
+        {
+          path: "/users",
+          element: <UsersList />,
         },
       ],
     },

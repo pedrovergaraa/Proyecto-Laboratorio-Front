@@ -5,15 +5,13 @@ import Navbar from '../../components/navbar/Navbar';
 import { AuthenticationContext } from '../../services/authenticationContext/auth.context';
 
 const Protected = () => {
-  const { user } = useContext(AuthenticationContext); // Asumimos que 'user' contiene el estado del usuario autenticado.
-  const location = useLocation(); // Usamos useLocation para obtener la ruta actual.
+  const { user } = useContext(AuthenticationContext); 
+  const location = useLocation(); 
 
-  // Redirige a la página de login si el usuario no está autenticado
   if (!user) {
     return <Navigate to="/login" />;
   }
 
-  // Determina si la ruta actual es la página de login o register
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
   return (

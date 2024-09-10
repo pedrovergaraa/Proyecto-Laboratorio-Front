@@ -1,7 +1,8 @@
 // src/components/Register.jsx
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { createUser } from '../../services/UserServiceTest';
 import loginImage from '../../assets/images/login-image.webp';
-import { Link } from 'react-router-dom';
 
 function Register() {
   const [fullName, setFullName] = useState('');
@@ -14,12 +15,16 @@ function Register() {
     email: false,
     password: false,
   });
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validaciones básicas
@@ -27,28 +32,29 @@ function Register() {
       setErrors({ fullName: true, dni: false, email: false, password: false });
       return;
     }
-
     if (dni.trim() === '') {
       setErrors({ fullName: false, dni: true, email: false, password: false });
       return;
     }
-
     if (email.trim() === '') {
       setErrors({ fullName: false, dni: false, email: true, password: false });
       return;
     }
-
     if (password.trim() === '') {
       setErrors({ fullName: false, dni: false, email: false, password: true });
       return;
     }
 
-    // Aquí podrías agregar la lógica para registrar el usuario (llamada a la API, etc.)
-    console.log(`Nombre Completo: ${fullName}, DNI: ${dni}, Email: ${email}, Contraseña: ${password}`);
-
-    // Redirigir a la página de login después de un registro exitoso
-    // navigate('/login');
+    try {
+      await createUser({ firstName: fullName.split(' ')[0], lastName: fullName.split(' ').slice(1).join(' '), dni, email, password });
+      setSuccess('User registered successfully!');
+      setForm({ fullName: '', dni: '', email: '', password: '' });
+      navigate('/login');
+    } catch (error) {
+      setError('Error registering user.');
+    }
   };
+
   return (
     <div className="login-container">
       <div className="login-box">
@@ -57,7 +63,7 @@ function Register() {
           <h2 className="card-title">Registrate</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-            <input
+              <input
                 type="text"
                 id="fullName"
                 className={`form-control ${errors.fullName ? 'border border-danger' : ''}`}
@@ -79,7 +85,7 @@ function Register() {
               {errors.dni && <p className="text-danger">El DNI es obligatorio</p>}
             </div>
             <div className="form-group">
-            <input
+              <input
                 type="email"
                 id="email"
                 className={`form-control ${errors.email ? 'border border-danger' : ''}`}
@@ -90,7 +96,7 @@ function Register() {
               {errors.email && <p className="text-danger">El email es obligatorio</p>}
             </div>
             <div className="form-group">
-            <input
+              <input
                 type="password"
                 id="password"
                 className={`form-control ${errors.password ? 'border border-danger' : ''}`}
@@ -100,6 +106,8 @@ function Register() {
               />
               {errors.password && <p className="text-danger">La contraseña es obligatoria</p>}
             </div>
+            {success && <p className="text-success">{success}</p>}
+            {error && <p className="text-danger">{error}</p>}
             <p>Ya tienes cuenta? <Link to="/login">Logueate</Link></p>
             <button type="submit" className="btn btn-primary btn-block">Registrarse</button>
           </form>
