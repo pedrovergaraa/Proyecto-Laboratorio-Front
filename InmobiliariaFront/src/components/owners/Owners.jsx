@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import OwnersForm from "../../forms/OwnersForm/OwnersForm";
-import Card from "../../shared-components/card/Card";
+import Card from "../../shared-components/card/card";
 import Table from "../../shared-components/table/Table";
 import { getAllOwners, createOwner } from "../../services/OwnerService";
 
