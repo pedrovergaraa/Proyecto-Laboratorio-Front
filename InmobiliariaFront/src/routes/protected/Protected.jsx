@@ -1,4 +1,3 @@
-
 import React, { useContext } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
@@ -14,11 +13,14 @@ const Protected = () => {
 
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
+  // Redirecciona a "/properties" si el usuario está autenticado y está en la ruta raíz "/"
+  if (location.pathname === "/") {
+    return <Navigate to="/properties" />;
+  }
+
   return (
     <div className={isAuthPage ? 'no-background' : 'background'}>
-      {/* Muestra el navbar solo si no estamos en las páginas de login o register */}
       {!isAuthPage && <Navbar />}
-      {/* Renderiza las rutas hijas definidas en `createBrowserRouter` */}
       <Outlet />
     </div>
   );

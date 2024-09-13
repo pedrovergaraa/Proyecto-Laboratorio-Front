@@ -1,47 +1,49 @@
-// src/components/Login.jsx
-import React, { useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Login.css'; 
-import loginImage from '../../assets/images/login-image.webp'; 
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";
+import loginImage from "../../assets/images/login-image.webp";
+import { AuthenticationContext } from "../../services/authenticationContext/auth.context"; // Importa el contexto de autenticación
 
 function Login() {
-  const [dni, setDni] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
-    dni: false,
+    email: false,
     password: false,
   });
-  const [error, setError] = useState('');
-  
-  const dniRef = useRef(null);
-  const passwordRef = useRef(null);
+  const [error, setError] = useState("");
 
+  const { handleLogin, authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
   const navigate = useNavigate();
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
+    setErrors({ ...errors, [e.target.id]: false }); // Reinicia los errores al escribir
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (dniRef.current.value.length <= 0) {
-      dniRef.current.focus();
-      setErrors({ dni: true, password: false });
+    // Validaciones del Formulario
+    if (!email) {
+      setErrors({ ...errors, email: true });
       return;
     }
 
-    if (password.length <= 0) {
-      passwordRef.current.focus();
-      setErrors({ dni: false, password: true });
+    if (!password) {
+      setErrors({ ...errors, password: true });
       return;
     }
 
     try {
-      await loginUser(dni, password);
-      navigate("/");
+      console.log("Attempting to log in with:", email, password); // Debugging
+      await handleLogin(email, password); // Usando la función de contexto para manejar el login
+      if (!authError) {
+        navigate("/"); // Redirige solo si no hay errores de autenticación
+      }
     } catch (error) {
-      setError('Invalid DNI or password.');
+      console.error("Login error:", error); // Debugging
+      setError("Invalid email or password."); // Manejo de errores local
     }
   };
 
@@ -55,32 +57,42 @@ function Login() {
             <div className="form-group">
               <label></label>
               <input
-                className={errors.dni ? "border border-danger" : ""}
-                placeholder='DNI'
+                className={errors.email ? "border border-danger" : ""}
+                placeholder="Email"
                 type="text"
-                id="dni"
-                ref={dniRef}
-                value={dni}
-                onChange={(e) => handleInputChange(e, setDni)}
+                id="email"
+                value={email}
+                onChange={(e) => handleInputChange(e, setEmail)} // Cambio a 'setEmail'
               />
-              {errors.dni && <p className="pt-2 ps-2 text-danger">El DNI es obligatorio</p>}
+              {errors.email && (
+                <p className="pt-2 ps-2 text-danger">El email es obligatorio</p>
+              )}
             </div>
             <div className="form-group">
               <label></label>
               <input
                 className={errors.password ? "border border-danger" : ""}
-                placeholder='Contraseña'
+                placeholder="Contraseña"
                 type="password"
                 id="password"
-                ref={passwordRef}
                 value={password}
                 onChange={(e) => handleInputChange(e, setPassword)}
               />
-              {errors.password && <p className="pt-2 ps-2 text-danger">La contraseña es obligatoria</p>}
+              {errors.password && (
+                <p className="pt-2 ps-2 text-danger">
+                  La contraseña es obligatoria
+                </p>
+              )}
             </div>
-            <p>No tenes cuenta? <Link to="/register">Registrate</Link></p>
-            <button type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
+            <p>
+              No tienes cuenta? <Link to="/register">Registrate</Link>
+            </p>
+            <button type="submit" className="btn btn-primary btn-block">
+              Iniciar sesión
+            </button>
           </form>
+          {error && <p className="pt-2 ps-2 text-danger">{error}</p>} {/* Mostrar error si existe */}
+          {authError && <p className="pt-2 ps-2 text-danger">{authError}</p>} {/* Mostrar error del contexto si existe */}
         </div>
         <div className="image-container">
           <img src={loginImage} alt="background" />

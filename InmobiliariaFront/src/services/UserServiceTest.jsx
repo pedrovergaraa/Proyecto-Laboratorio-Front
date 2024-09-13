@@ -17,10 +17,10 @@ export const getUsers = async () => {
 // Crear un nuevo usuario
 export const createUser = async (user) => {
   try {
-    const response = await fetch(`${API_URL}/users`, {
+    const response = await fetch(`${API_URL}/register`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(user),
     });
@@ -35,20 +35,27 @@ export const createUser = async (user) => {
 };
 
 // Autenticar un usuario
-export const loginUser = async (dni, password) => {
+export const loginUser = async (email, password) => {
   try {
-    const response = await fetch(`${API_URL}/users`);
+    const response = await fetch(`${API_URL}/login`, {  // Suponiendo que tengas un endpoint `/login` configurado en tu FakeAPI
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }), // Envía las credenciales al servidor
+    });
+
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    const users = await response.json();
-    const user = users.find(user => user.dni === dni && user.password === password);
-    if (!user) {
-      throw new Error('Invalid credentials');
-    }
-    return user;
+
+    const data = await response.json();
+
+    // Aquí puedes manejar el token de autenticación o la información del usuario que viene de la respuesta
+    return data; // Devuelve la respuesta del servidor que podría incluir un token de autenticación
   } catch (error) {
     console.error('Error logging in:', error);
     throw error;
   }
 };
+
