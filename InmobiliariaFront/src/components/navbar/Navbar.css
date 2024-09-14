@@ -121,3 +121,29 @@ h1 {
     font-size: 0.9rem;
   }
 }
+
+.logout-btn{
+  cursor: pointer;
+}
+
+.button-container{
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
+  
+}
+.cancel-btn{
+  background-color: rgb(124, 123, 123);
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  
+}
+.confirm-btn{
+  background-color: #007bff;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}

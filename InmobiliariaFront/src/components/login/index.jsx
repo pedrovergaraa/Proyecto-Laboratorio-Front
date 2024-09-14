@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import loginImage from "../../assets/images/login-image.webp";
@@ -13,7 +13,7 @@ function Login() {
   });
   const [error, setError] = useState("");
 
-  const { handleLogin, authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
+  const { handleLogin, handleLogout ,authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
   const navigate = useNavigate();
 
   const handleInputChange = (e, setState) => {
@@ -46,6 +46,12 @@ function Login() {
       setError("Invalid email or password."); // Manejo de errores local
     }
   };
+
+  useEffect(()=>{
+    if(localStorage.getItem("user")){
+      handleLogout()
+    }
+  },[])
 
   return (
     <div className="login-container">
