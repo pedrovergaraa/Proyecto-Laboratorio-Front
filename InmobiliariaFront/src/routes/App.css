@@ -45,9 +45,14 @@ background-image: url('/src/assets/images/pexels-lkloeppel-466685.jpg'); /* Ruta
   background-color: #007bff; /* Color azul */
   color: white;
   border: none;
-  border-radius: 5px; /* Ajusta el borde según prefieras */
+  border-radius: 50px; /* Botón más redondo */
+  padding: 10px 20px; /* Ajusta el padding según prefieras */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Espacio entre el ícono y el texto */
 }
 
-/* .navbar {
-  padding: 10px;
-} */
+.theme-toggle-button:hover {
+  background-color: #0056b3; /* Cambia el color al pasar el ratón */
+}
