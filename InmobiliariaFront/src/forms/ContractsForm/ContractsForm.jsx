@@ -7,7 +7,7 @@ const ContractsForm = ({ onAdd }) => {
     event.preventDefault(); 
 
     if (onAdd) {
-      onAdd(); // Ejecuta cualquier función que se pase a través de props
+      onAdd(); 
     }
 
     showSuccessToast("Usuario agregado con éxito!");

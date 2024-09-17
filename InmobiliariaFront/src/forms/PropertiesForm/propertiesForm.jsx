@@ -2,15 +2,19 @@
 import React from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 
-const PropertiesForm = ({ onAdd }) => {
+const PropertiesForm = ({ onAdd, onClose }) => {
   const handleAddClick = (event) => {
-    event.preventDefault(); // Prevenir que el formulario se envíe
+    event.preventDefault(); 
 
     if (onAdd) {
-      onAdd(); // Ejecuta cualquier función que se pase a través de props
+      onAdd();
     }
 
     showSuccessToast("Usuario agregado con éxito!");
+
+    if (onClose) {
+      onClose(); // Cierra el modal padre
+    }
   };
 
   return (
