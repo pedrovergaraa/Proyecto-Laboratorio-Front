@@ -48,6 +48,5 @@ export const createOwner = async (owner, token) => {
   }
 };
 
-  };
   
   // Puedes agregar más funciones para crear, actualizar y eliminar Owners
