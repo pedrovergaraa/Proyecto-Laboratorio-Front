@@ -3,9 +3,6 @@ import Table from '../../shared-components/table/Table';
 import React from 'react'
 import PropertiesForm from '../../forms/PropertiesForm/PropertiesForm';
 
-// const URL = 'https://swapi.dev/api/people/1'
-
-
 
 const Properties = () => {
 

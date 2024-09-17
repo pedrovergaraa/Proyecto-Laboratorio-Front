@@ -1,3 +1,4 @@
+
 const API_URL = "http://localhost:8080/Owner"; // Reemplaza con la URL de tu backend
 
 // Función para obtener todos los Owners
@@ -46,3 +47,7 @@ export const createOwner = async (owner, token) => {
     throw error;
   }
 };
+
+  };
+  
+  // Puedes agregar más funciones para crear, actualizar y eliminar Owners

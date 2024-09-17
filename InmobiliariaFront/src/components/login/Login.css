@@ -4,6 +4,7 @@
   align-items: center;
   height: 100vh;
   background-color: var(--background-color); /* Usando variable de tema */
+  margin-left: 250px;
 }
 
 .login-box {

@@ -10,8 +10,6 @@ const propertiesForm = () => {
   //   if (onAdd) {
   //     onAdd(); // Ejecuta cualquier función que se pase a través de props
   //   }
-
-  
   //   toast.success("Usuario agregado correctamente!"); // Muestra la notificación de éxito
   // };
   return (
@@ -29,9 +27,6 @@ const propertiesForm = () => {
         <input type="email" name="email" />
       </div>
       <button type="submit">Agregar</button>
-      {/* <div>
-      <ToastContainer />
-      </div> */}
     </form>
   );
 };
