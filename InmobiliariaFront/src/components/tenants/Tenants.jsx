@@ -9,7 +9,6 @@ const Tenants = () => {
 
   return (
     <div>
-      <h1>Tenants</h1>
       <Card title='Inquilinos' FormComponent={TenantsForm}>
         <Table></Table>
       </Card>
