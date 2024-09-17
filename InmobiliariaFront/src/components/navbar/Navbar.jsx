@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
   <div className='logo'>
-  <img src={finalLogo} alt="Inmobiliaria Logo" />
+  <img src={logoImage} alt="Inmobiliaria Logo" />
   </div>
   <ul className="navList">
     <li className="navItem">
