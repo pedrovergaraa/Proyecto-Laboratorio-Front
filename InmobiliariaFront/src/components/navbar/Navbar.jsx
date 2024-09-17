@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import { Link, useNavigate} from 'react-router-dom';
 import './Navbar.css'; 
 import { AuthenticationContext } from "../../services/authenticationContext/auth.context";
-import logoImage from '../../assets/images/Logo-Inmobiliaria.png';
+import finalLogo from '../../assets/images/final-logo.png';
 import ModalForm from "../../shared-components/modal/modalForm"
 
 const Navbar = () => {
@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
   <div className='logo'>
-  <img src={logoImage} alt="Inmobiliaria Logo" />
+  <img src={finalLogo} alt="Inmobiliaria Logo" />
   </div>
   <ul className="navList">
     <li className="navItem">
