@@ -1,97 +1,110 @@
-// src/components/Login.jsx
-import React, { useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Login.css'; 
-import loginImage from '../../assets/images/login-image.webp'; 
-
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";
+import loginImage from "../../assets/images/login-image.webp";
+import { AuthenticationContext } from "../../services/authenticationContext/auth.context"; // Importa el contexto de autenticación
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
     email: false,
     password: false,
-  });  
-  
-  const usernameRef = useRef(null);
-  const passwordRef = useRef(null);
+  });
+  const [error, setError] = useState("");
 
+  const { handleLogin, handleLogout ,authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
   const navigate = useNavigate();
 
   const handleInputChange = (e, setState) => {
-    console.log("event", e)
     setState(e.target.value);
+    setErrors({ ...errors, [e.target.id]: false }); // Reinicia los errores al escribir
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (usernameRef.current.value.length <= 0) {
-      usernameRef.current.focus();
-      setErrors({ username: true, password: false });
+
+    // Validaciones del Formulario
+    if (!email) {
+      setErrors({ ...errors, email: true });
       return;
-  }
+    }
 
-  if (password.length <= 0) {
-      passwordRef.current.focus();
-      setErrors({ username: false, password: true });
+    if (!password) {
+      setErrors({ ...errors, password: true });
       return;
-  }
+    }
 
-  handleInputChange(username);
-
-  navigate("/")
-
-    console.log(`Username: ${username}, Password: ${password}`);
+    try {
+      console.log("Attempting to log in with:", email, password); // Debugging
+      await handleLogin(email, password); // Usando la función de contexto para manejar el login
+      if (!authError) {
+        navigate("/"); // Redirige solo si no hay errores de autenticación
+      }
+    } catch (error) {
+      console.error("Login error:", error); // Debugging
+      setError("Invalid email or password."); // Manejo de errores local
+    }
   };
-console.log("username", username)
-console.log("password", password)
+
+  useEffect(()=>{
+    if(localStorage.getItem("user")){
+      handleLogout()
+    }
+  },[])
+
   return (
     <div className="login-container">
-  <div className="login-box">
-    <div className="form-container">
-      <h1>Gestión Inmobiliaria</h1>
-      <h2 className="card-title">Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label ></label>
-          <input
-          className={errors.email ?
-            "border border-danger" :
-            ""}
-            placeholder='Usuario'
-            type="text"
-            id="username"
-            ref={usernameRef}
-            value={username}
-            onChange={(e) => handleInputChange(e, setUsername)}
-          />
-          {errors.username && <p className="pt-2 ps-2 text-danger">El usuario es obligatorio</p>}
+      <div className="login-box">
+        <div className="form-container">
+          <h1>Gestión Inmobiliaria</h1>
+          <h2 className="card-title">Iniciar Sesión</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label></label>
+              <input
+                className={errors.email ? "border border-danger" : ""}
+                placeholder="Email"
+                type="text"
+                id="email"
+                value={email}
+                onChange={(e) => handleInputChange(e, setEmail)} // Cambio a 'setEmail'
+              />
+              {errors.email && (
+                <p className="pt-2 ps-2 text-danger">El email es obligatorio</p>
+              )}
+            </div>
+            <div className="form-group">
+              <label></label>
+              <input
+                className={errors.password ? "border border-danger" : ""}
+                placeholder="Contraseña"
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => handleInputChange(e, setPassword)}
+              />
+              {errors.password && (
+                <p className="pt-2 ps-2 text-danger">
+                  La contraseña es obligatoria
+                </p>
+              )}
+            </div>
+            <p>
+              No tienes cuenta? <Link to="/register">Registrate</Link>
+            </p>
+            <button type="submit" className="btn btn-primary btn-block">
+              Iniciar sesión
+            </button>
+          </form>
+          {error && <p className="pt-2 ps-2 text-danger">{error}</p>} {/* Mostrar error si existe */}
+          {authError && <p className="pt-2 ps-2 text-danger">{authError}</p>} {/* Mostrar error del contexto si existe */}
         </div>
-        <div className="form-group">
-          <label ></label>
-          <input
-          className={errors.password ?
-            "border border-danger" :
-            ""}
-            placeholder='Contraseña'
-            type="password"
-            id="password"
-            ref={passwordRef}
-            value={password}
-            onChange={(e) => handleInputChange(e, setPassword)}
-          />
-          {errors.password && <p className="pt-2 ps-2 text-danger">La contraseña es obligatoria</p>}
+        <div className="image-container">
+          <img src={loginImage} alt="background" />
         </div>
-        <p>No tenes cuenta? <Link to="/register">Registrate</Link></p>
-        <button type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
-      </form>
+      </div>
     </div>
-    <div className="image-container">
-      <img src={loginImage} alt="background" />
-    </div>
-  </div>
-</div>
-
   );
 }
 

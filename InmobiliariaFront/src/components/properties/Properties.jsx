@@ -8,7 +8,6 @@ const Properties = () => {
 
   return (
     <div>
-      <h1>Propiedades</h1>
       <Card title='Propiedades' FormComponent={PropertiesForm}>
         <Table></Table>
       </Card>

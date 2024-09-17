@@ -1,90 +1,122 @@
-// src/components/Login.jsx
+// src/components/Register.jsx
 import React, { useState } from 'react';
-import loginImage from '../../assets/images/login-image.webp'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { createUser } from '../../services/UserServiceTest';
+import loginImage from '../../assets/images/login-image.webp';
 
 function Register() {
+  const [fullName, setFullName] = useState('');
+  const [dni, setDni] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [lastname, setLastName] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({
+    fullName: false,
+    dni: false,
+    email: false,
+    password: false,
+  });
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
 
-  
+  const navigate = useNavigate();
+
   const handleInputChange = (e, setState) => {
-    console.log("event", e)
     setState(e.target.value);
   };
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`Username: ${username}, Email: ${email}, Password: ${password}`);
+
+    // Validaciones básicas
+    if (fullName.trim() === '') {
+      setErrors({ fullName: true, dni: false, email: false, password: false });
+      return;
+    }
+    if (dni.trim() === '') {
+      setErrors({ fullName: false, dni: true, email: false, password: false });
+      return;
+    }
+    if (email.trim() === '') {
+      setErrors({ fullName: false, dni: false, email: true, password: false });
+      return;
+    }
+    if (password.trim() === '') {
+      setErrors({ fullName: false, dni: false, email: false, password: true });
+      return;
+    }
+
+    try {
+      await createUser({ firstName: fullName.split(' ')[0], lastName: fullName.split(' ').slice(1).join(' '), dni, email, password });
+      setSuccess('User registered successfully!');
+      setForm({ fullName: '', dni: '', email: '', password: '' });
+      navigate('/login');
+    } catch (error) {
+      setError('Error registering user.');
+    }
   };
-console.log("username", username)
-console.log("email", email)
-console.log("password", password)
 
   return (
     <div className="login-container">
-  <div className="login-box">
-    <div className="form-container">
-      <h1>Gestión Inmobiliaria</h1>
-      <h2 className="card-title">Registrate</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label ></label>
-          <input
-            type="text"
-            id="username"
-            className="form-control"
-            placeholder='Usuario'
-            value={username}
-            onChange={(e) => handleInputChange(e, setUsername)}
-          />
+      <div className="login-box">
+        <div className="form-container">
+          <h1>Gestión Inmobiliaria</h1>
+          <h2 className="card-title">Registrate</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <input
+                type="text"
+                id="fullName"
+                className={`form-control ${errors.fullName ? 'border border-danger' : ''}`}
+                placeholder="Nombre Completo"
+                value={fullName}
+                onChange={(e) => handleInputChange(e, setFullName)}
+              />
+              {errors.fullName && <p className="text-danger">El nombre completo es obligatorio</p>}
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                id="dni"
+                className={`form-control ${errors.dni ? 'border border-danger' : ''}`}
+                placeholder="DNI"
+                value={dni}
+                onChange={(e) => handleInputChange(e, setDni)}
+              />
+              {errors.dni && <p className="text-danger">El DNI es obligatorio</p>}
+            </div>
+            <div className="form-group">
+              <input
+                type="email"
+                id="email"
+                className={`form-control ${errors.email ? 'border border-danger' : ''}`}
+                placeholder="Email"
+                value={email}
+                onChange={(e) => handleInputChange(e, setEmail)}
+              />
+              {errors.email && <p className="text-danger">El email es obligatorio</p>}
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                id="password"
+                className={`form-control ${errors.password ? 'border border-danger' : ''}`}
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => handleInputChange(e, setPassword)}
+              />
+              {errors.password && <p className="text-danger">La contraseña es obligatoria</p>}
+            </div>
+            {success && <p className="text-success">{success}</p>}
+            {error && <p className="text-danger">{error}</p>}
+            <p>Ya tienes cuenta? <Link to="/login">Logueate</Link></p>
+            <button type="submit" className="btn btn-primary btn-block">Registrarse</button>
+          </form>
         </div>
-        <div className="form-group">
-          <label ></label>
-          <input
-            type="text"
-            id="lastname"
-            className="form-control"
-            placeholder='Apellido'
-            value={lastname}
-            onChange={(e) => handleInputChange(e, setLastName)}
-          />
+        <div className="image-container">
+          <img src={loginImage} alt="background" />
         </div>
-        <div className="form-group">
-          <label ></label>
-          <input
-            type="email"
-            id="email"
-            className="form-control"
-            placeholder='Email'
-            value={email}
-            onChange={(e) => handleInputChange(e, setEmail)}
-          />
-        </div>
-        <div className="form-group">
-          <label ></label>
-          <input
-            type="password"
-            id="password"
-            className="form-control"
-            placeholder='Contraseña'
-            value={password}
-            onChange={(e) => handleInputChange(e, setPassword)}
-          />
-        </div>
-        <p>Ya tienes cuenta? <Link to="/login">Logueate</Link> </p>
-        <button type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
-      </form>
+      </div>
     </div>
-    <div className="image-container">
-      <img src={loginImage} alt="background" />
-    </div>
-  </div>
-</div>
-
   );
 }
 
