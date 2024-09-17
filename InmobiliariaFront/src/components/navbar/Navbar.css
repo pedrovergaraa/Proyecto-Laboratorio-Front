@@ -1,3 +1,10 @@
+/* Fondo de pantalla */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar */
 .navbar {
   display: flex;
   align-items: center;
@@ -12,26 +19,21 @@
   z-index: 1000;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-}
-
 .logo {
-  flex: 1; /* Asegura que ocupe el espacio necesario */
+  flex: 1;
   display: flex;
-  align-items: center; /* Centra verticalmente la imagen dentro del navbar */
-  justify-content: flex-start; /* Alinea la imagen a la izquierda */
+  align-items: center;
+  justify-content: flex-start;
 }
-
 
 .logo img {
-  height: 100%; /* Asegura que el logo ocupe toda la altura del navbar */
-  max-height: 60px; /* Ajusta este valor según la altura del navbar */
-  width: auto; /* Mantén la proporción de la imagen */
-  object-fit: contain; /* Asegura que la imagen no se deforme */
+  height: 100%;
+  max-height: 60px;
+  width: auto;
+  object-fit: contain;
 }
 
+/* Lista de navegación */
 .navList {
   display: flex;
   flex: 2;
@@ -46,6 +48,7 @@ body {
   position: relative;
 }
 
+/* Líneas entre ítems */
 .navItem:not(:last-child)::after {
   content: "";
   position: absolute;
@@ -68,13 +71,7 @@ body {
 }
 
 .navLink:hover {
-  color:rgb(107, 158, 202);
-}
-
-h1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: rgb(107, 158, 202);
 }
 
 /* Estilos responsivos */
@@ -83,6 +80,7 @@ h1 {
     flex-direction: column;
     align-items: flex-start;
     padding: 10px 20px;
+    height: auto;
   }
 
   .navList {
@@ -103,7 +101,6 @@ h1 {
     left: 0;
     right: 0;
     height: 1px;
-    width: 100%;
     background-color: #333;
   }
 }
@@ -122,26 +119,27 @@ h1 {
   }
 }
 
-.logout-btn{
+/* Botones de logout, cancelar y confirmar */
+.logout-btn {
   cursor: pointer;
 }
 
-.button-container{
+.button-container {
   display: flex;
   justify-content: space-around;
   text-align: center;
   padding: 10px;
   margin-top: 10px;
-  
 }
-.cancel-btn{
+
+.cancel-btn {
   background-color: rgb(124, 123, 123);
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
-  
 }
-.confirm-btn{
+
+.confirm-btn {
   background-color: #007bff;
   border-radius: 5px;
   font-size: 1rem;

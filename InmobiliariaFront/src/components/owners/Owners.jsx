@@ -40,7 +40,6 @@ const Owners = () => {
 
   return (
     <div>
-      <h1>Inmobiliaria</h1>
       <Card
         title="Inmobiliaria"
         FormComponent={OwnersForm}
