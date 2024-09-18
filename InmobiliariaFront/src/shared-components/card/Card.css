@@ -6,7 +6,7 @@
   background-color: #ffffffb8;
   width: 70%;
   float: left;
-  
+  overflow: hidden;
 }
 
 .card-header {
