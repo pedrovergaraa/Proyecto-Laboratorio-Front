@@ -14,7 +14,6 @@ import { ThemeContextProvider } from '../services/themeContext/theme.context';
 // import { AuthenticationContextProvider } from '../services/authContext/auth.context'; // Proveedor de contexto de autenticación
 import "./App.css";
 import ToggleTheme from '../components/ui/toggleTheme/ToggleTheme';
-import WeatherApi from '../components/weather/WeatherApi';
 import { AuthenticationContextProvider } from '../services/authenticationContext/auth.context';
 import UsersList from '../components/users/Users';
 
@@ -73,7 +72,6 @@ const App = () => {
         <div className="app-container">
           <ToggleTheme className="theme-toggle-button" /> {/* Botón en contenedor superior */}
           <RouterProvider router={router} />
-          
         </div>
       </ThemeContextProvider>
       </AuthenticationContextProvider>
