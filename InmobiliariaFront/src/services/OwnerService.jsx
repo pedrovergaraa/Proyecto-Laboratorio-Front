@@ -31,37 +31,29 @@
     }
   };
   export const createOwner = async (ownerData) => {
-    try {
-      const response = await fetch(`${API_URL}/owners/new`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(ownerData),
-      });
+    // try {
+    //   const response = await fetch(`${API_URL}/owners/new`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(ownerData),
+    //   });
   
-      if (!response.ok) {
-        throw new Error('Error creating owner');
-      }
+    //   if (!response.ok) {
+    //     throw new Error('Error creating owner');
+    //   }
   
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-<<<<<<< HEAD
+    //   return await response.json();
+    // } catch (error) {
+    //   console.error(error);
+    //   return null;
+    // }
+
   };
-=======
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error creating owner:", error);
-    throw error;
-  }
-};
 
->>>>>>> F-Landlord
+
   
   // Puedes agregar más funciones para crear, actualizar y eliminar Owners
   
