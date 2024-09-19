@@ -49,7 +49,19 @@
       console.error(error);
       return null;
     }
+<<<<<<< HEAD
   };
+=======
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error creating owner:", error);
+    throw error;
+  }
+};
+
+>>>>>>> F-Landlord
   
   // Puedes agregar más funciones para crear, actualizar y eliminar Owners
   
