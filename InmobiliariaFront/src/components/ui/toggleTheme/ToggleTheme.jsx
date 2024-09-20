@@ -4,17 +4,37 @@ import { ThemeContext } from "../../../services/themeContext/theme.context";
 import ModeNightOutlinedIcon from '@mui/icons-material/ModeNightOutlined';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 
-const ToggleTheme = ({ className }) => {
+const ToggleTheme = ({ className, isAuthPage }) => {
     const { toggleTheme, theme } = useContext(ThemeContext);
 
+    // Estilos en línea para el fondo
+    const backgroundStyle = {
+        backgroundImage: isAuthPage ? "none" : (theme === "light" 
+            ? "url('/src/assets/images/pexels-lkloeppel-466685.jpg')" 
+            : "url('/src/assets/images/WhatsApp Image 2024-09-19 at 18.32.27.jpeg')"),
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',
+        width: '100%',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: -1,
+        opacity: 0.8,
+        transition: "background 0.3s ease" // Agrega una transición suave
+    };
+
     return (
-        <Button className={`theme-toggle-button ${className}`} onClick={toggleTheme}>
-            {theme === "light" ? (
-                <ModeNightOutlinedIcon />
-            ) : (
-                <WbSunnyOutlinedIcon />
-            )}
-        </Button>
+        <div style={backgroundStyle}>
+            <Button className={`theme-toggle-button ${className}`} onClick={toggleTheme}>
+                {theme === "light" ? (
+                    <ModeNightOutlinedIcon />
+                ) : (
+                    <WbSunnyOutlinedIcon />
+                )}
+            </Button>
+        </div>
     );
 };
 

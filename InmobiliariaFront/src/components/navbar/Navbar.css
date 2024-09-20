@@ -33,27 +33,30 @@ body {
   object-fit: contain;
 }
 
-
 /* Lista de navegación */
 .navList {
   display: flex;
-  flex: 2;
-  justify-content: space-between;
+  justify-content: center; /* Mantener centrado */
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
 .navItem {
-  padding: 0 20px;
+  padding: 0 30px; /* Aumentar el espacio entre los elementos */
   position: relative;
 }
+
+.navList:last-child {
+  margin-right: 30px;
+}
+
 
 /* Líneas entre ítems */
 .navItem:not(:last-child)::after {
   content: "";
   position: absolute;
-  right: -20px;
+  right: 0px; /* Ajustar el valor de right para crear espacio */
   top: 0;
   bottom: 0;
   height: 100%;

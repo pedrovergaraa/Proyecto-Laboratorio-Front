@@ -16,46 +16,46 @@ const Navbar = () => {
     navigate("/login")
   }
   return (
-    <nav className="navbar">
-  <div className='logo'>
-  <img src={finalLogo} alt="Inmobiliaria Logo" />
-  </div>
-  <ul className="navList">
-    <li className="navItem">
-      <Link to="/properties" className="navLink">PROPIEDADES</Link>
-    </li>
-    <li className="navItem">
-      <Link to="/tenants" className="navLink">INQUILINOS</Link>
-    </li>
-    <li className="navItem">
-      <Link to="/contracts" className="navLink">CONTRATOS</Link>
-    </li>
-    <li className="navItem">
-      <Link to="/owners" className="navLink">INMOBILIARIA</Link>
-    </li>
-    <li className="navItem">
-      <Link to="/landlord" className="navLink">PROPIETARIOS</Link>
-    </li>
-    <li className="navItem" onClick={()=>setIsOpen(true)}>
-      <span className="navLink logout-btn" >CERRAR SESIÓN</span>
-    </li>
-    <ModalForm isOpen={isOpen} onClose={()=>setIsOpen(!isOpen)}>
-      <div>
-        <p>
-          ¿Estas seguro de que deseas cerrar sesión?
-        </p>
-        <div className='button-container'>
-          <button className='cancel-btn' onClick={()=>setIsOpen(false)}>
-            Cancelar
-          </button>
-          <button className='confirm-btn' onClick={handleSignOut}>
-            Aceptar
-          </button>
+  <nav className="navbar">
+    <div className='logo'>
+    <img src={finalLogo} alt="Inmobiliaria Logo" />
+    </div>
+    <ul className="navList">
+      <li className="navItem">
+        <Link to="/properties" className="navLink">PROPIEDADES</Link>
+      </li>
+      <li className="navItem">
+        <Link to="/tenants" className="navLink">INQUILINOS</Link>
+      </li>
+      <li className="navItem">
+        <Link to="/contracts" className="navLink">CONTRATOS</Link>
+      </li>
+      <li className="navItem">
+        <Link to="/owners" className="navLink">INMOBILIARIA</Link>
+      </li>
+      <li className="navItem">
+        <Link to="/landlord" className="navLink">PROPIETARIOS</Link>
+      </li>
+      <li className="navItem" onClick={()=>setIsOpen(true)}>
+        <span className="navLink logout-btn" >CERRAR SESIÓN</span>
+      </li>
+      <ModalForm isOpen={isOpen} onClose={()=>setIsOpen(!isOpen)}>
+        <div>
+          <p>
+            ¿Estas seguro de que deseas cerrar sesión?
+          </p>
+          <div className='button-container'>
+            <button className='cancel-btn' onClick={()=>setIsOpen(false)}>
+              Cancelar
+            </button>
+            <button className='confirm-btn' onClick={handleSignOut}>
+              Aceptar
+            </button>
+          </div>
         </div>
-      </div>
-    </ModalForm>
-  </ul>
-</nav>
+      </ModalForm>
+    </ul>
+  </nav>
 
   );
 };
