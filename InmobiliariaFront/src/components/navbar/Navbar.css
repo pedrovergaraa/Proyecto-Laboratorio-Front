@@ -38,7 +38,7 @@ body {
 .navList {
   display: flex;
   flex: 2;
-  justify-content: space-evenly;
+  justify-content: space-between;
   list-style-type: none;
   margin: 0;
   padding: 0;

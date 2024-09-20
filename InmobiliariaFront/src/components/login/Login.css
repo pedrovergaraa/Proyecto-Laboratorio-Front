@@ -4,28 +4,31 @@
   align-items: center;
   height: 100vh;
   background-color: var(--background-color); /* Usando variable de tema */
-  margin-left: 250px;
+  margin: auto 0;
 }
 
 .login-box {
   display: flex;
+  flex-direction: row;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
   background-color: var(--card-background); /* Usando variable de tema */
   max-width: 700px; /* Establece un ancho máximo para el contenedor */
   width: 100%; /* Permite que el contenedor se ajuste al ancho disponible */
-  margin: 0 20px; /* Añade un margen lateral para evitar que toque los bordes de la pantalla */
+  margin: auto 0; /* Añade un margen lateral para evitar que toque los bordes de la pantalla */
 }
 
 .form-container {
   padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 50%;
+  justify-content: center; /* Centra el contenido verticalmente */
+  width: 50%; /* Ocupa la mitad del login-box */
   background-color: var(--card-background); /* Usando variable de tema */
   color: var(--text-color); /* Usando variable de tema */
+  text-align: left; /* Alinea el contenido a la izquierda */
+  margin: 0 auto; /* Asegura que esté centrado dentro del lado izquierdo */
 }
 
 .image-container {
@@ -93,6 +96,7 @@ h2.card-title {
 }
 
 p {
+  text-align: center;
   margin-top: 10px;
   color: var(--text-color); /* Usando variable de tema */
 }
