@@ -7,6 +7,10 @@ import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 const ToggleTheme = ({ className, isAuthPage }) => {
     const { toggleTheme, theme } = useContext(ThemeContext);
 
+    // Establece las clases adicionales de tema
+    const navbarThemeClass = theme === "light" ? "navbar-light" : "navbar-dark";
+    const navLinkThemeClass = theme === "light" ? "navLink-light" : "navLink-dark";
+
     // Estilos en línea para el fondo
     const backgroundStyle = {
         backgroundImage: isAuthPage ? "none" : (theme === "light" 
@@ -22,11 +26,16 @@ const ToggleTheme = ({ className, isAuthPage }) => {
         left: 0,
         zIndex: -1,
         opacity: 0.8,
-        transition: "background 0.3s ease" // Agrega una transición suave
+        transition: "background 0.3s ease"
     };
 
     return (
         <div style={backgroundStyle}>
+            {/* Mantén la estructura original del navbar */}
+            <nav className={`navbar ${navbarThemeClass}`}>
+                
+            </nav>
+
             <Button className={`theme-toggle-button ${className}`} onClick={toggleTheme}>
                 {theme === "light" ? (
                     <ModeNightOutlinedIcon />

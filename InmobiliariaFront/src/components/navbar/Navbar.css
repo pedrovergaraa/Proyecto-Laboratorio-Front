@@ -9,7 +9,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #F8EFE6;
   padding: 0 30px;
   height: 60px;
   width: 100%;
@@ -17,6 +16,15 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
+  transition: background-color 0.3s ease; /* Transición suave entre temas */
+}
+.navbar-light {
+  background-color: #F8EFE6;
+}
+
+/* Estilos para modo oscuro */
+.navbar-dark {
+  background-color: #333; /* Color gris oscuro para el modo oscuro */
 }
 
 .logo {
@@ -36,14 +44,14 @@ body {
 /* Lista de navegación */
 .navList {
   display: flex;
-  justify-content: center; /* Mantener centrado */
+  justify-content: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
 .navItem {
-  padding: 0 30px; /* Aumentar el espacio entre los elementos */
+  padding: 0 30px;
   position: relative;
 }
 
@@ -51,29 +59,44 @@ body {
   margin-right: 30px;
 }
 
-
 /* Líneas entre ítems */
 .navItem:not(:last-child)::after {
   content: "";
   position: absolute;
-  right: 0px; /* Ajustar el valor de right para crear espacio */
+  right: 0;
   top: 0;
   bottom: 0;
   height: 100%;
   width: 1px;
-  background-color: #333;
+  background-color: #333; /* Cambia a blanco en modo oscuro */
 }
 
+.navbar-dark .navItem:not(:last-child)::after {
+  background-color: #FFF; /* Línea blanca en modo oscuro */
+}
+
+/* Enlaces de navegación */
 .navLink {
   display: inline-block;
   text-align: center;
   text-decoration: none;
-  color: #333;
   font-weight: 600;
   font-size: 1rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: color 0.3s ease;
 }
 
+/* Color del texto en modo claro */
+.navLink-light {
+  color: #333; /* Texto negro en modo claro */
+}
+
+/* Color del texto en modo oscuro */
+.navLink-dark {
+  color: #FFF; /* Texto blanco en modo oscuro */
+}
+
+/* Hover de los enlaces */
 .navLink:hover {
   color: rgb(107, 158, 202);
 }
@@ -107,19 +130,9 @@ body {
     height: 1px;
     background-color: #333;
   }
-}
 
-@media (max-width: 480px) {
-  .navbar {
-    padding: 10px 15px;
-  }
-
-  .logo a {
-    font-size: 1rem;
-  }
-
-  .navLink {
-    font-size: 0.9rem;
+  .navbar-dark .navItem:not(:last-child)::after {
+    background-color: #FFF;
   }
 }
 
