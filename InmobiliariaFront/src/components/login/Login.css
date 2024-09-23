@@ -67,7 +67,7 @@
 
 h1 {
   margin-bottom: 20px;
-  color: #D87519; /* Color específico */
+  color: #007bff; /* Color específico */
   text-align: center;
 }
 
@@ -84,7 +84,7 @@ h2.card-title {
 }
 
 .btn-primary {
-  background-color: #D87519; /* Color del botón */
+  background-color: #007bff; /* Color del botón */
   color: var(--text-color); /* Usando variable de tema */
   border: none;
   border-radius: 8px;

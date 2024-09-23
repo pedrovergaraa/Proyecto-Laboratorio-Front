@@ -27,6 +27,7 @@ const ContractsForm = ({ onAdd }) => {
         <input type="date" name="email" />
       </div>
       <button type="submit" onClick={handleAddClick}>Agregar</button>
+      <button type="submit" onClick={handleAddClick}>Pagar</button>
       <ToastContainerComponent />
     </form>
   );
