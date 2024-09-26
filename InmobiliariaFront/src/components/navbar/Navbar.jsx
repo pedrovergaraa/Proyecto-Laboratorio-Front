@@ -38,9 +38,6 @@ const Navbar = () => {
           <Link to="/contracts" className={`navLink ${navLinkThemeClass}`}>CONTRATOS</Link>
         </li>
         <li className="navItem">
-          <Link to="/owners" className={`navLink ${navLinkThemeClass}`}>INMOBILIARIA</Link>
-        </li>
-        <li className="navItem">
           <Link to="/landlord" className={`navLink ${navLinkThemeClass}`}>PROPIETARIOS</Link>
         </li>
         <li className="navItem" onClick={() => setIsOpen(true)}>

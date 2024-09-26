@@ -1,23 +1,46 @@
+/* Estilos para la Tabla */
 .table-container {
-    margin-top: 20px;
-    border-radius: 10px; /* Redondear bordes de la tabla */
-    overflow: hidden; /* Para asegurar que los bordes no se corten */
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
+  margin-top: 20px;
+  border-radius: 10px; /* Redondear bordes de la tabla */
+  overflow-x: auto; /* Permitir el desplazamiento horizontal en pantallas pequeñas */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Asegura que la tabla no se colapse en pantallas muy pequeñas */
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+  color: black;
+}
+
+/* Temas claros y oscuros para la tabla */
+:root[data-bs-theme='light'] {
+  --table-background: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+  --table-text-color: black;
+}
+
+:root[data-bs-theme='dark'] {
+  --table-background: rgba(50, 50, 50, 0.8); /* Fondo oscuro semi-transparente */
+  --table-text-color: white;
+}
+
+table {
+  background-color: var(--table-background);
+  color: var(--table-text-color);
+}
+
+/* Estilos responsivos para la tabla */
+@media (max-width: 768px) {
   th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
+    padding: 10px 5px;
   }
-  
-  th {
-    background-color: #f4f4f4;
-    color: black;
-  }
-
-
+}

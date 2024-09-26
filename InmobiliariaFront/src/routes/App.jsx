@@ -6,7 +6,6 @@ import Register from '../components/register/Register';
 import Properties from '../components/properties/Properties';
 import Tenants from '../components/tenants/Tenants';
 import Contracts from '../components/contracts/Contracts';
-import Owners from '../components/owners/Owners';
 import Landlord from '../components/landlord/Landlord';
 import NotFound from './notFound/NotFound'; // Componente para la página 404
 import Protected from './protected/Protected'; // Componente para proteger rutas
@@ -37,10 +36,6 @@ const App = () => {
         {
           path: "/contracts",
           element: <Contracts />,
-        },
-        {
-          path: "/owners",
-          element: <Owners />,
         },
         {
           path: "/landlord",
