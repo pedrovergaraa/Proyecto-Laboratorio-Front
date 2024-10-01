@@ -1,8 +1,8 @@
 import React, {useState, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css'; 
-import { AuthenticationContext } from "../../services/authenticationContext/auth.context";
-import { ThemeContext } from '../../services/themeContext/theme.context';
+import { AuthenticationContext } from "../../context/authenticationContext/auth.context";
+import { ThemeContext } from '../../context/themeContext/theme.context';
 import finalLogo from '../../assets/images/final-logo.png';
 import ModalForm from "../../shared-components/modal/modalForm";
 
@@ -41,7 +41,7 @@ const Navbar = () => {
           <Link to="/landlord" className={`navLink ${navLinkThemeClass}`}>PROPIETARIOS</Link>
         </li>
         <li className="navItem" onClick={() => setIsOpen(true)}>
-          <span className={`navLink ${navLinkThemeClass} logout-btn`}>CERRAR SESIÓN</span>
+          <span className={`navLink ${navLinkThemeClass}`}>CERRAR SESIÓN</span>
         </li>
         <ModalForm isOpen={isOpen} onClose={() => setIsOpen(!isOpen)}>
           <div>

@@ -1,14 +1,14 @@
-/* Estilos para la Tabla */
+
 .table-container {
   margin-top: 20px;
-  border-radius: 10px; /* Redondear bordes de la tabla */
-  overflow-x: auto; /* Permitir el desplazamiento horizontal en pantallas pequeñas */
+  border-radius: 10px;
+  overflow-x: auto; 
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px; /* Asegura que la tabla no se colapse en pantallas muy pequeñas */
+  min-width: 600px; 
 }
 
 th, td {
@@ -22,15 +22,15 @@ th {
   color: black;
 }
 
-/* Temas claros y oscuros para la tabla */
+
 :root[data-bs-theme='light'] {
-  --table-background: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+  --table-background: rgba(255, 255, 255, 0.8); 
   --table-text-color: black;
 }
 
 :root[data-bs-theme='dark'] {
-  --table-background: rgba(50, 50, 50, 0.8); /* Fondo oscuro semi-transparente */
-  --table-text-color: white;
+  --table-background: rgba(50, 50, 50, 0.8); 
+  --table-text-color: white
 }
 
 table {
@@ -38,7 +38,6 @@ table {
   color: var(--table-text-color);
 }
 
-/* Estilos responsivos para la tabla */
 @media (max-width: 768px) {
   th, td {
     padding: 10px 5px;

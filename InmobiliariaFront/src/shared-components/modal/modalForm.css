@@ -8,27 +8,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* Asegura que el modal esté por encima de otros elementos */
+  z-index: 1000; 
 }
 
-/* Contenido del modal */
 .modal-content {
-  background-color: var(--modal-background); /* Usar variable para el fondo del modal */
-  border-radius: 8px; /* Bordes redondeados */
+  background-color: var(--modal-background); 
+  border-radius: 8px; 
   padding: 2%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
-  width: 50%; /* Ajusta según lo que necesites */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  width: 50%; 
   max-width: 600px;
-  position: relative; /* Necesario para el posicionamiento del botón de cerrar */
+  position: relative; 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-/* Botón de cerrar del modal */
 .modal-close-button {
-  background-color: var(--button-color); /* Usar variable para el color del botón */
+  background-color: var(--button-color);
   color: var(--button-text-color);
   border: none;
   border-radius: 50%;
@@ -44,59 +42,53 @@
   justify-content: center;
 }
 
-/* Efecto hover del botón de cerrar */
 .modal-close-button:hover {
-  background-color: var(--button-hover-color); /* Usar variable para el color del hover */
+  background-color: var(--button-hover-color); 
 }
 
-/* Estilos del formulario dentro del modal */
 .modal-content form {
-  width: 100%; /* Asegura que el formulario ocupe todo el ancho disponible */
+  width: 100%; 
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Espacio entre los elementos del formulario */
+  gap: 10px; 
 }
 
-/* Etiquetas del formulario */
 .modal-content form label {
   font-weight: bold;
 }
 
-/* Inputs y botones del formulario */
 .modal-content form input,
 .modal-content form button {
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid var(--input-border-color); /* Usar variable para el borde del input */
+  border: 1px solid var(--input-border-color); 
 }
 
-/* Botón del formulario */
+
 .modal-content form button {
-  background-color: var(--button-color); /* Usar variable para el color del botón */
+  background-color: var(--button-color); 
   color: var(--button-text-color);
   cursor: pointer;
   border: none;
   transition: background-color 0.3s;
 }
 
-/* Efecto hover del botón del formulario */
 .modal-content form button:hover {
-  background-color: var(--button-hover-color); /* Usar variable para el color del hover */
+  background-color: var(--button-hover-color); 
 }
 
-/* Variables para los modos claro y oscuro */
 :root[data-bs-theme='light'] {
-  --modal-background: #ffffff; /* Fondo claro para el modal */
-  --button-color: #007bff; /* Color del botón */
-  --button-text-color: white; /* Color del texto del botón */
-  --button-hover-color: #0056b3; /* Color de hover del botón */
-  --input-border-color: #ccc; /* Color del borde del input */
+  --modal-background: #ffffff; 
+  --button-color: #007bff; 
+  --button-text-color: white; 
+  --button-hover-color: #0056b3; 
+  --input-border-color: #ccc; 
 }
 
 :root[data-bs-theme='dark'] {
-  --modal-background: #2e2e2e; /* Fondo oscuro para el modal */
-  --button-color: #007bff; /* Color del botón */
-  --button-text-color: white; /* Color del texto del botón */
-  --button-hover-color: #0056b3; /* Color de hover del botón */
-  --input-border-color: #444; /* Color del borde del input */
+  --modal-background: #2e2e2e;
+  --button-color: #007bff; 
+  --button-text-color: white; 
+  --button-hover-color: #0056b3; 
+  --input-border-color: #444; 
 }

@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { loginUser } from "../../services/UserServiceTest"; // Asegúrate de que esta ruta es correcta
+import { loginUser } from "../../services/UserServiceTest"; 
 
 export const AuthenticationContext = createContext();
 
@@ -11,12 +11,11 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const handleLogin = async (email, password) => {
     try {
-      const data = await loginUser(email, password); // Llamada a la función del servicio
+      const data = await loginUser(email, password); 
 
-      // Guarda más información del usuario si es necesario (por ejemplo, el token)
       localStorage.setItem("user", JSON.stringify({ email: data.email, token: data.token }));
-      setUser({ email: data.email, token: data.token }); // Actualiza el estado del usuario con más información si es necesario
-      setAuthError(null); // Limpia los errores de autenticación previos
+      setUser({ email: data.email, token: data.token }); 
+      setAuthError(null); 
     } catch (error) {
       console.error("Error during login:", error);
       setAuthError("Invalid email or password.");

@@ -7,13 +7,12 @@ import Properties from '../components/properties/Properties';
 import Tenants from '../components/tenants/Tenants';
 import Contracts from '../components/contracts/Contracts';
 import Landlord from '../components/landlord/Landlord';
-import NotFound from './notFound/NotFound'; // Componente para la página 404
-import Protected from './protected/Protected'; // Componente para proteger rutas
-import { ThemeContextProvider } from '../services/themeContext/theme.context';
-// import { AuthenticationContextProvider } from '../services/authContext/auth.context'; // Proveedor de contexto de autenticación
+import NotFound from './notFound/NotFound'; 
+import Protected from './protected/Protected'; 
+import { ThemeContextProvider } from '../context/themeContext/theme.context';
 import "./App.css";
 import ToggleTheme from '../components/ui/toggleTheme/ToggleTheme';
-import { AuthenticationContextProvider } from '../services/authenticationContext/auth.context';
+import { AuthenticationContextProvider } from '../context/authenticationContext/auth.context';
 import UsersList from '../components/users/Users';
 
 
@@ -23,7 +22,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Protected />, // Rutas protegidas que requieren autenticación
+      element: <Protected />, 
       children: [
         {
           path: "/properties",
@@ -57,7 +56,7 @@ const App = () => {
     },
     {
       path: "*",
-      element: <NotFound />, // Ruta para manejar 404
+      element: <NotFound />, 
     },
   ]);
   return (
@@ -65,7 +64,7 @@ const App = () => {
       <AuthenticationContextProvider>
       <ThemeContextProvider>
         <div className="app-container">
-          <ToggleTheme className="theme-toggle-button" /> {/* Botón en contenedor superior */}
+          <ToggleTheme className="theme-toggle-button" /> 
           <RouterProvider router={router} />
         </div>
       </ThemeContextProvider>

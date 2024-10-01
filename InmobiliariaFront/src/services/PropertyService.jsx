@@ -1,4 +1,4 @@
-// Obtener todas las propiedades
+
 export const fetchAllProperties = async () => {
     try {
       const response = await fetch(`${API_URL}/properties`);
@@ -12,7 +12,6 @@ export const fetchAllProperties = async () => {
     }
   };
     
-  // Crear una nueva propiedad
   export const createProperty = async (property) => {
     try {
       const response = await fetch(`${API_URL}/properties`, {

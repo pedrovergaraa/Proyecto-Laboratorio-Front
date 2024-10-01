@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import loginImage from "../../assets/images/login-image.webp";
-import { AuthenticationContext } from "../../services/authenticationContext/auth.context"; // Importa el contexto de autenticación
+import { AuthenticationContext } from "../../context/authenticationContext/auth.context"; // Importa el contexto de autenticación
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -13,18 +13,17 @@ function Login() {
   });
   const [error, setError] = useState("");
 
-  const { handleLogin, handleLogout ,authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
+  const { handleLogin, handleLogout ,authError } = useContext(AuthenticationContext); 
   const navigate = useNavigate();
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
-    setErrors({ ...errors, [e.target.id]: false }); // Reinicia los errores al escribir
+    setErrors({ ...errors, [e.target.id]: false }); 
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validaciones del Formulario
     if (!email) {
       setErrors({ ...errors, email: true });
       return;
@@ -36,14 +35,14 @@ function Login() {
     }
 
     try {
-      console.log("Attempting to log in with:", email, password); // Debugging
-      await handleLogin(email, password); // Usando la función de contexto para manejar el login
+      console.log("Attempting to log in with:", email, password); 
+      await handleLogin(email, password); 
       if (!authError) {
-        navigate("/"); // Redirige solo si no hay errores de autenticación
+        navigate("/"); 
       }
     } catch (error) {
-      console.error("Login error:", error); // Debugging
-      setError("Invalid email or password."); // Manejo de errores local
+      console.error("Login error:", error); 
+      setError("Invalid email or password."); 
     }
   };
 
@@ -68,7 +67,7 @@ function Login() {
                 type="text"
                 id="email"
                 value={email}
-                onChange={(e) => handleInputChange(e, setEmail)} // Cambio a 'setEmail'
+                onChange={(e) => handleInputChange(e, setEmail)} 
               />
               {errors.email && (
                 <p className="pt-2 ps-2 text-danger">El email es obligatorio</p>
@@ -97,8 +96,8 @@ function Login() {
               Iniciar sesión
             </button>
           </form>
-          {error && <p className="pt-2 ps-2 text-danger">{error}</p>} {/* Mostrar error si existe */}
-          {authError && <p className="pt-2 ps-2 text-danger">{authError}</p>} {/* Mostrar error del contexto si existe */}
+          {error && <p className="pt-2 ps-2 text-danger">{error}</p>} 
+          {authError && <p className="pt-2 ps-2 text-danger">{authError}</p>} 
         </div>
         <div className="image-container">
           <img src={loginImage} alt="background" />

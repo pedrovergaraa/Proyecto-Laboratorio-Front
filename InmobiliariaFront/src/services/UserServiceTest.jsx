@@ -1,6 +1,5 @@
 const API_URL = 'http://localhost:8000';
 
-// Obtener todos los usuarios
 export const getUsers = async () => {
   try {
     const response = await fetch(`${API_URL}/users`);
@@ -14,7 +13,6 @@ export const getUsers = async () => {
   }
 };
 
-// Crear un nuevo usuario
 export const createUser = async (user) => {
   try {
     const response = await fetch(`${API_URL}/register`, {
@@ -34,7 +32,6 @@ export const createUser = async (user) => {
   }
 };
 
-// Autenticar un usuario
 export const loginUser = async (email, password) => {
   try {
     const response = await fetch(`${API_URL}/login`, {  // Suponiendo que tengas un endpoint `/login` configurado en tu FakeAPI
@@ -42,7 +39,7 @@ export const loginUser = async (email, password) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }), // Envía las credenciales al servidor
+      body: JSON.stringify({ email, password }), 
     });
 
     if (!response.ok) {
@@ -51,8 +48,7 @@ export const loginUser = async (email, password) => {
 
     const data = await response.json();
 
-    // Aquí puedes manejar el token de autenticación o la información del usuario que viene de la respuesta
-    return data; // Devuelve la respuesta del servidor que podría incluir un token de autenticación
+    return data; 
   } catch (error) {
     console.error('Error logging in:', error);
     throw error;

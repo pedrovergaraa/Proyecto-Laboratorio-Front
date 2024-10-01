@@ -10,14 +10,14 @@ const OwnersForm = ({ onAdd }) => {
   };
 
   const handleAddClick = (event) => {
-    event.preventDefault(); // Prevenir que el formulario se envíe
+    event.preventDefault(); 
 
     if (onAdd) {
-      onAdd(ownerData); // Pasa los datos del nuevo Owner a la función de callback
+      onAdd(ownerData); 
     }
 
-    showSuccessToast("Usuario agregado con éxito!"); // Muestra la notificación de éxito
-    setOwnerData({ name: '', email: '' }); // Limpia el formulario después de agregar
+    showSuccessToast("Usuario agregado con éxito!"); 
+    setOwnerData({ name: '', email: '' }); 
   };
 
   return (

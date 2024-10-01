@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './Card.css'; // Opcionalmente, puedes agregar estilos personalizados
+import './Card.css'; 
 import ModalForm from '../modal/modalForm';
-import WeatherApi from '../../components/weather/WeatherApi';
 
 
 const Card = ({ title, children, FormComponent, formProps }) => {
-  const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar el modal
+  const [isModalOpen, setModalOpen] = useState(false); 
 
   const handleAddClick = () => {
-    setModalOpen(true); // Abrir el modal
+    setModalOpen(true); 
   };
 
   const handleCloseModal = () => {
-    setModalOpen(false); // Cerrar el modal
+    setModalOpen(false); 
   };
 
   return (
@@ -29,10 +28,8 @@ const Card = ({ title, children, FormComponent, formProps }) => {
           + Agregar
         </button>
       </div>
-      {/* Renderiza ModalForm solo si está abierto y pasa FormComponent como contenido */}
       {isModalOpen && (
         <ModalForm isOpen={isModalOpen} onClose={handleCloseModal}>
-          {/* Renderiza el FormComponent con sus props si existe */}
           {FormComponent ? <FormComponent {...formProps} /> : null}
         </ModalForm>
       )}
@@ -40,7 +37,7 @@ const Card = ({ title, children, FormComponent, formProps }) => {
   );
 };
 
-// Definir los tipos de prop
+
 Card.propTypes = {
   title: PropTypes.string.isRequired, // El título es obligatorio y debe ser un string
   children: PropTypes.node, // Los hijos pueden ser cualquier cosa que React pueda renderizar

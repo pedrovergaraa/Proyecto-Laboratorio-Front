@@ -3,10 +3,10 @@ import { ToastContainerComponent, showSuccessToast } from '../../shared-componen
 
 const LandlordsForm = ({ onAdd }) =>{
   const handleAddClick = (event) => {
-    event.preventDefault(); // Prevenir que el formulario se envíe
+    event.preventDefault(); 
 
     if (onAdd) {
-      onAdd(); // Ejecuta cualquier función que se pase a través de props
+      onAdd(); 
     }
 
     showSuccessToast("Usuario agregado con éxito!");
