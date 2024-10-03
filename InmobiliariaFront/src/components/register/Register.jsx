@@ -1,7 +1,6 @@
 // src/components/Register.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUser } from '../../services/UserServiceTest';
 import loginImage from '../../assets/images/login-image.webp';
 
 function Register() {

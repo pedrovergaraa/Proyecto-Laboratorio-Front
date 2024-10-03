@@ -13,7 +13,6 @@ import { ThemeContextProvider } from '../context/themeContext/theme.context';
 import "./App.css";
 import ToggleTheme from '../components/ui/toggleTheme/ToggleTheme';
 import { AuthenticationContextProvider } from '../context/authenticationContext/auth.context';
-import UsersList from '../components/users/Users';
 
 
 
@@ -39,10 +38,6 @@ const App = () => {
         {
           path: "/landlord",
           element: <Landlord />,
-        },
-        {
-          path: "/users",
-          element: <UsersList />,
         },
       ],
     },

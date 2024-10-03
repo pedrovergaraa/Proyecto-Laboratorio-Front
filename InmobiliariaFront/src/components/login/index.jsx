@@ -13,12 +13,41 @@ function Login() {
   });
   const [error, setError] = useState("");
 
-  const { handleLogin, handleLogout ,authError } = useContext(AuthenticationContext); 
+  const { handleLogout, authError } = useContext(AuthenticationContext); 
   const navigate = useNavigate();
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
     setErrors({ ...errors, [e.target.id]: false }); 
+  };
+
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      console.log(await response.text()); 
+
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      const data = await response.json();
+      console.log("Login exitoso:", data);
+      
+      // Aquí podrías almacenar el token en localStorage u otra forma de estado
+      localStorage.setItem('user', JSON.stringify(data));
+
+      return data;
+    } catch (error) {
+      console.error('Error en el login:', error);
+      setError('Correo o contraseña incorrectos.');
+      throw error;
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -36,21 +65,20 @@ function Login() {
 
     try {
       console.log("Attempting to log in with:", email, password); 
-      await handleLogin(email, password); 
-      if (!authError) {
-        navigate("/"); 
+      const user = await handleLogin(email, password); 
+      if (user) {
+        navigate("/"); // Redirige al usuario a la página principal
       }
     } catch (error) {
       console.error("Login error:", error); 
-      setError("Invalid email or password."); 
     }
   };
 
-  useEffect(()=>{
-    if(localStorage.getItem("user")){
-      handleLogout()
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      handleLogout();
     }
-  },[])
+  }, []);
 
   return (
     <div className="login-container">

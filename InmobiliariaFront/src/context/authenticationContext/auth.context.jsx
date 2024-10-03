@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { loginUser } from "../../services/UserServiceTest"; 
 
 export const AuthenticationContext = createContext();
 
@@ -11,11 +10,23 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const handleLogin = async (email, password) => {
     try {
-      const data = await loginUser(email, password); 
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      const data = await response.json();
 
       localStorage.setItem("user", JSON.stringify({ email: data.email, token: data.token }));
-      setUser({ email: data.email, token: data.token }); 
-      setAuthError(null); 
+      setUser({ email: data.email, token: data.token });
+      setAuthError(null);
     } catch (error) {
       console.error("Error during login:", error);
       setAuthError("Invalid email or password.");
