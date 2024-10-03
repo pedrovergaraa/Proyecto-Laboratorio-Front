@@ -1,8 +1,9 @@
 import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropertiesForm from '../../forms/PropertiesForm/PropertiesForm';
 import { fetchAllProperties } from '../../services/SysAdminService';
+
 
 
 const Properties = () => {

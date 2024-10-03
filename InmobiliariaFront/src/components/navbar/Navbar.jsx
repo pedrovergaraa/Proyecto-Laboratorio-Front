@@ -9,7 +9,7 @@ import ModalForm from "../../shared-components/modal/modalForm";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { handleLogout } = useContext(AuthenticationContext);
-  const { theme } = useContext(ThemeContext); // Usar tema
+  const { theme } = useContext(ThemeContext); 
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -18,7 +18,6 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  // Clases condicionales para los temas
   const navbarThemeClass = theme === "light" ? "navbar-light" : "navbar-dark";
   const navLinkThemeClass = theme === "light" ? "navLink-light" : "navLink-dark";
 
