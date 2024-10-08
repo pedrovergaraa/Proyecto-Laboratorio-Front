@@ -13,72 +13,41 @@ function Login() {
   });
   const [error, setError] = useState("");
 
-  const { handleLogout, authError } = useContext(AuthenticationContext); 
+  const { handleLogin, handleLogout ,authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
   const navigate = useNavigate();
+
+  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
-    setErrors({ ...errors, [e.target.id]: false }); 
-  };
-
-  const handleLogin = async (email, password) => {
-    try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      console.log(await response.text()); 
-
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const data = await response.json();
-      console.log("Login exitoso:", data);
-      
-      // Aquí podrías almacenar el token en localStorage u otra forma de estado
-      localStorage.setItem('user', JSON.stringify(data));
-
-      return data;
-    } catch (error) {
-      console.error('Error en el login:', error);
-      setError('Correo o contraseña incorrectos.');
-      throw error;
-    }
+    setErrors((prevErrors) => ({ ...prevErrors, [e.target.id]: false }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email) {
-      setErrors({ ...errors, email: true });
-      return;
-    }
-
-    if (!password) {
-      setErrors({ ...errors, password: true });
+    // Validaciones del Formulario
+    if (!email || !isValidEmail(email)) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: true }));
       return;
     }
 
     try {
-      console.log("Attempting to log in with:", email, password); 
-      const user = await handleLogin(email, password); 
-      if (user) {
-        navigate("/"); // Redirige al usuario a la página principal
+      await handleLogin(email, password); // Llamar al login del contexto
+      if (!authError) {
+        navigate("/properties"); // Redirige solo si no hay errores de autenticación
       }
     } catch (error) {
-      console.error("Login error:", error); 
+      console.error("Login error:", error);
+      setError("Invalid email or password.");
     }
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      handleLogout();
+  useEffect(()=>{
+    if(localStorage.getItem("user")){
+      handleLogout()
     }
-  }, []);
+  },[])
 
   return (
     <div className="login-container">
@@ -98,7 +67,9 @@ function Login() {
                 onChange={(e) => handleInputChange(e, setEmail)} 
               />
               {errors.email && (
-                <p className="pt-2 ps-2 text-danger">El email es obligatorio</p>
+                <p className="pt-2 ps-2 text-danger">
+                {email ? "El formato del email es incorrecto" : "El email es obligatorio"}
+              </p>
               )}
             </div>
             <div className="form-group">

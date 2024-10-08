@@ -10,10 +10,13 @@ const Properties = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
-    // Llamar a la API para obtener las propiedades
     const fetchProperties = async () => {
-      const data = await fetchAllProperties();
-      setProperties(data);
+      try {
+        const data = await fetchAllProperties();
+        setProperties(data);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      }
     };
 
     fetchProperties();

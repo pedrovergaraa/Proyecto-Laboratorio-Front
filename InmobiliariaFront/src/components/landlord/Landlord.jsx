@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
 import LandlordForm from '../../forms/LandlordsForm/LandlordsForm';

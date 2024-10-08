@@ -28,4 +28,4 @@ const TenantsForm = ({ onAdd }) =>{
     );
 };
 
-export default TenantsForm 
+export default TenantsForm;

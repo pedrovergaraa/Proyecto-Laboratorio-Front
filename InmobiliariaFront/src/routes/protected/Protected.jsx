@@ -13,15 +13,13 @@ const Protected = () => {
   }
 
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
-
-  if (location.pathname === "/") {
-    return <Navigate to="/properties" />;
-  }
+  const themeClass = isAuthPage ? '' : (localStorage.getItem("theme") === "light" ? 'background-light' : 'background-dark');
 
   return (
-    <div className={isAuthPage ? 'no-background' : 'background'}>
+    <div className={`${themeClass}`}>
       {!isAuthPage && <Navbar />}
       {!isAuthPage && <WeatherApi />}
+      {!isAuthPage && <ToggleTheme isAuthPage={isAuthPage} />}
       <Outlet />
     </div>
   );

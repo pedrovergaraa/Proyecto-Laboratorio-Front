@@ -7,8 +7,11 @@ import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 const ToggleTheme = ({ className, isAuthPage }) => {
     const { toggleTheme, theme } = useContext(ThemeContext);
 
+    // Establece las clases adicionales de tema
     const navbarThemeClass = theme === "light" ? "navbar-light" : "navbar-dark";
+    const navLinkThemeClass = theme === "light" ? "navLink-light" : "navLink-dark";
 
+    // Estilos en línea para el fondo
     const backgroundStyle = {
         backgroundImage: isAuthPage ? "none" : (theme === "light" 
             ? "url('/src/assets/images/pexels-lkloeppel-466685.jpg')" 
@@ -28,6 +31,7 @@ const ToggleTheme = ({ className, isAuthPage }) => {
 
     return (
         <div style={backgroundStyle}>
+            {/* Mantén la estructura original del navbar */}
             <nav className={`navbar ${navbarThemeClass}`}>
                 
             </nav>
