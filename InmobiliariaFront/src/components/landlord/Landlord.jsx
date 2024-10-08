@@ -9,8 +9,7 @@ const Landlord = () => {
 
   return (
     <div>
-      <h1>Landlord</h1>
-      <Card title='Propietario' FormComponent={LandlordForm}>
+      <Card title='Propietarios' FormComponent={LandlordForm}>
         <Table></Table>
       </Card>
     </div>

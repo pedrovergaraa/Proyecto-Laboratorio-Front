@@ -4,7 +4,6 @@ import './Card.css';
 import ModalForm from '../modal/modalForm';
 
 
-
 const Card = ({ title, children, FormComponent, formProps }) => {
   const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar el modal
 
@@ -48,7 +47,6 @@ Card.propTypes = {
   children: PropTypes.node, // Los hijos pueden ser cualquier cosa que React pueda renderizar
   FormComponent: PropTypes.elementType.isRequired, // Recibe un componente de formulario
   formProps: PropTypes.object, // Props adicionales para el componente del formulario
-
 };
 
 export default Card;

@@ -1,6 +1,5 @@
-
-.background{
-background-image: url('/src/assets/images/pexels-lkloeppel-466685.jpg'); 
+.background-light {
+  background-image: url('/src/assets/images/pexels-lkloeppel-466685.jpg'); /* Imagen para modo claro */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -13,31 +12,35 @@ background-image: url('/src/assets/images/pexels-lkloeppel-466685.jpg');
   opacity: 0.8;
 }
 
-.background::before {
-  content: "";
+.background-dark {
+  background-image: url('/src/assets/images/WhatsApp\ Image\ 2024-09-19\ at\ 18.32.27.jpeg'); /* Imagen para modo oscuro */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* .background::before {
+  content: "";
+  top: 0;
+  left: 0;
+  width: auto
   height: 100%;
   background-color: rgba(255, 255, 255, 0.1); 
-  z-index: -1; 
-}
+  z-index: -1;
+} */
 
 .content {
   position: relative;
-  z-index: 2; 
-  padding-top: 60px; 
+  z-index: 2;
+  padding-top: 60px;
 }
-
-.no-background {
-  background-color: #f5f5f5; 
-}
-
-.app-container {
-  position: relative; 
-}
-
 .theme-toggle-button {
   position: fixed;
   top: 55px; 
@@ -45,13 +48,22 @@ background-image: url('/src/assets/images/pexels-lkloeppel-466685.jpg');
   background-color: #007bff; 
   color: white;
   border: none;
-  border-radius: 5px; 
-
+  border-radius: 50px; /* Botón más redondeado */
+  padding: 10px 20px; /* Ajusta el padding según prefieras */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Espacio entre el ícono y el texto */
+  z-index: 9999;
 }
 
-.theme-toggle-button:hover{
-  transition: 0.4s;
-  background-color: white;
+.theme-toggle-button:hover {
+  background-color: #0056b3; /* Cambia el color al pasar el ratón */
+  z-index: 9999;
 }
 
+div{
+  border: 0;
+  width: auto;
+}
 

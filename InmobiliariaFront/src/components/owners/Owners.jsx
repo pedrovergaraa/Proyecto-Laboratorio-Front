@@ -2,41 +2,41 @@ import React, { useState, useEffect } from "react";
 import OwnersForm from "../../forms/OwnersForm/OwnersForm";
 import Card from "../../shared-components/card/card";
 import Table from "../../shared-components/table/Table";
-import { getAllOwners, createOwner } from "../../services/OwnerService";
+// import { getAllOwners, createOwner } from "../../services/OwnerService";
 
-const Owners = () => {
-  const [owners, setOwners] = useState([]);
+ const Owners = () => {
+//   const [owners, setOwners] = useState([]);
 
-  useEffect(() => {
-    const fetchOwners = async () => {
-      try {
-        const data = await getAllOwners();
-        setOwners(data);
-      } catch (error) {
-        console.error("Error fetching owners:", error);
-      }
-    };
+//   useEffect(() => {
+//     const fetchOwners = async () => {
+//       try {
+//         const data = await getAllOwners();
+//         setOwners(data);
+//       } catch (error) {
+//         console.error("Error fetching owners:", error);
+//       }
+//     };
 
-    fetchOwners();
-  }, []);
+//     fetchOwners();
+//   }, []);
 
-  const handleAddOwner = async (newOwnerData) => {
-    try {
-      const createdOwner = await createOwner(newOwnerData);
-      setOwners([...owners, createdOwner]); // Actualiza la lista de Owners
-    } catch (error) {
-      console.error("Error creating owner:", error);
-    }
-  };
+//   const handleAddOwner = async (newOwnerData) => {
+//     try {
+//       const createdOwner = await createOwner(newOwnerData);
+//       setOwners([...owners, createdOwner]); // Actualiza la lista de Owners
+//     } catch (error) {
+//       console.error("Error creating owner:", error);
+//     }
+//   };
 
-  // Define las columnas para la tabla de Owners
-  const columns = [
-    { Header: "ID", accessor: "id" },
-    { Header: "Nombre", accessor: "name" },
-    { Header: "Correo Electrónico", accessor: "email" },
-    { Header: "Rol", accessor: "role" },
-    { Header: "Admin ID", accessor: "admin.id" },
-  ];
+//   // Define las columnas para la tabla de Owners
+//   const columns = [
+//     { Header: "ID", accessor: "id" },
+//     { Header: "Nombre", accessor: "name" },
+//     { Header: "Correo Electrónico", accessor: "email" },
+//     { Header: "Rol", accessor: "role" },
+//     { Header: "Admin ID", accessor: "admin.id" },
+//   ];
 
   return (
     <div>
