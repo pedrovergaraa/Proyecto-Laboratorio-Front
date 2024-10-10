@@ -3,6 +3,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import WeatherApi from '../../components/weather/WeatherApi'; 
 import { AuthenticationContext } from '../../context/authenticationContext/auth.context';
+import './Protected.css';
 
 const Protected = () => {
   const { user } = useContext(AuthenticationContext); 
