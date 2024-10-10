@@ -42,11 +42,7 @@
   border-radius: 4px;
   cursor: pointer;
   margin-left: 90%;
-<<<<<<< HEAD
   position: unset;
-=======
-  position: relative;
->>>>>>> main
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
@@ -54,7 +50,7 @@
   background-color: #0056b3;
 }
 
-<<<<<<< HEAD
+
   :root[data-bs-theme='light'] {
     --background-color: white;
     --text-color: black;
@@ -83,7 +79,6 @@
     color: var(--table-text-color);
   }
   
-=======
 :root[data-bs-theme='light'] {
   --card-background: #f8f9fa;
   --card-border-color: #ddd; 
@@ -103,17 +98,14 @@
 }
 
 @media (max-width: 768px) {
->>>>>>> main
+
   .card {
     width: 100%;
     margin: 10px 0;
   }
-<<<<<<< HEAD
   
-=======
 
   .card-add-button {
     margin-left: 80%;
   }
 }
->>>>>>> main
