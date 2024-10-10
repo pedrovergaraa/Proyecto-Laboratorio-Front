@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Table.css'; // Opcionalmente, puedes agregar estilos personalizados
+import './Table.css'; 
 
 const Table = ({ columns, data }) => {
   if (!data || data.length === 0) {

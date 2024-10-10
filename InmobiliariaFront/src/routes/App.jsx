@@ -7,8 +7,8 @@ import Register from '../components/register/Register';
 import Properties from '../components/properties/Properties';
 import Tenants from '../components/tenants/Tenants';
 import Contracts from '../components/contracts/Contracts';
-import Owners from '../components/owners/Owners';
 import Landlord from '../components/landlord/Landlord';
+<<<<<<< HEAD
 import UserTenant from '../authComponents/userTenant/userTenant';
 
 import NotFound from './notFound/NotFound'; // Componente para la página 404
@@ -20,6 +20,14 @@ import "./App.css";
 import ToggleTheme from '../components/ui/toggleTheme/ToggleTheme';
 import { AuthenticationContextProvider } from '../services/authenticationContext/auth.context';
 import UsersList from '../components/users/Users';
+=======
+import NotFound from './notFound/NotFound'; 
+import Protected from './protected/Protected'; 
+import { ThemeContextProvider } from '../context/themeContext/theme.context';
+import "./App.css";
+import ToggleTheme from '../components/ui/toggleTheme/ToggleTheme';
+import { AuthenticationContextProvider } from '../context/authenticationContext/auth.context';
+>>>>>>> main
 
 
 
@@ -28,7 +36,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Protected />, // Rutas protegidas que requieren autenticación
+      element: <Protected />, 
       children: [
         {
           path: "/properties",
@@ -41,10 +49,6 @@ const App = () => {
         {
           path: "/contracts",
           element: <Contracts />,
-        },
-        {
-          path: "/owners",
-          element: <Owners />,
         },
         {
           path: "/landlord",
@@ -71,7 +75,7 @@ const App = () => {
     },
     {
       path: "*",
-      element: <NotFound />, // Ruta para manejar 404
+      element: <NotFound />, 
     },
   ]);
   return (
@@ -79,7 +83,7 @@ const App = () => {
       <AuthenticationContextProvider>
       <ThemeContextProvider>
         <div className="app-container">
-          <ToggleTheme className="theme-toggle-button" /> {/* Botón en contenedor superior */}
+          <ToggleTheme className="theme-toggle-button" /> 
           <RouterProvider router={router} />
         </div>
       </ThemeContextProvider>

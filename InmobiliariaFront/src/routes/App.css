@@ -1,3 +1,4 @@
+
 .background-light {
   background-image: url('/src/assets/images/pexels-lkloeppel-466685.jpg'); /* Imagen para modo claro */
   background-size: cover;
@@ -66,4 +67,3 @@ div{
   border: 0;
   width: auto;
 }
-

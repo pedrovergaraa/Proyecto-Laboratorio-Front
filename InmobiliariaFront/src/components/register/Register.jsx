@@ -45,6 +45,25 @@ function Register() {
       return;
     }
 
+    const createUser = async (user) => {
+      try {
+        const response = await fetch(`${API_URL}/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(user),
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+      }
+    };
+
     try {
       await createUser({ firstName: fullName.split(' ')[0], lastName: fullName.split(' ').slice(1).join(' '), dni, email, password });
       setSuccess('User registered successfully!');

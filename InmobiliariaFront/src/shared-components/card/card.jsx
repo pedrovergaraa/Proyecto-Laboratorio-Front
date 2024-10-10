@@ -5,8 +5,8 @@ import ModalForm from '../modal/modalForm';
 
 
 const Card = ({ title, children, FormComponent, formProps }) => {
-  const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar el modal
 
+  const [isModalOpen, setModalOpen] = useState(false); 
 
   const handleAddClick = () => {
     setModalOpen(true); 
@@ -29,10 +29,8 @@ const Card = ({ title, children, FormComponent, formProps }) => {
           + Agregar
         </button>
       </div>
-      {/* Renderiza ModalForm solo si está abierto y pasa FormComponent como contenido */}
       {isModalOpen && (
         <ModalForm isOpen={isModalOpen} onClose={handleCloseModal}>
-          {/* Renderiza el FormComponent con sus props si existe */}
           {FormComponent ? <FormComponent {...formProps} /> : null}
         </ModalForm>
       )}

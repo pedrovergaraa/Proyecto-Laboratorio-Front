@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Button } from "react-bootstrap";
-import { ThemeContext } from "../../../services/themeContext/theme.context";
+import { ThemeContext } from "../../../context/themeContext/theme.context";
 import ModeNightOutlinedIcon from '@mui/icons-material/ModeNightOutlined';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 
