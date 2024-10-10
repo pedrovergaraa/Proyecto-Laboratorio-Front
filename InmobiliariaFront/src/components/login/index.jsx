@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import loginImage from "../../assets/images/login-image.webp";
 import { AuthenticationContext } from "../../context/authenticationContext/auth.context"; // Importa el contexto de autenticación
+// import {loginUser} from '../../services/UserServiceTest'
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ function Login() {
   });
   const [error, setError] = useState("");
 
-  const { handleLogin, handleLogout ,authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
+  const { handleLogin,authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
   const navigate = useNavigate();
 
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -32,14 +33,17 @@ function Login() {
       return;
     }
 
-    if(!password){
-      setError((...error)=>({...error, password: true}))
-    }
+    if (!password) {
+      setErrors((prevErrors) => ({ ...prevErrors, password: true }));
+      return;
+    }    
 
     try {
       await handleLogin(email, password); // Llamar al login del contexto
-      if (!authError) {
-        navigate("/properties"); // Redirige solo si no hay errores de autenticación
+      if (authError) {
+        setError(authError);
+      } else {
+        navigate("/properties");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -47,11 +51,12 @@ function Login() {
     }
   };
 
-  useEffect(()=>{
-    if(localStorage.getItem("user")){
-      handleLogout()
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      navigate("/properties"); // Redirige si ya está logueado
     }
-  },[])
+  }, [navigate]);
+  
 
   return (
     <div className="login-container">

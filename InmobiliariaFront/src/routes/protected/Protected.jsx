@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
   const location = useLocation();
 
   if (!user) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to="/login" state={{ from: location, message: "Debes iniciar sesión para acceder a esta página." }} />;
   }
 
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
