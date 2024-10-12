@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import loginImage from "../../assets/images/login-image.webp";
 import { AuthenticationContext } from "../../context/authenticationContext/auth.context"; // Importa el contexto de autenticación
-// import {loginUser} from '../../services/UserServiceTest'
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -14,7 +13,7 @@ function Login() {
   });
   const [error, setError] = useState("");
 
-  const { handleLogin,authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
+  const { handleLogin, authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
   const navigate = useNavigate();
 
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -36,18 +35,17 @@ function Login() {
     if (!password) {
       setErrors((prevErrors) => ({ ...prevErrors, password: true }));
       return;
-    }    
+    }
 
     try {
-      await handleLogin(email, password); // Llamar al login del contexto
-      if (authError) {
-        setError(authError);
-      } else {
-        navigate("/properties");
+      // Llamar al login del contexto, que a su vez usará loginUser del servicio
+      await handleLogin(email, password);
+      if (!authError) {
+        navigate("/properties"); // Redirigir en caso de éxito
       }
     } catch (error) {
       console.error("Login error:", error);
-      setError("Invalid email or password.");
+      setError("Email o contraseña incorrectos.");
     }
   };
 
@@ -56,7 +54,6 @@ function Login() {
       navigate("/properties"); // Redirige si ya está logueado
     }
   }, [navigate]);
-  
 
   return (
     <div className="login-container">
@@ -73,12 +70,12 @@ function Login() {
                 type="text"
                 id="email"
                 value={email}
-                onChange={(e) => handleInputChange(e, setEmail)} 
+                onChange={(e) => handleInputChange(e, setEmail)}
               />
               {errors.email && (
                 <p className="pt-2 ps-2 text-danger">
-                {email ? "El formato del email es incorrecto" : "El email es obligatorio"}
-              </p>
+                  {email ? "El formato del email es incorrecto" : "El email es obligatorio"}
+                </p>
               )}
             </div>
             <div className="form-group">
@@ -92,9 +89,7 @@ function Login() {
                 onChange={(e) => handleInputChange(e, setPassword)}
               />
               {errors.password && (
-                <p className="pt-2 ps-2 text-danger">
-                  La contraseña es obligatoria
-                </p>
+                <p className="pt-2 ps-2 text-danger">La contraseña es obligatoria</p>
               )}
             </div>
             <p>
@@ -104,8 +99,9 @@ function Login() {
               Iniciar sesión
             </button>
           </form>
-          {error && <p className="pt-2 ps-2 text-danger">{error}</p>} 
-          {authError && <p className="pt-2 ps-2 text-danger">{authError}</p>} 
+          {/* Muestra el mensaje de error de autenticación */}
+          {error && <p className="pt-2 ps-2 text-danger">{error}</p>}
+          {authError && <p className="pt-2 ps-2 text-danger">{authError}</p>}
         </div>
         <div className="image-container">
           <img src={loginImage} alt="background" />

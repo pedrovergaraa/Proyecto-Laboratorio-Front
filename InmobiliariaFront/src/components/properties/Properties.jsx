@@ -10,17 +10,22 @@ const Properties = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
+    console.log("Fetching properties...");
     const fetchProperties = async () => {
       try {
         const data = await fetchAllProperties();
         setProperties(data);
+        console.log("Properties fetched:", data);
       } catch (error) {
         console.error("Error fetching properties:", error);
       }
     };
-
+  
     fetchProperties();
   }, []);
+  
+  console.log("Rendering Properties component...");
+  
 
   // Definir las columnas para la tabla
   const columns = [
@@ -31,11 +36,16 @@ const Properties = () => {
 
   return (
     <div>
-      <Card title='Propiedades' FormComponent={PropertiesForm}>
-        <Table columns={columns} data={properties} ></Table>
+      <Card title="Propiedades" FormComponent={PropertiesForm}>
+        {properties.length > 0 ? (
+          <Table columns={columns} data={properties} />
+        ) : (
+          <p>No hay datos disponibles</p>
+        )}
       </Card>
     </div>
-  )
+  );
+  
 }
 
 export default Properties

@@ -46,11 +46,6 @@ const Navbar = () => {
           <Link to="/landlord" className={`navLink ${navLinkThemeClass}`}>PROPIETARIOS</Link>
         </li>
         <li className="navItem" onClick={() => setIsOpen(true)}>
-          <span className={`navLink ${navLinkThemeClass} logout-btn`}>CERRAR SESIÓN</span>
-
-          <Link to="/landlord" className={`navLink ${navLinkThemeClass}`}>PROPIETARIOS</Link>
-        </li>
-        <li className="navItem" onClick={() => setIsOpen(true)}>
           <span className={`navLink ${navLinkThemeClass}`}>CERRAR SESIÓN</span>
         </li>
         <ModalForm isOpen={isOpen} onClose={() => setIsOpen(!isOpen)}>
