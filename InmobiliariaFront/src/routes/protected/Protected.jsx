@@ -30,7 +30,7 @@ const ProtectedRoute = () => {
                   <Outlet /> {/* Rutas hijas */}
               </div>
           )}
-          { <Outlet />} {/* Si es login/register, solo se renderiza el Outlet */}
+           {/* Si es login/register, solo se renderiza el Outlet */}
       </>
   );
 };

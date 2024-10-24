@@ -29,7 +29,6 @@ const Landlord = () => {
   return (
     <div>
       <Card title='Propietarios' FormComponent={LandlordForm}>
-        <Table></Table>
         <Table  columns={columns} data={landlords} ></Table>
       </Card>
     </div>
