@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { loginUser } from "../../services/UserServiceTest"; // Asegúrate de que esta ruta es correcta
 
 export const AuthenticationContext = createContext();
 
@@ -8,28 +9,17 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(userValue);
   const [authError, setAuthError] = useState(null);
 
-  const handleLogin = async (mail, password) => {
+  const handleLogin = async (email, password) => {
     try {
-      const response = await fetch('https://inmobiliariaaustral-1ba25c8cc0e8.herokuapp.com/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ mail, password }),
-      });
+      const data = await loginUser(email, password); // Llamada a la función del servicio
 
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const data = await response.json();
-
-      localStorage.setItem("user", JSON.stringify({ mail: data.mail, token: data.token }));
-      setUser({ mail: data.mail, token: data.token });
-      setAuthError(null);
+      // Guarda más información del usuario si es necesario (por ejemplo, el token)
+      localStorage.setItem("user", JSON.stringify({ email: data.email, token: data.token }));
+      setUser({ email: data.email, token: data.token }); // Actualiza el estado del usuario con más información si es necesario
+      setAuthError(null); // Limpia los errores de autenticación previos
     } catch (error) {
       console.error("Error during login:", error);
-      setAuthError("Invalid mail or password.");
+      setAuthError("Invalid email or password.");
     }
   };
 

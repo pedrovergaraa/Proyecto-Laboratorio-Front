@@ -18,8 +18,8 @@ const LandlordsForm = ({ onAdd }) =>{
         <input type="text" name="name" />
       </div>
       <div>
-        <label>Email:</label>
-        <input type="email" name="email" />
+        <label>mail:</label>
+        <input type="mail" name="mail" />
       </div>
       <button type="submit" onClick={handleAddClick}>Agregar</button>
       <ToastContainerComponent />

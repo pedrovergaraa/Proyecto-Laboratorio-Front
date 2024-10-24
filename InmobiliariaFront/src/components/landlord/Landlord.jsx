@@ -21,7 +21,7 @@ const Landlord = () => {
   // Definir las columnas para la tabla
   const columns = [
     { Header: 'Name', accessor: 'name' },
-    { Header: 'Email', accessor: 'email' },
+    { Header: 'mail', accessor: 'mail' },
     { Header: 'Phone', accessor: 'phone' },
   ];
 
@@ -29,7 +29,6 @@ const Landlord = () => {
   return (
     <div>
       <Card title='Propietarios' FormComponent={LandlordForm}>
-        <Table></Table>
         <Table  columns={columns} data={landlords} ></Table>
       </Card>
     </div>

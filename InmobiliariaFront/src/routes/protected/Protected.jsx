@@ -11,11 +11,11 @@ const ProtectedRoute = () => {
   const { theme } = useContext(ThemeContext);
   const location = useLocation();
 
-  // if (!user) {
-  //   return <Navigate to="/login" state={{ from: location, message: "Debes iniciar sesión para acceder a esta página." }} />;
-  // }
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location, message: "Debes iniciar sesión para acceder a esta página." }} />;
+  }
 
-  // const isAuthPage = ["/login", "/register"].includes(location.pathname);
+  const isAuthPage = ["/login", "/register"].includes(location.pathname);
 
   // Estilo dinámico basado en el tema (claro/oscuro)
   const backgroundClass = theme === 'light' ? 'background-light' : 'background-dark';
@@ -30,7 +30,7 @@ const ProtectedRoute = () => {
                   <Outlet /> {/* Rutas hijas */}
               </div>
           )}
-          { <Outlet />} {/* Si es login/register, solo se renderiza el Outlet */}
+          {/* { <Outlet />} Si es login/register, solo se renderiza el Outlet */}
       </>
   );
 };

@@ -3,10 +3,11 @@
   border-radius: 8px;
   margin: 5%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #ffffffb8;
+  background-color: #ffffff;
   width: 70%;
   float: left;
   overflow: hidden;
+  background-color: #0056b3;
 }
 
 
