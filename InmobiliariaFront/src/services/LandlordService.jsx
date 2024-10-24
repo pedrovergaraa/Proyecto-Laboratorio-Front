@@ -1,6 +1,4 @@
 
-const API_URL = 'http://localhost:8000';
-
 // Obtener todos los landlords
 export const fetchAllLandlords = async () => {
   try {
