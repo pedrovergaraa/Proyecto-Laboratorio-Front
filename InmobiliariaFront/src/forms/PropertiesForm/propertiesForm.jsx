@@ -28,8 +28,8 @@ const PropertiesForm = ({ onAdd, onClose }) => {
         <input type="text" name="address" />
       </div>
       <div>
-        <label>Email:</label>
-        <input type="email" name="email" />
+        <label>mail:</label>
+        <input type="mail" name="mail" />
       </div>
       <button type="submit" onClick={handleAddClick}>Agregar</button>
       <ToastContainerComponent />

@@ -5,10 +5,10 @@ import loginImage from "../../assets/images/login-image.webp";
 import { AuthenticationContext } from "../../context/authenticationContext/auth.context"; // Importa el contexto de autenticación
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [mail, setmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
-    email: false,
+    mail: false,
     password: false,
   });
   const [error, setError] = useState("");
@@ -16,7 +16,7 @@ function Login() {
   const { handleLogin, authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
   const navigate = useNavigate();
 
-  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+  const isValidmail = (mail) => /\S+@\S+\.\S+/.test(mail);
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
@@ -27,8 +27,8 @@ function Login() {
     e.preventDefault();
 
     // Validaciones del Formulario
-    if (!email || !isValidEmail(email)) {
-      setErrors((prevErrors) => ({ ...prevErrors, email: true }));
+    if (!mail || !isValidmail(mail)) {
+      setErrors((prevErrors) => ({ ...prevErrors, mail: true }));
       return;
     }
 
@@ -39,13 +39,13 @@ function Login() {
 
     try {
       // Llamar al login del contexto, que a su vez usará loginUser del servicio
-      await handleLogin(email, password);
+      await handleLogin(mail, password);
       if (!authError) {
         navigate("/properties"); // Redirigir en caso de éxito
       }
     } catch (error) {
       console.error("Login error:", error);
-      setError("Email o contraseña incorrectos.");
+      setError("mail o contraseña incorrectos.");
     }
   };
 
@@ -65,16 +65,16 @@ function Login() {
             <div className="form-group">
               <label></label>
               <input
-                className={errors.email ? "border border-danger" : ""}
+                className={errors.mail ? "border border-danger" : ""}
                 placeholder="Email"
                 type="text"
-                id="email"
-                value={email}
-                onChange={(e) => handleInputChange(e, setEmail)}
+                id="mail"
+                value={mail}
+                onChange={(e) => handleInputChange(e, setmail)}
               />
-              {errors.email && (
+              {errors.mail && (
                 <p className="pt-2 ps-2 text-danger">
-                  {email ? "El formato del email es incorrecto" : "El email es obligatorio"}
+                  {mail ? "El formato del mail es incorrecto" : "El mail es obligatorio"}
                 </p>
               )}
             </div>

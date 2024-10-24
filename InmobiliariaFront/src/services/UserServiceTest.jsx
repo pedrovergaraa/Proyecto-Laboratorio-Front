@@ -36,14 +36,14 @@ export const createUser = async (user) => {
 };
 
 // Autenticar un usuario (Login)
-export const loginUser = async (email, password) => {
+export const loginUser = async (mail, password) => {
   try {
     const response = await fetch(`${API_URL}/login`, { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }), // Enviar email y password
+      body: JSON.stringify({ mail, password }), // Enviar mail y password
     });
 
     if (!response.ok) {
@@ -57,3 +57,4 @@ export const loginUser = async (email, password) => {
     throw error;
   }
 };
+
