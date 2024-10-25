@@ -1,11 +1,12 @@
-import React from 'react';
-import Navbar from '../navbar/Navbar'; // Asegúrate de que esté bien configurado
+import React, { useContext } from 'react';
+import { ThemeContext } from '../../context/themeContext/theme.context';
+import Navbar from '../navbar/Navbar'; 
 import ToggleTheme from '../ui/toggleTheme/ToggleTheme';
-import WeatherApi from '../weather/WeatherApi'; // Asumiendo que también lo tienes
+import WeatherApi from '../weather/WeatherApi'; 
 
 const Layout = ({ children }) => {
-  const { theme } = useTheme(); // Obtenemos el tema actual del contexto
-  const backgroundClass = theme === "light" ? "background-light" : "background-dark"; // Clase CSS dinámica
+  const { theme } = useContext(ThemeContext); 
+  const backgroundClass = theme === "light" ? "background-light" : "background-dark"; 
 
   return (
     <div className={backgroundClass}>

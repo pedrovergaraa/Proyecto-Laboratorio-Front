@@ -1,11 +1,12 @@
+// src/components/Login.jsx
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import loginImage from "../../assets/images/login-image.webp";
-import { AuthenticationContext } from "../../context/authenticationContext/auth.context"; // Importa el contexto de autenticación
+import { AuthenticationContext } from "../../context/authenticationContext/auth.context";
 
 function Login() {
-  const [mail, setmail] = useState("");
+  const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
     mail: false,
@@ -13,39 +14,35 @@ function Login() {
   });
   const [error, setError] = useState("");
 
-  const { handleLogin, authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
+  const { handleLogin, authError } = useContext(AuthenticationContext);
   const navigate = useNavigate();
 
-  const isValidmail = (mail) => /\S+@\S+\.\S+/.test(mail);
+  const isValidMail = (mail) => /\S+@\S+\.\S+/.test(mail);
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
-    setErrors((prevErrors) => ({ ...prevErrors, [e.target.id]: false }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validaciones del Formulario
-    if (!mail || !isValidmail(mail)) {
-      setErrors((prevErrors) => ({ ...prevErrors, mail: true }));
-      return;
-    }
+    // Validaciones del formulario al enviar
+    const newErrors = {
+      mail: !mail.trim() || !isValidMail(mail),
+      password: !password.trim(),
+    };
+    setErrors(newErrors);
 
-    if (!password) {
-      setErrors((prevErrors) => ({ ...prevErrors, password: true }));
-      return;
-    }
+    if (Object.values(newErrors).some((hasError) => hasError)) return;
 
     try {
-      // Llamar al login del contexto, que a su vez usará loginUser del servicio
       await handleLogin(mail, password);
       if (!authError) {
-        navigate("/properties"); // Redirigir en caso de éxito
+        navigate("/properties");
       }
     } catch (error) {
       console.error("Login error:", error);
-      setError("mail o contraseña incorrectos.");
+      setError("Email o contraseña incorrectos.");
     }
   };
 
@@ -63,25 +60,23 @@ function Login() {
           <h2 className="card-title">Iniciar Sesión</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label></label>
               <input
-                className={errors.mail ? "border border-danger" : ""}
-                placeholder="mail"
+                className={`form-control ${errors.mail ? "border border-danger" : ""}`}
+                placeholder="Email"
                 type="text"
                 id="mail"
                 value={mail}
-                onChange={(e) => handleInputChange(e, setmail)}
+                onChange={(e) => handleInputChange(e, setMail)}
               />
               {errors.mail && (
-                <p className="pt-2 ps-2 text-danger">
-                  {mail ? "El formato del mail es incorrecto" : "El mail es obligatorio"}
+                <p className="error-message">
+                  {mail ? "El formato del email es incorrecto" : "El email es obligatorio"}
                 </p>
               )}
             </div>
             <div className="form-group">
-              <label></label>
               <input
-                className={errors.password ? "border border-danger" : ""}
+                className={`form-control ${errors.password ? "border border-danger" : ""}`}
                 placeholder="Contraseña"
                 type="password"
                 id="password"
@@ -89,19 +84,19 @@ function Login() {
                 onChange={(e) => handleInputChange(e, setPassword)}
               />
               {errors.password && (
-                <p className="pt-2 ps-2 text-danger">La contraseña es obligatoria</p>
+                <p className="error-message">La contraseña es obligatoria</p>
               )}
             </div>
             <p>
-              No tienes cuenta? <Link to="/register">Registrate</Link>
+              ¿No tienes cuenta? <Link to="/register">Registrate</Link>
             </p>
             <button type="submit" className="btn btn-primary btn-block">
               Iniciar sesión
             </button>
           </form>
           {/* Muestra el mensaje de error de autenticación */}
-          {error && <p className="pt-2 ps-2 text-danger">{error}</p>}
-          {authError && <p className="pt-2 ps-2 text-danger">{authError}</p>}
+          {error && <p className="error-message">{error}</p>}
+          {authError && <p className="error-message">{authError}</p>}
         </div>
         <div className="image-container">
           <img src={loginImage} alt="background" />
