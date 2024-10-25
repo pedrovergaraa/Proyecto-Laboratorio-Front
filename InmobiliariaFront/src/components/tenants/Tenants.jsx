@@ -17,7 +17,7 @@ const Tenants = () => {
 
   const columns = [
     { Header: 'Name', accessor: 'name' },
-    { Header: 'Email', accessor: 'email' },
+    { Header: 'mail', accessor: 'mail' },
     { Header: 'Phone', accessor: 'phone' },
   ];
 

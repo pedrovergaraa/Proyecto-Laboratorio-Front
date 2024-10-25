@@ -5,6 +5,7 @@ import ModalForm from '../modal/modalForm';
 
 
 const Card = ({ title, children, FormComponent, formProps }) => {
+
   const [isModalOpen, setModalOpen] = useState(false); 
 
   const handleAddClick = () => {
@@ -24,6 +25,7 @@ const Card = ({ title, children, FormComponent, formProps }) => {
         <div className="card-content">
           {children}
         </div>
+        
         <button className="card-add-button" onClick={handleAddClick}>
           + Agregar
         </button>
@@ -39,6 +41,7 @@ const Card = ({ title, children, FormComponent, formProps }) => {
 
 
 Card.propTypes = {
+
   title: PropTypes.string.isRequired, // El título es obligatorio y debe ser un string
   children: PropTypes.node, // Los hijos pueden ser cualquier cosa que React pueda renderizar
   FormComponent: PropTypes.elementType.isRequired, // Recibe un componente de formulario

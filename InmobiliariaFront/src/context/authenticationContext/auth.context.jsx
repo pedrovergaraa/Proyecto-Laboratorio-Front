@@ -8,14 +8,14 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(userValue);
   const [authError, setAuthError] = useState(null);
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (mail, password) => {
     try {
-      const response = await fetch('http://localhost:8080/login', {
+      const response = await fetch('https://inmobiliariaaustral-1ba25c8cc0e8.herokuapp.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ mail, password }),
       });
 
       if (!response.ok) {
@@ -24,12 +24,12 @@ export const AuthenticationContextProvider = ({ children }) => {
 
       const data = await response.json();
 
-      localStorage.setItem("user", JSON.stringify({ email: data.email, token: data.token }));
-      setUser({ email: data.email, token: data.token });
+      localStorage.setItem("user", JSON.stringify({ mail: data.mail, token: data.token }));
+      setUser({ mail: data.mail, token: data.token });
       setAuthError(null);
     } catch (error) {
       console.error("Error during login:", error);
-      setAuthError("Invalid email or password.");
+      setAuthError("Invalid mail or password.");
     }
   };
 

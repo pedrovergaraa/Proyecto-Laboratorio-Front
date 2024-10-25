@@ -1,14 +1,15 @@
-
 .card {
   border: 1px solid #ccc;
   border-radius: 8px;
   margin: 5%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #ffffffb8;
+  background-color: #ffffff;
   width: 70%;
   float: left;
   overflow: hidden;
+  background-color: #0056b3;
 }
+
 
 .card-header {
   display: flex;
@@ -42,7 +43,7 @@
   border-radius: 4px;
   cursor: pointer;
   margin-left: 90%;
-  position: relative;
+  position: unset;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
@@ -50,6 +51,35 @@
   background-color: #0056b3;
 }
 
+
+  :root[data-bs-theme='light'] {
+    --background-color: white;
+    --text-color: black;
+    --table-background: rgba(255, 255, 255, 0.8); 
+    --table-text-color: black;
+    --card-background: #f8f9fa;
+    --card-border-color: #ddd; 
+  }
+  
+  :root[data-bs-theme='dark'] {
+    --background-color: #1e1e1e;
+    --text-color: white;
+    --table-background: rgba(50, 50, 50, 0.8); 
+    --table-text-color: white;
+    --card-background: #2e2e2e; 
+    --card-border-color: #444; 
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  table {
+    background-color: var(--table-background);
+    color: var(--table-text-color);
+  }
+  
 :root[data-bs-theme='light'] {
   --card-background: #f8f9fa;
   --card-border-color: #ddd; 
@@ -69,10 +99,12 @@
 }
 
 @media (max-width: 768px) {
+
   .card {
     width: 100%;
     margin: 10px 0;
   }
+  
 
   .card-add-button {
     margin-left: 80%;

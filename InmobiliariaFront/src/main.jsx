@@ -6,5 +6,5 @@ import HandleRoutes from './routes/App'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HandleRoutes/>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

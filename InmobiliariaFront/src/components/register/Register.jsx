@@ -1,17 +1,18 @@
 // src/components/Register.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { createUser } from '../../services/UserServiceTest';
 import loginImage from '../../assets/images/login-image.webp';
 
 function Register() {
   const [fullName, setFullName] = useState('');
   const [dni, setDni] = useState('');
-  const [email, setEmail] = useState('');
+  const [mail, setmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({
     fullName: false,
     dni: false,
-    email: false,
+    mail: false,
     password: false,
   });
   const [success, setSuccess] = useState('');
@@ -28,26 +29,45 @@ function Register() {
 
     // Validaciones básicas
     if (fullName.trim() === '') {
-      setErrors({ fullName: true, dni: false, email: false, password: false });
+      setErrors({ fullName: true, dni: false, mail: false, password: false });
       return;
     }
     if (dni.trim() === '') {
-      setErrors({ fullName: false, dni: true, email: false, password: false });
+      setErrors({ fullName: false, dni: true, mail: false, password: false });
       return;
     }
-    if (email.trim() === '') {
-      setErrors({ fullName: false, dni: false, email: true, password: false });
+    if (mail.trim() === '') {
+      setErrors({ fullName: false, dni: false, mail: true, password: false });
       return;
     }
     if (password.trim() === '') {
-      setErrors({ fullName: false, dni: false, email: false, password: true });
+      setErrors({ fullName: false, dni: false, mail: false, password: true });
       return;
     }
 
+    const createUser = async (user) => {
+      try {
+        const response = await fetch(`${API_URL}/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(user),
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+      }
+    };
+
     try {
-      await createUser({ firstName: fullName.split(' ')[0], lastName: fullName.split(' ').slice(1).join(' '), dni, email, password });
+      await createUser({ firstName: fullName.split(' ')[0], lastName: fullName.split(' ').slice(1).join(' '), dni, mail, password });
       setSuccess('User registered successfully!');
-      setForm({ fullName: '', dni: '', email: '', password: '' });
+      setForm({ fullName: '', dni: '', mail: '', password: '' });
       navigate('/login');
     } catch (error) {
       setError('Error registering user.');
@@ -85,14 +105,14 @@ function Register() {
             </div>
             <div className="form-group">
               <input
-                type="email"
-                id="email"
-                className={`form-control ${errors.email ? 'border border-danger' : ''}`}
-                placeholder="Email"
-                value={email}
-                onChange={(e) => handleInputChange(e, setEmail)}
+                type="mail"
+                id="mail"
+                className={`form-control ${errors.mail ? 'border border-danger' : ''}`}
+                placeholder="mail"
+                value={mail}
+                onChange={(e) => handleInputChange(e, setmail)}
               />
-              {errors.email && <p className="text-danger">El email es obligatorio</p>}
+              {errors.mail && <p className="text-danger">El mail es obligatorio</p>}
             </div>
             <div className="form-group">
               <input

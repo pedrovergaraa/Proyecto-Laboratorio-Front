@@ -24,7 +24,7 @@ const ContractsForm = ({ onAdd }) => {
       </div>
       <div>
         <label>Fecha fin:</label>
-        <input type="date" name="email" />
+        <input type="date" name="mail" />
       </div>
       <button type="submit" onClick={handleAddClick}>Agregar</button>
       <button type="submit" onClick={handleAddClick}>Pagar</button>
