@@ -3,6 +3,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { AuthenticationContext } from "../../context/authenticationContext/auth.context";
 import { ThemeContext } from "../../context/themeContext/theme.context";
 
+
 import  Navbar  from "../../components/navbar/Navbar";
 import  WeatherApi  from "../../components/weather/WeatherApi";
 import  ToggleTheme  from "../../components/ui/toggleTheme/ToggleTheme";
@@ -36,5 +37,6 @@ const Protected = () => {
       </>
   );
 };
+
 
 export default Protected;

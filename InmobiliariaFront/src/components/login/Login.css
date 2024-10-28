@@ -60,6 +60,7 @@ html, body {
 }
 
 .form-group input {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   width: 100%;
   padding: 10px;
   border: 1px solid var(--card-border-color); /* Usando variable de tema */
@@ -92,11 +93,13 @@ h2.card-title {
 }
 
 .btn-primary {
-  background-color: #007bff; /* Color del botón */
-  color: var(--text-color); /* Usando variable de tema */
+  background-color: #007bff; 
+  color: var(--text-color); 
   border: none;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1rem;
 }
 
 .btn-block {
@@ -106,9 +109,16 @@ h2.card-title {
 p {
   text-align: center;
   margin-top: 10px;
-  color: var(--text-color); /* Usando variable de tema */
+  color: var(--text-color); 
 }
 
 p a {
-  color: var(--link-color); /* Color del link adaptado al tema */
+  color: #007bff;
+}
+
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
 }

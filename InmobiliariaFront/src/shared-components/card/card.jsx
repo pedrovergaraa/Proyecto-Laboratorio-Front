@@ -25,6 +25,7 @@ const Card = ({ title, children, FormComponent, formProps }) => {
         <div className="card-content">
           {children}
         </div>
+        
         <button className="card-add-button" onClick={handleAddClick}>
           + Agregar
         </button>

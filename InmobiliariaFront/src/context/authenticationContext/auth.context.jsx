@@ -24,11 +24,14 @@ export const AuthenticationContextProvider = ({ children }) => {
       }
   
       const data = await response.json();
+
+
       localStorage.setItem("user", JSON.stringify({ mail: data.mail, token: data.token }));
       setUser({ mail: data.mail, token: data.token });
       setAuthError(null);
     } catch (error) {
-      console.error("Error during login:", error.message); // Mostrar error más detallado
+
+      console.error("Error during login:", error);
       setAuthError("Invalid mail or password.");
     }
   };

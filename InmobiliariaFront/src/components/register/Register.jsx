@@ -7,7 +7,11 @@ import loginImage from '../../assets/images/login-image.webp';
 function Register() {
   const [fullName, setFullName] = useState('');
   const [dni, setDni] = useState('');
+<<<<<<< HEAD
   const [mail, setmail] = useState('');
+=======
+  const [mail, setMail] = useState('');
+>>>>>>> 1e0f25b6561c77427d7968965a068f1676b94ba6
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({
     fullName: false,
@@ -27,6 +31,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+<<<<<<< HEAD
     // Validaciones básicas
     if (fullName.trim() === '') {
       setErrors({ fullName: true, dni: false, mail: false, password: false });
@@ -62,12 +67,39 @@ function Register() {
         console.error('Error creating user:', error);
         throw error;
       }
+=======
+    // Validación completa al enviar
+    const newErrors = {
+      fullName: !fullName.trim(),
+      dni: !dni.trim() || !/^\d+$/.test(dni),  // Solo números para DNI
+      mail: !mail.trim() || !/\S+@\S+\.\S+/.test(mail),
+      password: !password.trim(),
+>>>>>>> 1e0f25b6561c77427d7968965a068f1676b94ba6
     };
 
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).some((hasError) => hasError)) return;
+
     try {
+<<<<<<< HEAD
       await createUser({ firstName: fullName.split(' ')[0], lastName: fullName.split(' ').slice(1).join(' '), dni, mail, password });
       setSuccess('User registered successfully!');
       setForm({ fullName: '', dni: '', mail: '', password: '' });
+=======
+      await createUser({
+        firstName: fullName.split(' ')[0],
+        lastName: fullName.split(' ').slice(1).join(' '),
+        dni,
+        mail,
+        password,
+      });
+      setSuccess('User registered successfully!');
+      setFullName('');
+      setDni('');
+      setMail('');
+      setPassword('');
+>>>>>>> 1e0f25b6561c77427d7968965a068f1676b94ba6
       navigate('/login');
     } catch (error) {
       setError('Error registering user.');
@@ -90,7 +122,7 @@ function Register() {
                 value={fullName}
                 onChange={(e) => handleInputChange(e, setFullName)}
               />
-              {errors.fullName && <p className="text-danger">El nombre completo es obligatorio</p>}
+              {errors.fullName && <p className="error-message">El nombre completo es obligatorio</p>}
             </div>
             <div className="form-group">
               <input
@@ -101,10 +133,11 @@ function Register() {
                 value={dni}
                 onChange={(e) => handleInputChange(e, setDni)}
               />
-              {errors.dni && <p className="text-danger">El DNI es obligatorio</p>}
+              {errors.dni && <p className="error-message">El DNI es obligatorio y solo debe contener números</p>}
             </div>
             <div className="form-group">
               <input
+<<<<<<< HEAD
                 type="mail"
                 id="mail"
                 className={`form-control ${errors.mail ? 'border border-danger' : ''}`}
@@ -113,6 +146,16 @@ function Register() {
                 onChange={(e) => handleInputChange(e, setmail)}
               />
               {errors.mail && <p className="text-danger">El mail es obligatorio</p>}
+=======
+                type="email"
+                id="mail"
+                className={`form-control ${errors.mail ? 'border border-danger' : ''}`}
+                placeholder="Email"
+                value={mail}
+                onChange={(e) => handleInputChange(e, setMail)}
+              />
+              {errors.mail && <p className="error-message">El email es obligatorio y debe tener un formato válido</p>}
+>>>>>>> 1e0f25b6561c77427d7968965a068f1676b94ba6
             </div>
             <div className="form-group">
               <input
@@ -123,11 +166,11 @@ function Register() {
                 value={password}
                 onChange={(e) => handleInputChange(e, setPassword)}
               />
-              {errors.password && <p className="text-danger">La contraseña es obligatoria</p>}
+              {errors.password && <p className="error-message">La contraseña es obligatoria</p>}
             </div>
             {success && <p className="text-success">{success}</p>}
-            {error && <p className="text-danger">{error}</p>}
-            <p>Ya tienes cuenta? <Link to="/login">Logueate</Link></p>
+            {error && <p className="error-message">{error}</p>}
+            <p>¿Ya tienes cuenta? <Link to="/login">Logueate</Link></p>
             <button type="submit" className="btn btn-primary btn-block">Registrarse</button>
           </form>
         </div>
