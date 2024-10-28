@@ -1,27 +1,29 @@
+/* Fondo de pantalla */
 body {
   margin: 0;
   padding: 0;
 }
 
+/* Navbar */
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
   height: 60px;
-  width: 100%;
-  position: fixed;
+  width: 100%; 
   top: 0;
   left: 0;
   z-index: 1000;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease; /* Transición suave entre temas */
 }
 .navbar-light {
   background-color: #F8EFE6;
 }
 
+/* Estilos para modo oscuro */
 .navbar-dark {
-  background-color: #333; 
+  background-color: #333; /* Color gris oscuro para el modo oscuro */
 }
 
 .logo {
@@ -38,7 +40,7 @@ body {
   object-fit: contain;
 }
 
-
+/* Lista de navegación */
 .navList {
   display: flex;
   justify-content: center;
@@ -56,6 +58,7 @@ body {
   margin-right: 30px;
 }
 
+/* Líneas entre ítems */
 .navItem:not(:last-child)::after {
   content: "";
   position: absolute;
@@ -64,13 +67,14 @@ body {
   bottom: 0;
   height: 100%;
   width: 1px;
-  background-color: #333; 
+  background-color: #333; /* Cambia a blanco en modo oscuro */
 }
 
 .navbar-dark .navItem:not(:last-child)::after {
-  background-color: #FFF; 
+  background-color: #FFF; /* Línea blanca en modo oscuro */
 }
 
+/* Enlaces de navegación */
 .navLink {
   display: inline-block;
   text-align: center;
@@ -79,21 +83,24 @@ body {
   font-size: 1rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   transition: color 0.3s ease;
-  cursor: pointer;
 }
 
+/* Color del texto en modo claro */
 .navLink-light {
-  color: #333; 
+  color: #333; /* Texto negro en modo claro */
 }
 
+/* Color del texto en modo oscuro */
 .navLink-dark {
-  color: #FFF; 
+  color: #FFF; /* Texto blanco en modo oscuro */
 }
 
+/* Hover de los enlaces */
 .navLink:hover {
   color: rgb(107, 158, 202);
 }
 
+/* Estilos responsivos */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -128,52 +135,29 @@ body {
   }
 }
 
+/* Botones de logout, cancelar y confirmar */
+.logout-btn {
+  cursor: pointer;
+}
+
 .button-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   text-align: center;
-  padding: 20px;
-  margin-top: 20px;
-  gap: 20px;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .cancel-btn {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+  background-color: rgb(124, 123, 123);
+  border-radius: 5px;
   font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.cancel-btn:hover {
-  background-color: #5a6268; 
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 .confirm-btn {
   background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+  border-radius: 5px;
   font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.confirm-btn:hover {
-  background-color: #0056b3; 
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-
-p{
-  font-size: 1.2rem;
 }

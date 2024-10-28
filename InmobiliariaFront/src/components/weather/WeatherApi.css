@@ -13,7 +13,7 @@
   top: 55%;
   right: 20px;
   transform: translateY(-50%);
-  z-index: 1000;
+  z-index: 999999;
   color: var(--text-color);
   display: flex;
   flex-direction: column;

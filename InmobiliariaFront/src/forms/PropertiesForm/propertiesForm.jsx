@@ -2,15 +2,19 @@
 import React from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 
-const PropertiesForm = ({ onAdd }) => {
+const PropertiesForm = ({ onAdd, onClose }) => {
   const handleAddClick = (event) => {
     event.preventDefault(); 
 
     if (onAdd) {
-      onAdd(); 
+      onAdd();
     }
 
     showSuccessToast("Usuario agregado con éxito!");
+
+    if (onClose) {
+      onClose(); // Cierra el modal padre
+    }
   };
 
   return (
@@ -24,8 +28,8 @@ const PropertiesForm = ({ onAdd }) => {
         <input type="text" name="address" />
       </div>
       <div>
-        <label>Email:</label>
-        <input type="email" name="email" />
+        <label>mail:</label>
+        <input type="mail" name="mail" />
       </div>
       <button type="submit" onClick={handleAddClick}>Agregar</button>
       <ToastContainerComponent />

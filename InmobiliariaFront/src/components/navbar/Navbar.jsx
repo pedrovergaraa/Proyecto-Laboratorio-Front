@@ -4,12 +4,14 @@ import './Navbar.css';
 import { AuthenticationContext } from "../../context/authenticationContext/auth.context";
 import { ThemeContext } from '../../context/themeContext/theme.context';
 import finalLogo from '../../assets/images/final-logo.png';
+import newLogo from '../../assets/images/logo-dark4.png'
 import ModalForm from "../../shared-components/modal/modalForm";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { handleLogout } = useContext(AuthenticationContext);
-  const { theme } = useContext(ThemeContext); 
+  const { theme } = useContext(ThemeContext); // Usar tema
+
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -18,13 +20,17 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  // Clases condicionales para los temas
   const navbarThemeClass = theme === "light" ? "navbar-light" : "navbar-dark";
   const navLinkThemeClass = theme === "light" ? "navLink-light" : "navLink-dark";
+
+  const darkLogo = theme === "light" ? finalLogo : newLogo;
+{}
 
   return (
     <nav className={`navbar ${navbarThemeClass}`}>
       <div className='logo'>
-        <img src={finalLogo} alt="Inmobiliaria Logo" />
+      <img src={darkLogo} alt="Inmobiliaria Logo" />
       </div>
       <ul className="navList">
         <li className="navItem">
@@ -59,5 +65,6 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 export default Navbar;

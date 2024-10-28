@@ -1,6 +1,4 @@
 
-const API_URL = 'http://localhost:8000';
-
 // Obtener todos los landlords
 export const fetchAllLandlords = async () => {
   try {
@@ -18,7 +16,7 @@ export const fetchAllLandlords = async () => {
 // Crear un nuevo landlord
 export const createLandlord = async (landlord) => {
   try {
-    const response = await fetch(`${API_URL}/landlords`, {
+    const response = await fetch(`${API_URL}/landlords/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
