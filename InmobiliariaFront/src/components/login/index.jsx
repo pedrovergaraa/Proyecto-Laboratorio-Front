@@ -66,7 +66,7 @@ function Login() {
               <label></label>
               <input
                 className={errors.mail ? "border border-danger" : ""}
-                placeholder="mail"
+                placeholder="Email"
                 type="text"
                 id="mail"
                 value={mail}

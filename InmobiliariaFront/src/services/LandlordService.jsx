@@ -1,4 +1,4 @@
-
+import { API_URL } from '../constants/APIconstant';
 // Obtener todos los landlords
 export const fetchAllLandlords = async () => {
   try {

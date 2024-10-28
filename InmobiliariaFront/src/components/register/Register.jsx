@@ -45,32 +45,23 @@ function Register() {
       return;
     }
 
-    const createUser = async (user) => {
-      try {
-        const response = await fetch(`${API_URL}/register`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(user),
-        });
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return await response.json();
-      } catch (error) {
-        console.error('Error creating user:', error);
-        throw error;
-      }
-    };
-
     try {
-      await createUser({ firstName: fullName.split(' ')[0], lastName: fullName.split(' ').slice(1).join(' '), dni, mail, password });
-      setSuccess('User registered successfully!');
-      setForm({ fullName: '', dni: '', mail: '', password: '' });
-      navigate('/login');
+      await createUser({ 
+        firstName: fullName.split(' ')[0], 
+        lastName: fullName.split(' ').slice(1).join(' '), 
+        dni, 
+        mail, 
+        password 
+      });
+      setSuccess('¡Usuario registrado con éxito! Redirigiendo al login...');
+      setErrors({ fullName: false, dni: false, mail: false, password: false });
+      
+      // Redirigir al login después de 2 segundos
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
     } catch (error) {
-      setError('Error registering user.');
+      setError('Error registrando al usuario.');
     }
   };
 
@@ -108,7 +99,7 @@ function Register() {
                 type="mail"
                 id="mail"
                 className={`form-control ${errors.mail ? 'border border-danger' : ''}`}
-                placeholder="mail"
+                placeholder="Email"
                 value={mail}
                 onChange={(e) => handleInputChange(e, setmail)}
               />
@@ -127,7 +118,7 @@ function Register() {
             </div>
             {success && <p className="text-success">{success}</p>}
             {error && <p className="text-danger">{error}</p>}
-            <p>Ya tienes cuenta? <Link to="/login">Logueate</Link></p>
+            <p>¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link></p>
             <button type="submit" className="btn btn-primary btn-block">Registrarse</button>
           </form>
         </div>

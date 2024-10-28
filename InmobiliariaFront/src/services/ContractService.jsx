@@ -1,3 +1,4 @@
+import { API_URL } from '../constants/APIconstant';
 
 export const fetchAllContracts = async () => {
     try {

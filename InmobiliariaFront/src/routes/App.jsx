@@ -12,12 +12,11 @@ import UserTenant from '../authComponents/userTenant/userTenant';
 import NotFound from './notFound/NotFound'; 
 import Protected from './protected/Protected'; 
 import { ThemeContextProvider } from '../context/themeContext/theme.context';
-import "./App.css";
-import ToggleTheme from '../components/ui/toggleTheme/ToggleTheme';
 import { AuthenticationContextProvider } from '../context/authenticationContext/auth.context';
 
-const App = () => {
+import "./App.css";
 
+const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
@@ -43,7 +42,6 @@ const App = () => {
           path: "/user-tenant",
           element: <UserTenant/>
         }
-      
       ],
     },
     {
@@ -59,15 +57,15 @@ const App = () => {
       element: <NotFound />, 
     },
   ]);
+
   return (
     <div className="d-flex flex-column align-items-center">
       <AuthenticationContextProvider>
-      <ThemeContextProvider>
-        <div className="app-container">
-          <ToggleTheme className="theme-toggle-button" /> 
-          <RouterProvider router={router} />
-        </div>
-      </ThemeContextProvider>
+        <ThemeContextProvider>
+          <div className="app-container">
+            <RouterProvider router={router} />
+          </div>
+        </ThemeContextProvider>
       </AuthenticationContextProvider>
     </div>
   );

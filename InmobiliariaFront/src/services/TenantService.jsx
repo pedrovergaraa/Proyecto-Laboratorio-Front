@@ -1,4 +1,4 @@
-
+import { API_URL } from "../constants/APIconstant";
 
 export const fetchTenantProperty = async (tenantId) => {
     const response = await fetch(`/api/tenants/${tenantId}/property`, {
