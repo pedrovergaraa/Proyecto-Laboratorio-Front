@@ -29,8 +29,8 @@ const Table = () => {
   // Handle Edit Modal
   const handleEdit = (row) => {
     setRowToEdit(row);
-    setEditedRow(row); // Prellenar el formulario con los valores actuales
-    setShowEditModal(true); // Mostrar modal de edición
+    setEditedRow(row); 
+    setShowEditModal(true); 
   };
 
   const handleDelete = (row) => {
@@ -120,47 +120,52 @@ const Table = () => {
         </div>
       )}
 
-      {/* Modal de edición */}
-      {showEditModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Editar Registro</h2>
-            <form>
-              <label>
-                Nombre:
-                <input
-                  type="text"
-                  name="name"
-                  value={editedRow.name}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <label>
-                Correo:
-                <input
-                  type="email"
-                  name="mail"
-                  value={editedRow.mail}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <label>
-                Teléfono:
-                <input
-                  type="text"
-                  name="phone"
-                  value={editedRow.phone}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <div className="modal-buttons">
-                <button type="button" onClick={confirmEdit} className="accept-button">Guardar</button>
-                <button type="button" onClick={cancelEdit} className="cancel-button">Cancelar</button>
-              </div>
-            </form>
-          </div>
+
+{/* Modal de edición */}
+{showEditModal && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <h2>Editar Registro</h2>
+      <form className="modal-form">
+        <label>
+          Nombre:
+          <input
+            type="text"
+            name="name"
+            value={editedRow.name}
+            onChange={handleInputChange}
+            className="modal-input"
+          />
+        </label>
+        <label>
+          Correo:
+          <input
+            type="email"
+            name="mail"
+            value={editedRow.mail}
+            onChange={handleInputChange}
+            className="modal-input"
+          />
+        </label>
+        <label>
+          Teléfono:
+          <input
+            type="text"
+            name="phone"
+            value={editedRow.phone}
+            onChange={handleInputChange}
+            className="modal-input"
+          />
+        </label>
+        <div className="modal-buttons">
+          <button type="button" onClick={confirmEdit} className="accept-button">Guardar</button>
+          <button type="button" onClick={cancelEdit} className="cancel-button">Cancelar</button>
         </div>
-      )}
+      </form>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

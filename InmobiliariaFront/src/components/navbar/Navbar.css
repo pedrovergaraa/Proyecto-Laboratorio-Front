@@ -135,10 +135,7 @@ body {
   }
 }
 
-/* Botones de logout, cancelar y confirmar */
-.logout-btn {
-  cursor: pointer;
-}
+
 
 .button-container {
   display: flex;

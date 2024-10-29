@@ -1,18 +1,18 @@
 .table-container {
   margin-top: 20px;
   border-radius: 10px;
-  overflow-x: auto; 
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px; 
+  min-width: 600px;
 }
 
 th, td {
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Bordes translúcidos */
   text-align: left;
 }
 
@@ -23,137 +23,123 @@ th {
 
 .action-icons {
   display: flex;
-  gap: 10px;
+  justify-content: center;
+  gap: 15px;
 }
 
-.action-icons .edit-icon:hover {
+.edit-icon:hover {
   color: #004ba0; /* Cambia color cuando se pasa el ratón sobre el icono de editar */
 }
 
-.action-icons .delete-icon:hover {
+.delete-icon:hover {
   color: #a00000; /* Cambia color cuando se pasa el ratón sobre el icono de eliminar */
 }
 
-/* Modal de confirmación */
+/* Estilos de los modales */
+/* Estilos adicionales para el modal */
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-size: 1rem;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.modal-input {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.modal-input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2);
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro translúcido */
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgb(151, 151, 151);
+  padding: 30px 25px;
+  border-radius: 12px;
+  width: 420px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .modal h2 {
   margin-top: 0;
+  margin-bottom: 15px;
   color: #333;
-}
-
-.modal p {
-  margin: 20px 0;
-  color: #666;
+  font-size: 1.5em;
+  text-align: center;
 }
 
 .modal-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.accept-button,
+.cancel-button {
+  font-size: 1rem;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease;
 }
 
 .accept-button {
   background-color: #1976d2;
   color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .accept-button:hover {
   background-color: #004ba0;
+  transform: scale(1.05);
 }
 
 .cancel-button {
   background-color: #d32f2f;
   color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .cancel-button:hover {
   background-color: #a00000;
-}
-
-/* Modal de edición */
-.edit-modal {
-  background-color: rgb(108, 41, 41);
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.edit-modal h2 {
-  margin-top: 0;
-  color: #333;
-}
-
-.edit-modal input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  font-size: 16px;
-}
-
-.edit-modal input:focus {
-  outline: none;
-  border-color: #1976d2; /* Borde azul cuando se selecciona */
-}
-
-/* Contenedor de botones en el modal de edición */
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
-.save-button {
-  background-color: #1976d2;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.save-button:hover {
-  background-color: #004ba0;
-}
-
-.cancel-button {
-  background-color: #d32f2f;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.cancel-button:hover {
-  background-color: #a00000;
+  transform: scale(1.05);
 }
