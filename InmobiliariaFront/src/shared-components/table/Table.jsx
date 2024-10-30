@@ -1,25 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './Table.css'; 
-import EditIcon from '@mui/icons-material/Edit';  // Icono de edición
-import DeleteIcon from '@mui/icons-material/Delete';  // Icono de eliminación
+import './Table.css';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const Table = () => {
-  const columns = [
-    { Header: 'ID', accessor: 'id' },
-    { Header: 'Nombre', accessor: 'name' },
-    { Header: 'Email', accessor: 'mail' },
-    { Header: 'Teléfono', accessor: 'phone' },
-  ];
-
-  const initialData = [
-    { id: 1, name: 'Juan Pérez', mail: 'juan.perez@example.com', phone: '123-456-7890' },
-    { id: 2, name: 'María González', mail: 'maria.gonzalez@example.com', phone: '098-765-4321' },
-    { id: 3, name: 'Carlos López', mail: 'carlos.lopez@example.com', phone: '555-123-4567' },
-    { id: 4, name: 'Ana Martínez', mail: 'ana.martinez@example.com', phone: '321-654-9870' },
-  ];
-
-  const [data, setData] = useState(initialData);
+const Table = ({ columns, data, onEdit, onDelete }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [rowToDelete, setRowToDelete] = useState(null);
@@ -29,32 +14,38 @@ const Table = () => {
   // Handle Edit Modal
   const handleEdit = (row) => {
     setRowToEdit(row);
-    setEditedRow(row); 
-    setShowEditModal(true); 
+    setEditedRow(row);
+    setShowEditModal(true);
   };
 
   const handleDelete = (row) => {
     setRowToDelete(row);
-    setShowDeleteModal(true); // Mostrar modal cuando se hace clic en eliminar
+    setShowDeleteModal(true);
   };
 
   const confirmDelete = () => {
-    setData(data.filter(item => item.id !== rowToDelete.id));
-    setShowDeleteModal(false); // Cerrar el modal
+    onDelete(rowToDelete.id);
+    setShowDeleteModal(false);
   };
 
   const cancelDelete = () => {
-    setRowToDelete(null); // Limpiar el registro seleccionado
-    setShowDeleteModal(false); // Cerrar el modal sin eliminar
+    setRowToDelete(null);
+    setShowDeleteModal(false);
   };
 
-  // Confirmación de la edición
   const confirmEdit = () => {
-    setData(data.map(item => (item.id === editedRow.id ? editedRow : item)));
-    setShowEditModal(false); // Cerrar el modal
+    onEdit(editedRow);
+    setRowToEdit(null);
+    setEditedRow(null);
+    setShowEditModal(false);
+  };
+  
+  const cancelEdit = () => {
+    setRowToEdit(null);
+    setEditedRow(null);
+    setShowEditModal(false);
   };
 
-  // Manejar cambios en los campos del formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedRow({
@@ -62,15 +53,6 @@ const Table = () => {
       [name]: value,
     });
   };
-
-  const cancelEdit = () => {
-    setRowToEdit(null); // Limpiar el registro seleccionado
-    setShowEditModal(false); // Cerrar el modal sin editar
-  };
-
-  if (!data || data.length === 0) {
-    return <p>No hay datos disponibles</p>;
-  }
 
   return (
     <div className="table-container">
@@ -84,21 +66,21 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, index) => (
-            <tr key={index}>
+          {data.map((row) => (
+            <tr key={row.id}>
               {columns.map((column) => (
                 <td key={column.accessor}>{row[column.accessor]}</td>
               ))}
               <td className="action-icons">
-                <EditIcon 
-                  className="edit-icon" 
-                  onClick={() => handleEdit(row)} 
-                  style={{ cursor: 'pointer', color: '#1976d2' }} 
+                <EditIcon
+                  className="edit-icon"
+                  onClick={() => handleEdit(row)}
+                  style={{ cursor: 'pointer', color: '#1976d2' }}
                 />
-                <DeleteIcon 
-                  className="delete-icon" 
-                  onClick={() => handleDelete(row)} 
-                  style={{ cursor: 'pointer', color: '#d32f2f' }} 
+                <DeleteIcon
+                  className="delete-icon"
+                  onClick={() => handleDelete(row)}
+                  style={{ cursor: 'pointer', color: '#d32f2f' }}
                 />
               </td>
             </tr>
@@ -106,7 +88,6 @@ const Table = () => {
         </tbody>
       </table>
 
-      {/* Modal de confirmación para eliminar */}
       {showDeleteModal && (
         <div className="modal-overlay">
           <div className="modal">
@@ -120,52 +101,31 @@ const Table = () => {
         </div>
       )}
 
-
-{/* Modal de edición */}
-{showEditModal && (
-  <div className="modal-overlay">
-    <div className="modal">
-      <h2>Editar Registro</h2>
-      <form className="modal-form">
-        <label>
-          Nombre:
-          <input
-            type="text"
-            name="name"
-            value={editedRow.name}
-            onChange={handleInputChange}
-            className="modal-input"
-          />
-        </label>
-        <label>
-          Correo:
-          <input
-            type="email"
-            name="mail"
-            value={editedRow.mail}
-            onChange={handleInputChange}
-            className="modal-input"
-          />
-        </label>
-        <label>
-          Teléfono:
-          <input
-            type="text"
-            name="phone"
-            value={editedRow.phone}
-            onChange={handleInputChange}
-            className="modal-input"
-          />
-        </label>
-        <div className="modal-buttons">
-          <button type="button" onClick={confirmEdit} className="accept-button">Guardar</button>
-          <button type="button" onClick={cancelEdit} className="cancel-button">Cancelar</button>
+      {showEditModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Editar Registro</h2>
+            <form className="modal-form">
+              {columns.map((column) => (
+                <label key={column.accessor}>
+                  {column.Header}:
+                  <input
+                    type="text"
+                    name={column.accessor}
+                    value={editedRow[column.accessor] || ''}
+                    onChange={handleInputChange}
+                    className="modal-input"
+                  />
+                </label>
+              ))}
+              <div className="modal-buttons">
+                <button type="button" onClick={confirmEdit} className="accept-button">Guardar</button>
+                <button type="button" onClick={cancelEdit} className="cancel-button">Cancelar</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
-    </div>
-  </div>
-)}
-
+      )}
     </div>
   );
 };

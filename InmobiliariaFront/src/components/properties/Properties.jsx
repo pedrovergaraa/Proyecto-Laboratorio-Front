@@ -1,60 +1,9 @@
-// import Card from '../../shared-components/card/card';
-// import Table from '../../shared-components/table/Table';
-// import React, { useState, useEffect } from 'react'
-// import PropertiesForm from '../../forms/PropertiesForm/PropertiesForm';
-// import { fetchAllProperties } from '../../services/SysAdminService';
-
-
-
-// const Properties = () => {
-//   const [properties, setProperties] = useState([]);
-
-//   useEffect(() => {
-//     console.log("Fetching properties...");
-//     const fetchProperties = async () => {
-//       try {
-//         const data = await fetchAllProperties();
-//         setProperties(data);
-//         console.log("Properties fetched:", data);
-//       } catch (error) {
-//         console.error("Error fetching properties:", error);
-//       }
-//     };
-
-//     fetchProperties();
-//   }, []);
-
-//   console.log("Rendering Properties component...");
-
-
-//   // Definir las columnas para la tabla
-//   const columns = [
-//     { Header: 'Address', accessor: 'address' },
-//     { Header: 'Owner', accessor: 'ownerName' },
-//     { Header: 'Rent', accessor: 'rent' },
-//   ];
-
-//   return (
-//     <div>
-//       <Card title="Propiedades" FormComponent={PropertiesForm}>
-//         {properties.length > 0 ? (
-//           <Table columns={columns} data={properties} />
-//         ) : (
-//           <p>No hay datos disponibles</p>
-//         )}
-//       </Card>
-//     </div>
-//   );
-
-// }
-
-// export default Properties
-
 import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
 import React, { useState, useEffect } from 'react';
 import PropertiesForm from '../../forms/PropertiesForm/PropertiesForm';
-import { fetchAllProperties } from '../../services/PropertyService';
+import { fetchAllProperties, createProperty, updateProperty, deleteProperty } from '../../services/PropertyService';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
@@ -62,15 +11,13 @@ const Properties = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // console.log("Fetching properties...");
     const fetchProperties = async () => {
       try {
         const data = await fetchAllProperties();
         setProperties(data);
-        // console.log("Properties fetched:", data);
       } catch (error) {
         setError("Error fetching properties");
-        // console.error("Error fetching properties:", error);
+        toast.error("Error al cargar las propiedades");
       } finally {
         setLoading(false);
       }
@@ -79,30 +26,71 @@ const Properties = () => {
     fetchProperties();
   }, []);
 
-  // console.log("Rendering Properties component...");
+  const addProperty = async (property) => {
+    try {
+      const newProperty = await createProperty(property);
+      setProperties([...properties, newProperty]);
+      toast.success("Propiedad añadida con éxito");
+    } catch (error) {
+      console.error("Error adding property:", error);
+      toast.error("Error al añadir la propiedad");
+    }
+  };
 
-  // Definir las columnas para la tabla
+  const editProperty = async (updatedProperty) => {
+    try {
+      await updateProperty(updatedProperty);
+      setProperties((prev) =>
+        prev.map((property) =>
+          property.id === updatedProperty.id ? updatedProperty : property
+        )
+      );
+      toast.success("Propiedad actualizada con éxito");
+    } catch (error) {
+      console.error("Error editing property:", error);
+      toast.error("Error al actualizar la propiedad");
+    }
+  };
+
+  const removeProperty = async (id) => {
+    try {
+      await deleteProperty(id);
+      setProperties((prev) => prev.filter((property) => property.id !== id));
+      toast.success("Propiedad eliminada con éxito");
+    } catch (error) {
+      console.error("Error deleting property:", error);
+      toast.error("Error al eliminar la propiedad");
+    }
+  };
+
   const columns = [
-    { Header: 'Address', accessor: 'address' },
-    { Header: 'Owner', accessor: 'ownerName' },
-    { Header: 'Rent', accessor: 'rent' },
+    { Header: 'ID', accessor: 'id' },
+    { Header: 'Dirección', accessor: 'address' },
+    { Header: 'Descripción', accessor: 'description' },
+    { Header: 'ID del Propietario', accessor: 'landlordId' },
   ];
 
   return (
     <div>
-      <Card title="Propiedades" FormComponent={PropertiesForm}>
+      <Card title="Propiedades" FormComponent={() => <PropertiesForm onAdd={addProperty} />}>
         {loading ? (
-          <p>Cargando propiedades...</p> // Aquí puedes agregar un spinner o un indicador de carga
+          <p>Cargando propiedades...</p>
         ) : error ? (
           <p>{error}</p>
         ) : properties.length > 0 ? (
-          <Table columns={columns} data={properties} />
+          <Table
+            columns={columns}
+            data={properties}
+            onEdit={editProperty}
+            onDelete={removeProperty}
+          />
         ) : (
           <p>No hay datos disponibles</p>
         )}
       </Card>
+      <ToastContainer /> {/* Contenedor de Toastify para notificaciones */}
     </div>
   );
-}
+};
 
 export default Properties;
