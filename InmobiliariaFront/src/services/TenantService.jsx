@@ -1,4 +1,4 @@
-import { API_URL } from "../constants/APIconstant";
+
 
 export const fetchTenantProperty = async (tenantId) => {
     const response = await fetch(`/api/tenants/${tenantId}/property`, {
@@ -29,7 +29,7 @@ export const fetchTenantProperty = async (tenantId) => {
 // Obtener todos los tenants
 export const fetchAllTenants = async () => {
     try {
-      const response = await fetch(`${API_URL}/tenants`);
+      const response = await fetch(`${API_URL}/tenant/all`);
       if (!response.ok) {
         throw new Error('Error fetching tenants');
       }
@@ -43,7 +43,7 @@ export const fetchAllTenants = async () => {
   // Crear un nuevo tenant
   export const createTenant = async (tenant) => {
     try {
-      const response = await fetch(`${API_URL}/tenants`, {
+      const response = await fetch(`${API_URL}/tenant/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

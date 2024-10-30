@@ -8,7 +8,7 @@ const Table = () => {
   const columns = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'Nombre', accessor: 'name' },
-    { Header: 'mail', accessor: 'mail' },
+    { Header: 'Email', accessor: 'mail' },
     { Header: 'Teléfono', accessor: 'phone' },
   ];
 

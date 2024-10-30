@@ -12,7 +12,7 @@ const Contracts = () => {
   useEffect(() => {
     // Llamar a la API para obtener los contratos
     const fetchContracts = async () => {
-      console.log('llego aca')
+      // console.log('llego aca')
       const data = await fetchAllContracts();
       setContracts(data);
     };

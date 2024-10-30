@@ -20,12 +20,12 @@
 //         console.error("Error fetching properties:", error);
 //       }
 //     };
-  
+
 //     fetchProperties();
 //   }, []);
-  
+
 //   console.log("Rendering Properties component...");
-  
+
 
 //   // Definir las columnas para la tabla
 //   const columns = [
@@ -45,7 +45,7 @@
 //       </Card>
 //     </div>
 //   );
-  
+
 // }
 
 // export default Properties
@@ -54,7 +54,7 @@ import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
 import React, { useState, useEffect } from 'react';
 import PropertiesForm from '../../forms/PropertiesForm/PropertiesForm';
-import { fetchAllProperties } from '../../services/SysAdminService';
+import { fetchAllProperties } from '../../services/PropertyService';
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
@@ -62,25 +62,25 @@ const Properties = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Fetching properties...");
+    // console.log("Fetching properties...");
     const fetchProperties = async () => {
       try {
         const data = await fetchAllProperties();
         setProperties(data);
-        console.log("Properties fetched:", data);
+        // console.log("Properties fetched:", data);
       } catch (error) {
         setError("Error fetching properties");
-        console.error("Error fetching properties:", error);
+        // console.error("Error fetching properties:", error);
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchProperties();
   }, []);
-  
-  console.log("Rendering Properties component...");
-  
+
+  // console.log("Rendering Properties component...");
+
   // Definir las columnas para la tabla
   const columns = [
     { Header: 'Address', accessor: 'address' },

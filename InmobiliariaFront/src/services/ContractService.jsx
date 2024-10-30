@@ -1,8 +1,8 @@
-import { API_URL } from '../constants/APIconstant';
+
 
 export const fetchAllContracts = async () => {
     try {
-      const response = await fetch(`${API_URL}/contracts`);
+      const response = await fetch(`${API_URL}/contract/all`);
       if (!response.ok) {
         throw new Error('Error fetching contracts');
       }
@@ -15,7 +15,7 @@ export const fetchAllContracts = async () => {
   
   export const createContract = async (contract) => {
     try {
-      const response = await fetch(`${API_URL}/contracts`, {
+      const response = await fetch(`${API_URL}/contract/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

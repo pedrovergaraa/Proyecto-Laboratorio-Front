@@ -1,8 +1,12 @@
 import { createContext, useState } from "react";
 
+
 export const AuthenticationContext = createContext();
 
-const userValue = JSON.parse(localStorage.getItem("user"));
+const userValue = JSON.parse(localStorage.getItem("token"));
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(userValue);
@@ -10,7 +14,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const handleLogin = async (mail, password) => {
     try {
-      const response = await fetch('https://inmobiliariaaustral-1ba25c8cc0e8.herokuapp.com/login', {
+      const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,9 +29,8 @@ export const AuthenticationContextProvider = ({ children }) => {
   
       const data = await response.json();
 
-
-      localStorage.setItem("user", JSON.stringify({ mail: data.mail, token: data.token }));
-      setUser({ mail: data.mail, token: data.token });
+      localStorage.setItem("token", JSON.stringify(data.token));
+      setUser({ token: data.token });
       setAuthError(null);
     } catch (error) {
 

@@ -1,21 +1,29 @@
-import { API_URL } from '../constants/APIconstant';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const fetchAllProperties = async () => {
-    try {
-      const response = await fetch(`${API_URL}/properties`);
+    const token =   JSON.parse(localStorage.getItem("token")) 
+    // try {
+      const response = await fetch(`${apiUrl}/property/all`,{
+      method: 'GET',
+      
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
       if (!response.ok) {
-        throw new Error('Error fetching properties');
+       console.log(response);
       }
       return await response.json();
-    } catch (error) {
-      console.error('Error fetching properties:', error);
-      throw error;
-    }
+    // } catch (error) {
+    //   console.error('Error fetching properties:', error);
+    //   throw error;
+    // }
   };
     
   export const createProperty = async (property) => {
     try {
-      const response = await fetch(`${API_URL}/properties`, {
+      const response = await fetch(`${apiUrl}/property`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

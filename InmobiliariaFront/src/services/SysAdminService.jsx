@@ -1,4 +1,4 @@
-import { API_URL } from '../constants/APIconstant';
+
 
 // Fetch all properties
 export const fetchAllProperties = async () => {
