@@ -28,7 +28,7 @@ export const fetchAllProperties = async () => {
 // Crear una nueva propiedad
 export const createProperty = async (property) => {
   try {
-    const response = await fetch(`${apiUrl}/property`, {
+    const response = await fetch(`${apiUrl}/property/new`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(property),

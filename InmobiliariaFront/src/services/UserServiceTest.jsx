@@ -1,8 +1,8 @@
-
+const apiUrl = import.meta.env.VITE_API_URL;
 // Obtener todos los usuarios
 export const getUsers = async () => {
   try {
-    const response = await fetch(`${API_URL}/users`);
+    const response = await fetch(`${apiUrl}/users`);
     if (!response.ok) {
       throw new Error('Error al obtener los usuarios');
     }
@@ -16,7 +16,7 @@ export const getUsers = async () => {
 // Crear un nuevo usuario (Registro)
 export const createUser = async (user) => {
   try {
-    const response = await fetch(`${API_URL}/register`, {
+    const response = await fetch(`${apiUrl}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const createUser = async (user) => {
 // Autenticar un usuario (Login)
 export const loginUser = async (mail, password) => {
   try {
-    const response = await fetch(`${API_URL}/login`, { 
+    const response = await fetch(`${apiUrl}/login`, { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
