@@ -5,7 +5,7 @@ import loginImage from "../../assets/images/login-image.webp";
 import { AuthenticationContext } from "../../context/authenticationContext/auth.context"; // Importa el contexto de autenticación
 
 function Login() {
-  const [mail, setmail] = useState("");
+  const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
     mail: false,
@@ -13,10 +13,10 @@ function Login() {
   });
   const [error, setError] = useState("");
 
-  const { handleLogin, authError } = useContext(AuthenticationContext); // Uso del contexto de autenticación
+  const { handleLogin, authError, user } = useContext(AuthenticationContext); // Uso del contexto de autenticación
   const navigate = useNavigate();
 
-  const isValidmail = (mail) => /\S+@\S+\.\S+/.test(mail);
+  const isValidMail = (mail) => /\S+@\S+\.\S+/.test(mail);
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
@@ -27,7 +27,7 @@ function Login() {
     e.preventDefault();
 
     // Validaciones del Formulario
-    if (!mail || !isValidmail(mail)) {
+    if (!mail || !isValidMail(mail)) {
       setErrors((prevErrors) => ({ ...prevErrors, mail: true }));
       return;
     }
@@ -40,20 +40,17 @@ function Login() {
     try {
       // Llamar al login del contexto, que a su vez usará loginUser del servicio
       await handleLogin(mail, password);
-      if (!authError) {
-        navigate("/properties"); // Redirigir en caso de éxito
-      }
     } catch (error) {
       console.error("Login error:", error);
-      setError("mail o contraseña incorrectos.");
+      setError("Correo o contraseña incorrectos.");
     }
   };
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      navigate("/properties"); // Redirige si ya está logueado
+    if (user) {
+      navigate("/properties"); // Redirige si el usuario ya está logueado
     }
-  }, [navigate]);
+  }, [user, navigate]);
 
   return (
     <div className="login-container">
@@ -70,7 +67,7 @@ function Login() {
                 type="text"
                 id="mail"
                 value={mail}
-                onChange={(e) => handleInputChange(e, setmail)}
+                onChange={(e) => handleInputChange(e, setMail)}
               />
               {errors.mail && (
                 <p className="pt-2 ps-2 text-danger">
