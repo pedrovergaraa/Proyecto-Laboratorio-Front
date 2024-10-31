@@ -1,4 +1,4 @@
-
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const fetchTenantProperty = async (tenantId) => {
     const response = await fetch(`/api/tenants/${tenantId}/property`, {
@@ -29,7 +29,7 @@ export const fetchTenantProperty = async (tenantId) => {
 // Obtener todos los tenants
 export const fetchAllTenants = async () => {
     try {
-      const response = await fetch(`${API_URL}/tenant/all`);
+      const response = await fetch(`${apiUrl}/tenant/all`);
       if (!response.ok) {
         throw new Error('Error fetching tenants');
       }
@@ -43,7 +43,7 @@ export const fetchAllTenants = async () => {
   // Crear un nuevo tenant
   export const createTenant = async (tenant) => {
     try {
-      const response = await fetch(`${API_URL}/tenant/new`, {
+      const response = await fetch(`${apiUrl}/tenant/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,3 +60,40 @@ export const fetchAllTenants = async () => {
     }
   };
       
+
+  // Actualizar un tenant
+  export const updateTenant = async (tenant) => {
+    try {
+      const response = await fetch(`${apiUrl}/tenant/${tenant.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tenant),
+      });
+      if (!response.ok) {
+        throw new Error('Error updating tenant');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error updating tenant:', error);
+      throw error;
+    }
+  };
+  
+  // Eliminar un tenant
+  export const deleteTenant = async (id) => {
+    try {
+      const response = await fetch(`${apiUrl}/tenant/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Error deleting tenant');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error deleting tenant:', error);
+      throw error;
+    }
+  };
+  
