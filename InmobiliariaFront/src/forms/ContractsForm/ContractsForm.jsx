@@ -1,36 +1,71 @@
-import React from 'react';
-import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const ContractsForm = ({ onAdd }) => {
+const ContractsForm = ({ contract, onSubmit }) => {
+  const [formData, setFormData] = useState({
+    contractId: contract ? contract.contractId : '',
+    propertyId: contract ? contract.propertyId : '',
+    tenantName: contract ? contract.tenantName : '',
+    rentAmount: contract ? contract.rentAmount : '',
+    status: contract ? contract.status : '',
+  });
 
-  const handleAddClick = (event) => {
-    event.preventDefault(); 
-
-    if (onAdd) {
-      onAdd(); 
+  useEffect(() => {
+    if (contract) {
+      setFormData({
+        contractId: contract.contractId,
+        propertyId: contract.propertyId,
+        tenantName: contract.tenantName,
+        rentAmount: contract.rentAmount,
+        status: contract.status,
+      });
     }
+  }, [contract]);
 
-    showSuccessToast("Usuario agregado con éxito!");
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
   return (
-    <form>
-      <div>
-        <label>Tipo:</label>
-        <input type="text" name="type" />
-      </div>
-      <div>
-        <label>Fecha inicio:</label>
-        <input type="date" name="address" />
-      </div>
-      <div>
-        <label>Fecha fin:</label>
-        <input type="date" name="mail" />
-      </div>
-      <button type="submit" onClick={handleAddClick}>Agregar</button>
-      <button type="submit" onClick={handleAddClick}>Pagar</button>
-      <ToastContainerComponent />
+    <form onSubmit={handleSubmit}>
+      <label>
+        Contract ID:
+        <input type="text" name="contractId" value={formData.contractId} onChange={handleChange} required />
+      </label>
+      <label>
+        Property ID:
+        <input type="text" name="propertyId" value={formData.propertyId} onChange={handleChange} required />
+      </label>
+      <label>
+        Tenant:
+        <input type="text" name="tenantName" value={formData.tenantName} onChange={handleChange} required />
+      </label>
+      <label>
+        Rent Amount:
+        <input type="number" name="rentAmount" value={formData.rentAmount} onChange={handleChange} required />
+      </label>
+      <label>
+        Status:
+        <select name="status" value={formData.status} onChange={handleChange} required>
+          <option value="">Select Status</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </label>
+      <button type="submit">Guardar</button>
     </form>
   );
+};
+
+ContractsForm.propTypes = {
+  contract: PropTypes.object,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ContractsForm;

@@ -65,14 +65,20 @@ const Properties = () => {
 
   const columns = [
     { Header: 'ID', accessor: 'id' },
-    { Header: 'Dirección', accessor: 'address' },
+    { Header: 'Dirección', accessor: 'adress' },
     { Header: 'Descripción', accessor: 'description' },
-    { Header: 'ID del Propietario', accessor: 'landlordId' },
+    { Header: 'Email Inquilo', accessor: 'landlordMail' },
   ];
 
   return (
     <div>
-      <Card title="Propiedades" FormComponent={() => <PropertiesForm onAdd={addProperty} />}>
+      <Card title="Propiedades" FormComponent={() => 
+        <PropertiesForm 
+        // tenants={listOfTenants} 
+        // owners={listOfOwners} 
+        onAdd={handleAddProperty} 
+      />
+      }>
         {loading ? (
           <p>Cargando propiedades...</p>
         ) : error ? (

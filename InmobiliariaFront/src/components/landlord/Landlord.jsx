@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
 import LandlordForm from '../../forms/LandlordsForm/LandlordsForm';
-import { fetchAllLandlords } from '../../services/SysAdminService';
+import { fetchAllLandlords } from '../../services/LandlordService';
 
 
 const Landlord = () => {

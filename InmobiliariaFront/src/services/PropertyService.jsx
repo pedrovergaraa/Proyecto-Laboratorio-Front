@@ -16,7 +16,7 @@ export const fetchAllProperties = async () => {
       headers: getAuthHeaders(),
     });
     if (!response.ok) {
-      throw new Error('Error fetching properties');
+      throw new Error(`Error fetching properties: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
@@ -34,7 +34,7 @@ export const createProperty = async (property) => {
       body: JSON.stringify(property),
     });
     if (!response.ok) {
-      throw new Error('Error creating property');
+      throw new Error(`Error creating property: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
@@ -52,7 +52,7 @@ export const updateProperty = async (property) => {
       body: JSON.stringify(property),
     });
     if (!response.ok) {
-      throw new Error('Error updating property');
+      throw new Error(`Error updating property: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
@@ -69,9 +69,13 @@ export const deleteProperty = async (id) => {
       headers: getAuthHeaders(),
     });
     if (!response.ok) {
-      throw new Error('Error deleting property');
+      throw new Error(`Error deleting property: ${response.status}`);
     }
-    return await response.json();
+    // Solo intenta parsear JSON si la respuesta tiene contenido JSON
+    if (response.headers.get("Content-Type")?.includes("application/json")) {
+      return await response.json();
+    }
+    return null; // o cualquier valor adecuado si no hay respuesta JSON
   } catch (error) {
     console.error('Error deleting property:', error);
     throw error;
