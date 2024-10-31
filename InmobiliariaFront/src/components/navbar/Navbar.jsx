@@ -50,7 +50,7 @@ const Navbar = () => {
         </li>
         <ModalForm isOpen={isOpen} onClose={() => setIsOpen(!isOpen)}>
           <div>
-            <p>¿Estas seguro de que deseas cerrar sesión?</p>
+            <p id="modal-text">¿Estas seguro de que deseas cerrar sesión?</p>
             <div className='button-container'>
               <button className='cancel-btn' onClick={() => setIsOpen(false)}>
                 Cancelar
