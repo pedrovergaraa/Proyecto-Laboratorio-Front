@@ -1,50 +1,37 @@
 import React, { useState } from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const PropertiesForm = ({ onAdd, onClose }) => {
-  const [formData, setFormData] = useState({
-    address: '',
-    description: '',
-    tenantId: '',
-    landlordId: ''
-  });
+const PropertiesForm = ({ onAdd }) => {
+  const [formData, setFormData] = useState({ adress: '', description: '', landlordMail: '' });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleAddClick = async (event) => {
-    event.preventDefault();
-
-    if (onAdd) {
-      await onAdd(formData);
-      showSuccessToast("Propiedad agregada con éxito!");
-    }
-
-    if (onClose) onClose();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAdd(formData); // Llama a la función pasada como prop
+    setFormData({ adress: '', description: '', landlordMail: '' }); // Reinicia el formulario
   };
 
   return (
-    <form>
-      <div>
-        <label>Direccion</label>
-        <input type="text" name="address" value={formData.address} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Descripción</label>
-        <input type="text" name="description" value={formData.description} onChange={handleChange} />
-      </div>
-      <div>
-        <label>ID Inquilino</label>
-        <input type="number" name="tenantId" value={formData.tenantId} onChange={handleChange} />
-      </div>
-      <div>
-        <label>ID Propietario</label>
-        <input type="number" name="landlordId" value={formData.landlordId} onChange={handleChange} />
-      </div>
-      <button type="submit" onClick={handleAddClick}>Agregar</button>
-      <ToastContainerComponent />
+    <form onSubmit={handleSubmit}>
+      {/* Aquí van tus campos de formulario */}
+      <label>Direccion:</label>
+      <input
+        type="text"
+        value={formData.adress}
+        onChange={(e) => setFormData({ ...formData, adress: e.target.value })}
+      />
+      <label>Descripción:</label>
+      <input
+        type="text"
+        value={formData.description}
+        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+      />
+      <label>Email Inquilino:</label>
+      <input
+        type="email"
+        value={formData.landlordMail}
+        onChange={(e) => setFormData({ ...formData, landlordMail: e.target.value })}
+      />
+      <button type="submit">Añadir Propiedad</button>
     </form>
   );
 };

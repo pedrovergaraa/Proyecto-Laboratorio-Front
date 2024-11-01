@@ -29,7 +29,7 @@ const Properties = () => {
   const addProperty = async (property) => {
     try {
       const newProperty = await createProperty(property);
-      setProperties([...properties, newProperty]);
+      setProperties((prev) => [...prev, newProperty]); // Usa el estado anterior para añadir la nueva propiedad
       toast.success("Propiedad añadida con éxito");
     } catch (error) {
       console.error("Error adding property:", error);
@@ -65,19 +65,17 @@ const Properties = () => {
 
   const columns = [
     { Header: 'ID', accessor: 'id' },
-    { Header: 'Dirección', accessor: 'adress' },
+    { Header: 'Dirección', accessor: 'address' }, // Corrige 'adress' a 'address'
     { Header: 'Descripción', accessor: 'description' },
-    { Header: 'Email Inquilo', accessor: 'landlordMail' },
+    { Header: 'Email Inquilino', accessor: 'landlordMail' }, // Corrige 'landlordMail' si es necesario
   ];
 
   return (
     <div>
       <Card title="Propiedades" FormComponent={() => 
         <PropertiesForm 
-        // tenants={listOfTenants} 
-        // owners={listOfOwners} 
-        onAdd={handleAddProperty} 
-      />
+          onAdd={addProperty} // Usa la función correcta aquí
+        />
       }>
         {loading ? (
           <p>Cargando propiedades...</p>

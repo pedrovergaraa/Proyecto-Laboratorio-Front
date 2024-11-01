@@ -33,6 +33,9 @@ const Navbar = () => {
       <img src={darkLogo} alt="Inmobiliaria Logo" />
       </div>
       <ul className="navList">
+      <li className="navItem">
+          <Link to="./" className={`navLink ${navLinkThemeClass}`}>INMOBILIARIA</Link>
+        </li>
         <li className="navItem">
           <Link to="/properties" className={`navLink ${navLinkThemeClass}`}>PROPIEDADES</Link>
         </li>

@@ -63,7 +63,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Mayor separación entre elementos */
+  gap: 1.2rem; /* Mayor separación entre elementos */
 }
 
 .modal-content form label {
