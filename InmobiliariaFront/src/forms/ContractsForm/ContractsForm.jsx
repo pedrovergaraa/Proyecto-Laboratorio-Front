@@ -1,24 +1,23 @@
+// src/forms/ContractsForm/ContractsForm.jsx
+
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const ContractsForm = ({ contract, onSubmit }) => {
-  const [formData, setFormData] = useState({
-    contractId: contract ? contract.contractId : '',
-    propertyId: contract ? contract.propertyId : '',
-    tenantName: contract ? contract.tenantName : '',
-    rentAmount: contract ? contract.rentAmount : '',
-    status: contract ? contract.status : '',
-  });
+const ContractsForm = ({ contract, onSubmit, fields }) => {
+  const initialFormData = {
+    startDate: '',
+    endDate: '',
+    ownerEmail: '',
+    tenantEmail: '',
+    rentAmount: '',
+    ...contract,
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
     if (contract) {
-      setFormData({
-        contractId: contract.contractId,
-        propertyId: contract.propertyId,
-        tenantName: contract.tenantName,
-        rentAmount: contract.rentAmount,
-        status: contract.status,
-      });
+      setFormData(contract);
     }
   }, [contract]);
 
@@ -34,30 +33,66 @@ const ContractsForm = ({ contract, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Contract ID:
-        <input type="text" name="contractId" value={formData.contractId} onChange={handleChange} required />
-      </label>
-      <label>
-        Property ID:
-        <input type="text" name="propertyId" value={formData.propertyId} onChange={handleChange} required />
-      </label>
-      <label>
-        Tenant:
-        <input type="text" name="tenantName" value={formData.tenantName} onChange={handleChange} required />
-      </label>
-      <label>
-        Rent Amount:
-        <input type="number" name="rentAmount" value={formData.rentAmount} onChange={handleChange} required />
-      </label>
-      <label>
-        Status:
-        <select name="status" value={formData.status} onChange={handleChange} required>
-          <option value="">Select Status</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-      </label>
+      {fields.includes('startDate') && (
+        <label>
+          Fecha de Inicio:
+          <input
+            type="date"
+            name="startDate"
+            value={formData.startDate}
+            onChange={handleChange}
+            required
+          />
+        </label>
+      )}
+      {fields.includes('endDate') && (
+        <label>
+          Fecha de Finalización:
+          <input
+            type="date"
+            name="endDate"
+            value={formData.endDate}
+            onChange={handleChange}
+            required
+          />
+        </label>
+      )}
+      {fields.includes('ownerEmail') && (
+        <label>
+          Email del Propietario:
+          <input
+            type="email"
+            name="ownerEmail"
+            value={formData.ownerEmail}
+            onChange={handleChange}
+            required
+          />
+        </label>
+      )}
+      {fields.includes('tenantEmail') && (
+        <label>
+          Email del Inquilino:
+          <input
+            type="email"
+            name="tenantEmail"
+            value={formData.tenantEmail}
+            onChange={handleChange}
+            required
+          />
+        </label>
+      )}
+      {fields.includes('rentAmount') && (
+        <label>
+          Monto:
+          <input
+            type="number"
+            name="rentAmount"
+            value={formData.rentAmount}
+            onChange={handleChange}
+            required
+          />
+        </label>
+      )}
       <button type="submit">Guardar</button>
     </form>
   );
@@ -66,6 +101,7 @@ const ContractsForm = ({ contract, onSubmit }) => {
 ContractsForm.propTypes = {
   contract: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
+  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default ContractsForm;

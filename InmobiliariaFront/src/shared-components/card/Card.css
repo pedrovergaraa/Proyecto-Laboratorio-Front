@@ -36,19 +36,26 @@
 }
 
 .card-add-button {
-  padding: 7px 12px;
-  background-color: #007bff;
-  color: white;
+  padding: 0.8rem 1.2rem;
+  background-color: var(--button-color);
+  color: var(--button-text-color);
   border: none;
-  border-radius: 4px;
+  border-radius: 8px; /* Bordes redondeados */
   cursor: pointer;
-  margin-left: 90%;
-  position: unset;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-left: auto; /* Ajuste para alinearlo a la derecha */
+  margin-right: 10px; /* Separación del borde */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
 }
 
 .card-add-button:hover {
-  background-color: #0056b3;
+  background-color: var(--button-hover-color);
+  transform: translateY(-2px);
 }
 
 

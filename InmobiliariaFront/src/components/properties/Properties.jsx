@@ -67,7 +67,7 @@ const Properties = () => {
     { Header: 'ID', accessor: 'id' },
     { Header: 'Dirección', accessor: 'address' }, // Corrige 'adress' a 'address'
     { Header: 'Descripción', accessor: 'description' },
-    { Header: 'Email Inquilino', accessor: 'landlordMail' }, // Corrige 'landlordMail' si es necesario
+    { Header: 'Id Inquilino', accessor: 'landlordId' }, // Corrige 'landlordMail' si es necesario
   ];
 
   return (

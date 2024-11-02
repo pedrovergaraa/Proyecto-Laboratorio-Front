@@ -21,14 +21,14 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(user), // Envía el nuevo usuario al backend
+        body: JSON.stringify(user),
       });
-
+  
       if (!response.ok) {
         throw new Error('Error al crear el usuario');
       }
-
-      return await response.json(); // Retorna la respuesta del backend
+  
+      return await response.json();
     } catch (error) {
       console.error('Error creating user:', error);
       throw error;

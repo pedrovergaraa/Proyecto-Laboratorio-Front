@@ -1,6 +1,8 @@
+// src/components/Contracts/Contracts.jsx
+
 import React, { useState, useEffect } from 'react';
 import ContractsForm from '../../forms/ContractsForm/ContractsForm';
-import Card from '../../shared-components/card/card';
+import Card from '../../shared-components/card/Card';
 import Table from '../../shared-components/table/Table';
 import {
   fetchAllContracts,
@@ -12,14 +14,14 @@ import {
 const Contracts = () => {
   const [contracts, setContracts] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [currentContract, setCurrentContract] = useState(null); // Para editar un contrato
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [currentContract, setCurrentContract] = useState(null);
 
   useEffect(() => {
     const fetchContracts = async () => {
       const data = await fetchAllContracts();
       setContracts(data);
     };
-
     fetchContracts();
   }, []);
 
@@ -31,7 +33,11 @@ const Contracts = () => {
 
   const handleEditContract = async (updatedContract) => {
     await updateContract(updatedContract.id, updatedContract);
-    setContracts(contracts.map((contract) => (contract.id === updatedContract.id ? updatedContract : contract)));
+    setContracts(
+      contracts.map((contract) =>
+        contract.id === updatedContract.id ? updatedContract : contract
+      )
+    );
     setCurrentContract(null);
   };
 
@@ -41,43 +47,70 @@ const Contracts = () => {
   };
 
   const columns = [
-    { Header: 'Contract ID', accessor: 'contractId' },
-    { Header: 'Property ID', accessor: 'propertyId' },
-    { Header: 'Tenant', accessor: 'tenantName' },
-    { Header: 'Rent Amount', accessor: 'rentAmount' },
-    { Header: 'Status', accessor: 'status' },
+    { Header: 'Tenant', accessor: 'tenantEmail' },
+    { Header: 'Monto', accessor: 'rentAmount' },
+    { Header: 'Estado', accessor: 'status' },
   ];
 
   return (
     <div>
-      <Card title='Contratos' FormComponent={ContractsForm}>
-        <Table 
-          columns={columns} 
-          data={contracts} 
-          onEdit={handleEditContract} 
-          onDelete={handleDeleteContract} 
-          onAdd={() => setShowAddModal(true)} // Pasar la función aquí
+      <Card title="Contratos" FormComponent={ContractsForm}>
+        <Table
+          columns={columns}
+          data={contracts}
+          onEdit={handleEditContract}
+          onDelete={handleDeleteContract}
+          disableAddButton={true} // Deshabilitamos el botón de agregar en la tabla
         />
+        <button
+          onClick={() => setShowAddModal(true)}
+          className="custom-add-button"
+        >
+          + Agregar Contrato
+        </button>
+        <button
+          onClick={() => setShowPaymentModal(true)}
+          className="custom-payment-button"
+        >
+          Realizar Pago
+        </button>
       </Card>
 
-      {/* Modal para agregar nuevo contrato */}
       {showAddModal && (
         <div className="modal-overlay">
-          <div className="modal">
+          <div className="modal-content">
+            <button
+              onClick={() => setShowAddModal(false)}
+              className="modal-close-button"
+            >
+              &times;
+            </button>
             <h2>Agregar Nuevo Contrato</h2>
-            <ContractsForm onSubmit={handleAddContract} />
-            <button onClick={() => setShowAddModal(false)} className="cancel-button">Cerrar</button>
+            <ContractsForm
+              onSubmit={handleAddContract}
+              fields={['startDate', 'endDate', 'ownerEmail', 'tenantEmail']}
+            />
           </div>
         </div>
       )}
 
-      {/* Modal para editar contrato */}
-      {currentContract && (
+      {showPaymentModal && (
         <div className="modal-overlay">
-          <div className="modal">
-            <h2>Editar Contrato</h2>
-            <ContractsForm contract={currentContract} onSubmit={handleEditContract} />
-            <button onClick={() => setCurrentContract(null)} className="cancel-button">Cerrar</button>
+          <div className="modal-content">
+            <button
+              onClick={() => setShowPaymentModal(false)}
+              className="modal-close-button"
+            >
+              &times;
+            </button>
+            <h2>Realizar Pago</h2>
+            <ContractsForm
+              onSubmit={(paymentData) => {
+                console.log(paymentData);
+                setShowPaymentModal(false);
+              }}
+              fields={['rentAmount']}
+            />
           </div>
         </div>
       )}
