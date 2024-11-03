@@ -1,3 +1,4 @@
+// Componente Tenants.jsx
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import Card from '../../shared-components/card/card';
@@ -6,14 +7,13 @@ import TenantsForm from '../../forms/TenantsForm/TenantsForm';
 import { fetchAllTenants, createTenant, updateTenant, deleteTenant } from '../../services/TenantService';
 
 const Tenants = () => {
-  const [tenants, setTenants] = useState([]); // Estado para almacenar los inquilinos
-  const [selectedTenant, setSelectedTenant] = useState(null); // Estado para almacenar el inquilino seleccionado para editar
+  const [tenants, setTenants] = useState([]);
+  const [selectedTenant, setSelectedTenant] = useState(null);
 
-  // Efecto para cargar los inquilinos al montar el componente
   useEffect(() => {
     const fetchTenants = async () => {
       try {
-        const data = await fetchAllTenants(); // Llamada a la API para obtener todos los inquilinos
+        const data = await fetchAllTenants();
         setTenants(data);
       } catch (error) {
         toast.error("Error al cargar los inquilinos");
@@ -22,44 +22,44 @@ const Tenants = () => {
     fetchTenants();
   }, []);
 
-  // Manejo de la adición de un nuevo inquilino
   const handleAddTenant = async (tenant) => {
     try {
-      const newTenant = await createTenant(tenant); // Llamada a la API para crear un nuevo inquilino
-      setTenants([...tenants, newTenant]); // Actualiza el estado de inquilinos
+      const newTenant = await createTenant(tenant);
+      setTenants([...tenants, newTenant]);
       toast.success("Inquilino añadido con éxito");
     } catch (error) {
       toast.error("Error al añadir el inquilino");
     }
   };
 
-  // Manejo de la edición de un inquilino existente
   const handleEditTenant = async (tenant) => {
+    if (!tenant.id) {
+      toast.error("Inquilino no válido para edición");
+      return;
+    }
     try {
-      const updatedTenant = await updateTenant(tenant); // Llamada a la API para actualizar el inquilino
-      setTenants(tenants.map(t => (t.id === tenant.id ? updatedTenant : t))); // Actualiza el estado de inquilinos
+      const updatedTenant = await updateTenant(tenant);
+      setTenants(tenants.map(t => (t.id === tenant.id ? updatedTenant : t)));
       toast.success("Inquilino actualizado con éxito");
     } catch (error) {
       toast.error("Error al actualizar el inquilino");
     }
   };
 
-  // Manejo de la eliminación de un inquilino
   const handleDeleteTenant = async (id) => {
     try {
-      await deleteTenant(id); // Llamada a la API para eliminar el inquilino
-      setTenants(tenants.filter(tenant => tenant.id !== id)); // Actualiza el estado de inquilinos
+      await deleteTenant(id);
+      setTenants(tenants.filter(tenant => tenant.id !== id));
       toast.success("Inquilino eliminado con éxito");
     } catch (error) {
       toast.error("Error al eliminar el inquilino");
     }
   };
 
-  // Definición de las columnas para la tabla
   const columns = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'Email', accessor: 'mail' },
-    { Header: 'Propiedad', accessor: 'property' }, // Puedes personalizar esto según tu modelo de datos
+    { Header: 'Propiedad', accessor: 'property' },
     {
       Header: 'Acciones',
       Cell: ({ row }) => (
@@ -78,12 +78,12 @@ const Tenants = () => {
           onAdd={handleAddTenant} 
           onEdit={handleEditTenant} 
           selectedTenant={selectedTenant} 
-          clearSelectedTenant={() => setSelectedTenant(null)} // Función para limpiar el inquilino seleccionado
+          clearSelectedTenant={() => setSelectedTenant(null)} 
         />
       )}>
-        <Table columns={columns} data={tenants} /> {/* Tabla que muestra los inquilinos */}
+        <Table columns={columns} data={tenants} />
       </Card>
-      <ToastContainer /> {/* Contenedor para las notificaciones */}
+      <ToastContainer />
     </div>
   );
 };

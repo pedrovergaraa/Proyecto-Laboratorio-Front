@@ -49,7 +49,7 @@ function Register() {
                 navigate('/login');
             }, 2000);
         } catch (error) {
-            setError(error.message || 'Error registrando al usuario.'); // Muestra el mensaje de error del backend
+            setError(error.message || 'Error registrando al usuario.'); 
         }
     };
 

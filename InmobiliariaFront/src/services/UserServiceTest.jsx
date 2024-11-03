@@ -16,7 +16,7 @@
   // Crear un nuevo usuario (Registro)
   export const createUser = async (user) => {
     try {
-      const response = await fetch(`${apiUrl}/register`, {
+      const response = await fetch(`${apiUrl}/register/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
