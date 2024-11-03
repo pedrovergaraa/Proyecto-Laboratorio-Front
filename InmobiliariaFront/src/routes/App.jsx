@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -9,6 +8,7 @@ import Tenants from '../components/tenants/Tenants';
 import Contracts from '../components/contracts/Contracts';
 import Landlord from '../components/landlord/Landlord';
 import UserTenant from '../authComponents/userTenant/userTenant';
+import UserLandLord from '../authComponents/userLandLord/userLandLord';
 import NotFound from './notFound/NotFound'; 
 import Protected from './protected/Protected'; 
 import { ThemeContextProvider } from '../context/themeContext/theme.context';
@@ -40,7 +40,11 @@ const App = () => {
         },
         {
           path: "/user-tenant",
-          element: <UserTenant/>
+          element: <UserTenant />,
+        },
+        {
+          path: "/user-landlord",
+          element: <UserLandLord />,
         }
       ],
     },

@@ -1,12 +1,10 @@
 import { createContext, useState } from "react";
 
-
 export const AuthenticationContext = createContext();
 
 const userValue = JSON.parse(localStorage.getItem("token"));
 
 const apiUrl = import.meta.env.VITE_API_URL;
-
 
 export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(userValue);
@@ -21,32 +19,31 @@ export const AuthenticationContextProvider = ({ children }) => {
         },
         body: JSON.stringify({ mail, password }),
       });
-  
+
       if (!response.ok) {
-        const errorText = await response.text(); // Captura el texto del error del backend
+        const errorText = await response.text();
         throw new Error(`Login failed: ${errorText}`);
       }
-  
+
       const data = await response.json();
 
-      localStorage.setItem("token", JSON.stringify(data.token));
-      setUser({ token: data.token });
+      // Almacena el rol junto al token
+      localStorage.setItem("token", JSON.stringify({ token: data.token, role: data.role }));
+      setUser({ token: data.token, role: data.role }); // Guarda el rol en el estado
       setAuthError(null);
     } catch (error) {
-
       console.error("Error during login:", error);
       setAuthError("Invalid mail or password.");
     }
   };
-  
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUser(null);
   };
 
   return (
-    <AuthenticationContext.Provider value={{ user, handleLogin, handleLogout, authError  }}>
+    <AuthenticationContext.Provider value={{ user, handleLogin, handleLogout, authError }}>
       {children}
     </AuthenticationContext.Provider>
   );

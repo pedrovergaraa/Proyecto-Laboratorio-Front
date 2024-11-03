@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css'; 
 import ModalForm from '../modal/modalForm';
-
+import { useLocation } from 'react-router-dom';
 
 const Card = ({ title, children, FormComponent, formProps }) => {
-
+  const location = useLocation(); 
   const [isModalOpen, setModalOpen] = useState(false); 
 
   const handleAddClick = () => {
@@ -15,6 +15,9 @@ const Card = ({ title, children, FormComponent, formProps }) => {
   const handleCloseModal = () => {
     setModalOpen(false); 
   };
+
+  const isUserTenantRoute = location.pathname === '/user-tenant';
+  const isUserLandLordRoute = location.pathname === '/user-landlord';
 
   return (
     <div className="card">
@@ -26,9 +29,14 @@ const Card = ({ title, children, FormComponent, formProps }) => {
           {children}
         </div>
         
-        <button className="card-add-button" onClick={handleAddClick}>
-          + Agregar
-        </button>
+        
+        {!isUserTenantRoute && !isUserLandLordRoute && (
+          <button className="card-add-button" onClick={handleAddClick}>
+            + Agregar
+          </button>
+        )}
+
+    
       </div>
       {isModalOpen && (
         <ModalForm isOpen={isModalOpen} onClose={handleCloseModal}>
@@ -39,13 +47,11 @@ const Card = ({ title, children, FormComponent, formProps }) => {
   );
 };
 
-
 Card.propTypes = {
-
-  title: PropTypes.string.isRequired, // El título es obligatorio y debe ser un string
-  children: PropTypes.node, // Los hijos pueden ser cualquier cosa que React pueda renderizar
-  FormComponent: PropTypes.elementType.isRequired, // Recibe un componente de formulario
-  formProps: PropTypes.object, // Props adicionales para el componente del formulario
+  title: PropTypes.string.isRequired, 
+  children: PropTypes.node, 
+  FormComponent: PropTypes.elementType.isRequired, 
+  formProps: PropTypes.object, 
 };
 
 export default Card;
