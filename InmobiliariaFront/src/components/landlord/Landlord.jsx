@@ -19,7 +19,7 @@ const Landlord = () => {
   // Definir las columnas para la tabla
   const columns = [
     { Header: 'Email', accessor: 'mail' },
-    { Header: 'Properties', accessor: 'propertyList' },
+    { Header: 'Propiedades', accessor: 'propertyList' },
   ];
 
   // Función para renderizar las propiedades

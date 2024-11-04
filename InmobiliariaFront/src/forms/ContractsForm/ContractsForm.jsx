@@ -1,9 +1,9 @@
-// src/forms/ContractsForm/ContractsForm.jsx 
+// src/forms/ContractsForm/ContractsForm.jsx
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const ContractsForm = ({ contract, onSubmit, fields }) => {
+const ContractsForm = ({ contract, onSubmit, fields = [] }) => { // Valor por defecto para fields
   const initialFormData = {
     date: '',         // Cambiado de startDate a date
     endDate: '',
@@ -38,8 +38,8 @@ const ContractsForm = ({ contract, onSubmit, fields }) => {
           Fecha de Inicio:
           <input
             type="date"
-            name="date" // Cambiado de startDate a date
-            value={formData.date} // Cambiado de startDate a date
+            name="date"
+            value={formData.date}
             onChange={handleChange}
             required
           />
@@ -57,25 +57,25 @@ const ContractsForm = ({ contract, onSubmit, fields }) => {
           />
         </label>
       )}
-      {fields.includes('landlordMail') && ( // Cambiado de ownerEmail a landlordMail
+      {fields.includes('landlordMail') && (
         <label>
           Email del Propietario:
           <input
             type="email"
-            name="landlordMail" // Cambiado de ownerEmail a landlordMail
-            value={formData.landlordMail} // Cambiado de ownerEmail a landlordMail
+            name="landlordMail"
+            value={formData.landlordMail}
             onChange={handleChange}
             required
           />
         </label>
       )}
-      {fields.includes('tenantMail') && ( // Cambiado de tenantEmail a tenantMail
+      {fields.includes('tenantMail') && (
         <label>
           Email del Inquilino:
           <input
             type="email"
-            name="tenantMail" // Cambiado de tenantEmail a tenantMail
-            value={formData.tenantMail} // Cambiado de tenantEmail a tenantMail
+            name="tenantMail"
+            value={formData.tenantMail}
             onChange={handleChange}
             required
           />
@@ -101,7 +101,11 @@ const ContractsForm = ({ contract, onSubmit, fields }) => {
 ContractsForm.propTypes = {
   contract: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
-  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fields: PropTypes.arrayOf(PropTypes.string),
+};
+
+ContractsForm.defaultProps = {
+  fields: [], // Valor predeterminado si fields no está definido
 };
 
 export default ContractsForm;

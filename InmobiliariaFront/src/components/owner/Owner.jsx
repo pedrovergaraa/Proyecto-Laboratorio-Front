@@ -1,102 +1,71 @@
 // src/components/Owner.jsx
 import React, { useEffect, useState } from 'react';
 import Table from '../../shared-components/table/Table';
-import Card from '../../shared-components/card/card';
+import Card from '../../shared-components/card/Card';
+import OwnersForm from '../../forms/OwnersForm/OwnersForm'; // Asegúrate de importar correctamente OwnersForm
 import {
-  fetchAllProperties,
-  fetchAllLandlords,
-  fetchAllTenants,
-  fetchAllContracts,
-  createProperty,
-  updateProperty,
-  deleteProperty,
-  createLandlord,
-  updateLandlord,
-  deleteLandlord,
-  createTenant,
-  updateTenant,
-  deleteTenant,
-  createContract,
-  updateContract,
-  deleteContract,
+  fetchAllOwners,
+  createOwner,
+  updateOwner,
+  deleteOwner,
 } from '../../services/OwnerService';
 
 const Owner = () => {
-  const [allEntities, setAllEntities] = useState([]);
+  const [owners, setOwners] = useState([]);
 
   useEffect(() => {
-    loadAllEntities();
+    loadOwners();
   }, []);
 
-  const loadAllEntities = async () => {
+  const loadOwners = async () => {
     try {
-      const [properties, landlords, tenants, contracts] = await Promise.all([
-        fetchAllProperties(),
-        fetchAllLandlords(),
-        fetchAllTenants(),
-        fetchAllContracts(),
-      ]);
-
-      const formattedData = [
-        ...properties.map((property) => ({ id: property.id, type: 'Property', email: property.email })),
-        ...landlords.map((landlord) => ({ id: landlord.id, type: 'Landlord', email: landlord.email })),
-        ...tenants.map((tenant) => ({ id: tenant.id, type: 'Tenant', email: tenant.email })),
-        ...contracts.map((contract) => ({ id: contract.id, type: 'Contract', email: contract.email })),
-      ];
-
-      setAllEntities(formattedData);
+      const data = await fetchAllOwners();
+      setOwners(data);
     } catch (error) {
-      console.error("Error fetching data", error);
+      console.error("Error fetching owners", error);
     }
   };
 
-  const handleCreate = async (newEntity) => {
+  const handleCreate = async (newOwner) => {
     try {
-      if (newEntity.type === 'Property') await createProperty(newEntity);
-      else if (newEntity.type === 'Landlord') await createLandlord(newEntity);
-      else if (newEntity.type === 'Tenant') await createTenant(newEntity);
-      else if (newEntity.type === 'Contract') await createContract(newEntity);
-
-      loadAllEntities();
+      await createOwner(newOwner);
+      loadOwners(); // Recargar la lista de owners
     } catch (error) {
-      console.error("Error creating entity", error);
+      console.error("Error creating owner", error);
     }
   };
 
-  const handleEdit = async (editedEntity) => {
+  const handleEdit = async (editedOwner) => {
     try {
-      if (editedEntity.type === 'Property') await updateProperty(editedEntity);
-      else if (editedEntity.type === 'Landlord') await updateLandlord(editedEntity);
-      else if (editedEntity.type === 'Tenant') await updateTenant(editedEntity);
-      else if (editedEntity.type === 'Contract') await updateContract(editedEntity);
-
-      loadAllEntities();
+      await updateOwner(editedOwner);
+      loadOwners();
     } catch (error) {
-      console.error("Error updating entity", error);
+      console.error("Error updating owner", error);
     }
   };
 
-  const handleDelete = async (id, type) => {
+  const handleDelete = async (id) => {
     try {
-      if (type === 'Property') await deleteProperty(id);
-      else if (type === 'Landlord') await deleteLandlord(id);
-      else if (type === 'Tenant') await deleteTenant(id);
-      else if (type === 'Contract') await deleteContract(id);
-
-      loadAllEntities();
+      await deleteOwner(id);
+      loadOwners();
     } catch (error) {
-      console.error("Error deleting entity", error);
+      console.error("Error deleting owner", error);
     }
   };
 
   const columns = [
-    { Header: 'Tipo', accessor: 'type' },
+    { Header: 'ID', accessor: 'id' },
     { Header: 'Email', accessor: 'mail' },
   ];
 
   return (
-    <Card title="Resumen de Entidades Inmobiliarias" allowAdd={true} onAdd={handleCreate}>
-      <Table columns={columns} data={allEntities} onEdit={handleEdit} onDelete={handleDelete} />
+    <Card title="Lista de Inmobiliarias" allowAdd={true} FormComponent={OwnersForm} onAdd={handleCreate}>
+      <Table 
+        columns={columns} 
+        data={owners} 
+        onEdit={handleEdit} 
+        onDelete={handleDelete} 
+      />
     </Card>
   );
 };
