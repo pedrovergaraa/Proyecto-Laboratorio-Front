@@ -1,19 +1,21 @@
+// src/components/Card.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './Card.css'; 
+import './Card.css';
 import ModalForm from '../modal/modalForm';
 import { useLocation } from 'react-router-dom';
 
-const Card = ({ title, children, FormComponent, formProps }) => {
-  const location = useLocation(); 
-  const [isModalOpen, setModalOpen] = useState(false); 
+const Card = ({ title, children, FormComponent, formProps, allowAdd = true }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const location = useLocation();
+
 
   const handleAddClick = () => {
-    setModalOpen(true); 
+    setModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setModalOpen(false); 
+    setModalOpen(false);
   };
 
   const isUserTenantRoute = location.pathname === '/user-tenant';
@@ -36,9 +38,8 @@ const Card = ({ title, children, FormComponent, formProps }) => {
           </button>
         )}
 
-    
       </div>
-      {isModalOpen && (
+      {isModalOpen && allowAdd && (
         <ModalForm isOpen={isModalOpen} onClose={handleCloseModal}>
           {FormComponent ? <FormComponent {...formProps} /> : null}
         </ModalForm>
@@ -48,10 +49,11 @@ const Card = ({ title, children, FormComponent, formProps }) => {
 };
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired, 
-  children: PropTypes.node, 
-  FormComponent: PropTypes.elementType.isRequired, 
-  formProps: PropTypes.object, 
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  FormComponent: PropTypes.elementType,
+  formProps: PropTypes.object,
+  allowAdd: PropTypes.bool, // Prop para habilitar/deshabilitar el botón de agregar
 };
 
 export default Card;

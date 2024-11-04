@@ -1,38 +1,37 @@
-// ExampleForm.js
-import React from 'react';
-import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
+import React, { useState } from 'react';
+import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const PropertiesForm = ({ onAdd, onClose }) => {
-  const handleAddClick = (event) => {
-    event.preventDefault(); 
+const PropertiesForm = ({ onAdd }) => {
+  const [formData, setFormData] = useState({ adress: '', description: '', landlordId: '' });
 
-    if (onAdd) {
-      onAdd();
-    }
-
-    showSuccessToast("Usuario agregado con éxito!");
-
-    if (onClose) {
-      onClose(); // Cierra el modal padre
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAdd(formData); // Llama a la función pasada como prop
+    setFormData({ adress: '', description: '', landlordId: '' }); // Reinicia el formulario
   };
 
   return (
-    <form>
-      <div>
-        <label>Nombre:</label>
-        <input type="text" name="name" />
-      </div>
-      <div>
-        <label>Direccion:</label>
-        <input type="text" name="address" />
-      </div>
-      <div>
-        <label>mail:</label>
-        <input type="mail" name="mail" />
-      </div>
-      <button type="submit" onClick={handleAddClick}>Agregar</button>
-      <ToastContainerComponent />
+    <form onSubmit={handleSubmit}>
+      {/* Aquí van tus campos de formulario */}
+      <label>Direccion:</label>
+      <input
+        type="text"
+        value={formData.adress}
+        onChange={(e) => setFormData({ ...formData, adress: e.target.value })}
+      />
+      <label>Descripción:</label>
+      <input
+        type="text"
+        value={formData.description}
+        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+      />
+      <label>Email Propietario:</label>
+      <input
+        type="email"
+        value={formData.landlordMail}
+        onChange={(e) => setFormData({ ...formData, landlordMail: e.target.value })}
+      />
+      <button type="submit">Añadir Propiedad</button>
     </form>
   );
 };

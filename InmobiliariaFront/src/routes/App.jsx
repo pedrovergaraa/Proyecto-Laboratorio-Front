@@ -15,6 +15,7 @@ import { ThemeContextProvider } from '../context/themeContext/theme.context';
 import { AuthenticationContextProvider } from '../context/authenticationContext/auth.context';
 
 import "./App.css";
+import Owner from '../components/owner/Owner';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const App = () => {
       path: "/",
       element: <Protected />, 
       children: [
+        {
+          path: "/",
+          element: <Owner />,
+        },
         {
           path: "/properties",
           element: <Properties />,

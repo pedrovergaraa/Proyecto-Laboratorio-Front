@@ -63,7 +63,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Mayor separación entre elementos */
+  gap: 1.2rem; /* Mayor separación entre elementos */
 }
 
 .modal-content form label {
@@ -91,6 +91,40 @@
 
 .modal-content form button:hover {
   background-color: var(--button-hover-color);
+}
+
+.custom-add-button,
+.custom-payment-button {
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: 10px;
+}
+
+.custom-add-button {
+  background-color: var(--button-color);
+  color: var(--button-text-color);
+}
+
+.custom-payment-button {
+  background-color: #17a2b8; /* Color específico para el botón de pago */
+  color: white;
+}
+
+.custom-add-button:hover,
+.custom-payment-button:hover {
+  background-color: var(--button-hover-color);
+  transform: translateY(-2px);
+}
+
+.custom-add-button:disabled,
+.custom-payment-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 :root[data-bs-theme='light'] {

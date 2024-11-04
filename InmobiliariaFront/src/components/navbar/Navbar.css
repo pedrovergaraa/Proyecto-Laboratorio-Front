@@ -135,8 +135,6 @@ body {
   }
 }
 
-
-
 .button-container {
   display: flex;
   justify-content: space-around;
@@ -145,16 +143,53 @@ body {
   margin-top: 10px;
 }
 
-.cancel-btn {
-  background-color: rgb(124, 123, 123);
-  border-radius: 5px;
+.cancel-btn, .confirm-btn {
+  padding: 0.8rem 1.2rem;
   font-size: 1rem;
   cursor: pointer;
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 8px; /* Bordes más redondeados */
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
 }
 
+/* Botón de cancelar */
+.cancel-btn {
+  background-color: rgb(124, 123, 123);
+}
+
+.cancel-btn:hover {
+  background-color: rgb(100, 100, 100); /* Color más oscuro en hover */
+}
+
+/* Botón de confirmar */
 .confirm-btn {
-  background-color: #007bff;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
+  background-color: var(--button-color);
+}
+
+.confirm-btn:hover {
+  background-color: var(--button-hover-color);
+}
+
+/* Texto dentro del modal */
+#modal-text {
+  font-size: 1.2rem;
+  color: var(--text-color); /* Se adapta al tema */
+}
+
+:root[data-bs-theme='light'] {
+  --button-color: #007bff;
+  --button-text-color: white;
+  --button-hover-color: #0056b3;
+}
+
+:root[data-bs-theme='dark'] {
+  --button-color: #007bff;
+  --button-text-color: white;
+  --button-hover-color: #0056b3;
 }
