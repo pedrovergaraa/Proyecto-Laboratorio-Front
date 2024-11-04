@@ -64,7 +64,7 @@ const Properties = () => {
   };
 
   const columns = [
-    { Header: 'Dirección', accessor: 'adress' }, 
+    { Header: 'Dirección', accessor: 'address' }, 
     { Header: 'Descripción', accessor: 'description' },
     { Header: 'Email Propietario', accessor: 'landlordMail' },
   ];

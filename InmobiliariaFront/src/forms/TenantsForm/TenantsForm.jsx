@@ -1,24 +1,30 @@
-import React, { useState } from "react";
-import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
+import React, { useState, useEffect } from "react";
+import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const TenantsForm = ({ onAdd }) => {
-  const [name, setName] = useState(""); // Estado para el nombre
-  const [mail, setMail] = useState(""); // Estado para el email
+const TenantsForm = ({ onAdd, onEdit, selectedTenant, clearSelectedTenant }) => {
+  const [name, setName] = useState("");
+  const [mail, setMail] = useState("");
+
+  useEffect(() => {
+    if (selectedTenant) {
+      setName(selectedTenant.name || "");
+      setMail(selectedTenant.mail || "");
+    }
+  }, [selectedTenant]);
 
   const handleAddClick = (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
+    const tenantData = { name, mail };
 
-    // Crea el objeto del nuevo inquilino
-    const newTenant = { name, mail };
-
-    if (onAdd) {
-      onAdd(newTenant); // Pasa el nuevo inquilino a la función onAdd
+    if (selectedTenant) {
+      onEdit({ ...tenantData, id: selectedTenant.id });
+      showSuccessToast("Inquilino actualizado con éxito!");
+      clearSelectedTenant();
+    } else {
+      onAdd(tenantData);
+      showSuccessToast("Inquilino agregado con éxito!");
     }
 
-    // Muestra la notificación de éxito
-    showSuccessToast("Inquilino agregado con éxito!");
-    
-    // Resetea los campos del formulario
     setName("");
     setMail("");
   };
@@ -31,7 +37,7 @@ const TenantsForm = ({ onAdd }) => {
           type="text" 
           name="name" 
           value={name} 
-          onChange={(e) => setName(e.target.value)} // Maneja el cambio en el input
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div>
@@ -40,10 +46,12 @@ const TenantsForm = ({ onAdd }) => {
           type="email" 
           name="mail" 
           value={mail} 
-          onChange={(e) => setMail(e.target.value)} // Maneja el cambio en el input
+          onChange={(e) => setMail(e.target.value)}
         />
       </div>
-      <button type="submit" onClick={handleAddClick}>Agregar</button>
+      <button type="submit" onClick={handleAddClick}>
+        {selectedTenant ? "Actualizar" : "Agregar"}
+      </button>
       <ToastContainerComponent />
     </form>
   );

@@ -114,7 +114,6 @@ export const updateTenant = async (tenant) => {
   }
 };
 
-// Eliminar un inquilino
 export const deleteTenant = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/tenant/${id}`, {

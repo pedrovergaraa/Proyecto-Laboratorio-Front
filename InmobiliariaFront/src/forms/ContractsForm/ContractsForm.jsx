@@ -9,7 +9,6 @@ const ContractsForm = ({ contract, onSubmit, fields }) => {
     endDate: '',
     landlordMail: '', // Cambiado de ownerEmail a landlordMail
     tenantMail: '',   // Cambiado de tenantEmail a tenantMail
-    rentAmount: '',
     ...contract,
   };
 
@@ -76,18 +75,6 @@ const ContractsForm = ({ contract, onSubmit, fields }) => {
             type="email"
             name="tenantMail" // Cambiado de tenantEmail a tenantMail
             value={formData.tenantMail} // Cambiado de tenantEmail a tenantMail
-            onChange={handleChange}
-            required
-          />
-        </label>
-      )}
-      {fields.includes('rentAmount') && (
-        <label>
-          Monto:
-          <input
-            type="number"
-            name="rentAmount"
-            value={formData.rentAmount}
             onChange={handleChange}
             required
           />
