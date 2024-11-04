@@ -1,4 +1,3 @@
-// Componente Tenants.jsx
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import Card from '../../shared-components/card/card';
@@ -16,6 +15,7 @@ const Tenants = () => {
         const data = await fetchAllTenants();
         setTenants(data);
       } catch (error) {
+        console.error(error); // Log el error para diagnosticar
         toast.error("Error al cargar los inquilinos");
       }
     };
@@ -28,6 +28,7 @@ const Tenants = () => {
       setTenants([...tenants, newTenant]);
       toast.success("Inquilino añadido con éxito");
     } catch (error) {
+      console.error(error); // Log el error para diagnosticar
       toast.error("Error al añadir el inquilino");
     }
   };
@@ -42,6 +43,7 @@ const Tenants = () => {
       setTenants(tenants.map(t => (t.id === tenant.id ? updatedTenant : t)));
       toast.success("Inquilino actualizado con éxito");
     } catch (error) {
+      console.error(error); // Log el error para diagnosticar
       toast.error("Error al actualizar el inquilino");
     }
   };
@@ -52,23 +54,15 @@ const Tenants = () => {
       setTenants(tenants.filter(tenant => tenant.id !== id));
       toast.success("Inquilino eliminado con éxito");
     } catch (error) {
+      console.error(error); // Log el error para diagnosticar
       toast.error("Error al eliminar el inquilino");
     }
   };
 
   const columns = [
-    { Header: 'ID', accessor: 'id' },
     { Header: 'Email', accessor: 'mail' },
-    { Header: 'Propiedad', accessor: 'property' },
-    {
-      Header: 'Acciones',
-      Cell: ({ row }) => (
-        <>
-          <button onClick={() => setSelectedTenant(row.original)}>Editar</button>
-          <button onClick={() => handleDeleteTenant(row.original.id)}>Eliminar</button>
-        </>
-      ),
-    },
+    { Header: 'Dirección', accessor: 'property.adress' }, 
+    { Header: 'Descripción', accessor: 'property.description' }
   ];
 
   return (
@@ -81,7 +75,7 @@ const Tenants = () => {
           clearSelectedTenant={() => setSelectedTenant(null)} 
         />
       )}>
-        <Table columns={columns} data={tenants} />
+        <Table columns={columns} data={tenants} onEdit={handleEditTenant} onDelete={handleDeleteTenant} />
       </Card>
       <ToastContainer />
     </div>

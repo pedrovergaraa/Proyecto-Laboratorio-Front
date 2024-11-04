@@ -64,10 +64,9 @@ const Properties = () => {
   };
 
   const columns = [
-    { Header: 'ID', accessor: 'id' },
-    { Header: 'Dirección', accessor: 'address' }, // Corrige 'adress' a 'address'
+    { Header: 'Dirección', accessor: 'adress' }, 
     { Header: 'Descripción', accessor: 'description' },
-    { Header: 'Id Inquilino', accessor: 'landlordId' }, // Corrige 'landlordMail' si es necesario
+    { Header: 'Email Propietario', accessor: 'landlordMail' },
   ];
 
   return (

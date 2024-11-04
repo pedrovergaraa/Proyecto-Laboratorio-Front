@@ -65,27 +65,29 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>
-          {data.map((row) => (
-            <tr key={row.id}>
-              {columns.map((column) => (
-                <td key={column.accessor}>{row[column.accessor]}</td>
-              ))}
-              <td className="action-icons">
-                <EditIcon
-                  className="edit-icon"
-                  onClick={() => handleEdit(row)}
-                  style={{ cursor: 'pointer', color: '#1976d2' }}
-                />
-                <DeleteIcon
-                  className="delete-icon"
-                  onClick={() => handleDelete(row)}
-                  style={{ cursor: 'pointer', color: '#d32f2f' }}
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
+      
+<tbody>
+  {data.map((row) => (
+    <tr key={row.id}>
+      {columns.map((column) => (
+        <td key={column.accessor}>{row[column.accessor]}</td>
+      ))}
+      <td className="action-icons"> {/* Cambia aquí */}
+        <EditIcon
+          className="edit-icon"
+          onClick={() => handleEdit(row)}
+          style={{ cursor: 'pointer', color: '#1976d2' }}
+        />
+        <DeleteIcon
+          className="delete-icon"
+          onClick={() => handleDelete(row)}
+          style={{ cursor: 'pointer', color: '#d32f2f' }}
+        />
+      </td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
 
       {showDeleteModal && (

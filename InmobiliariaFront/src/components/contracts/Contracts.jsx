@@ -47,13 +47,16 @@ const Contracts = () => {
   };
 
   const columns = [
-    { Header: 'Tenant', accessor: 'tenantEmail' },
-    { Header: 'Monto', accessor: 'rentAmount' },
-    { Header: 'Estado', accessor: 'status' },
+    { Header: 'Email del Propietario', accessor: 'landlordMail' },
+    { Header: 'Email del Inquilino', accessor: 'tenantMail' },
+    { Header: 'Monto del Alquiler', accessor: 'rentAmount' },
+    { Header: 'Fecha de Inicio', accessor: 'date' },
+    { Header: 'Fecha de Fin', accessor: 'endDate' },
   ];
 
   return (
     <div>
+      
       <Card title="Contratos" FormComponent={ContractsForm}>
         <Table
           columns={columns}
@@ -62,21 +65,9 @@ const Contracts = () => {
           onDelete={handleDeleteContract}
           disableAddButton={true} // Deshabilitamos el botón de agregar en la tabla
         />
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="custom-add-button"
-        >
-          + Agregar Contrato
-        </button>
-        <button
-          onClick={() => setShowPaymentModal(true)}
-          className="custom-payment-button"
-        >
-          Realizar Pago
-        </button>
       </Card>
 
-      {showAddModal && (
+      {/* {showAddModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <button
@@ -92,9 +83,9 @@ const Contracts = () => {
             />
           </div>
         </div>
-      )}
+      )} */}
 
-      {showPaymentModal && (
+      {/* {showPaymentModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <button
@@ -113,7 +104,7 @@ const Contracts = () => {
             />
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -1,3 +1,14 @@
+const getAuthHeaders = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  if (!token) {
+    throw new Error("No token found");
+  }
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`,
+  };
+};
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 // Obtener todos los landlords
@@ -9,7 +20,14 @@ export const fetchAllLandlords = async () => {
     if (!response.ok) {
       throw new Error('Error fetching landlords');
     }
-    return await response.json();
+    const data = await response.json();
+
+    // Adaptar los datos si es necesario
+    return data.map(landlord => ({
+      id: landlord.id,
+      mail: landlord.mail,
+      propertyList: landlord.propertyList || [], // Asegúrate de que existe
+    }));
   } catch (error) {
     console.error('Error fetching landlords:', error);
     throw error;

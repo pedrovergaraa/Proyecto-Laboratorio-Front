@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import loginImage from "../../assets/images/login-image.webp";
-import { AuthenticationContext } from "../../context/authenticationContext/auth.context"; // Importa el contexto de autenticación
+import { AuthenticationContext } from "../../context/authenticationContext/auth.context"; 
 
 function Login() {
   const [mail, setMail] = useState("");
@@ -13,7 +13,7 @@ function Login() {
   });
   const [error, setError] = useState("");
 
-  const { handleLogin, authError, user } = useContext(AuthenticationContext); // Uso del contexto de autenticación
+  const { handleLogin, authError, user } = useContext(AuthenticationContext); 
   const navigate = useNavigate();
 
   const isValidMail = (mail) => /\S+@\S+\.\S+/.test(mail);

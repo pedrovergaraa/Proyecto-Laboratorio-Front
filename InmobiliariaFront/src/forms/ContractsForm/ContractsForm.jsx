@@ -1,14 +1,14 @@
-// src/forms/ContractsForm/ContractsForm.jsx
+// src/forms/ContractsForm/ContractsForm.jsx 
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const ContractsForm = ({ contract, onSubmit, fields }) => {
   const initialFormData = {
-    startDate: '',
+    date: '',         // Cambiado de startDate a date
     endDate: '',
-    ownerEmail: '',
-    tenantEmail: '',
+    landlordMail: '', // Cambiado de ownerEmail a landlordMail
+    tenantMail: '',   // Cambiado de tenantEmail a tenantMail
     rentAmount: '',
     ...contract,
   };
@@ -33,13 +33,13 @@ const ContractsForm = ({ contract, onSubmit, fields }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {fields.includes('startDate') && (
+      {fields.includes('date') && (
         <label>
           Fecha de Inicio:
           <input
             type="date"
-            name="startDate"
-            value={formData.startDate}
+            name="date" // Cambiado de startDate a date
+            value={formData.date} // Cambiado de startDate a date
             onChange={handleChange}
             required
           />
@@ -57,25 +57,25 @@ const ContractsForm = ({ contract, onSubmit, fields }) => {
           />
         </label>
       )}
-      {fields.includes('ownerEmail') && (
+      {fields.includes('landlordMail') && ( // Cambiado de ownerEmail a landlordMail
         <label>
           Email del Propietario:
           <input
             type="email"
-            name="ownerEmail"
-            value={formData.ownerEmail}
+            name="landlordMail" // Cambiado de ownerEmail a landlordMail
+            value={formData.landlordMail} // Cambiado de ownerEmail a landlordMail
             onChange={handleChange}
             required
           />
         </label>
       )}
-      {fields.includes('tenantEmail') && (
+      {fields.includes('tenantMail') && ( // Cambiado de tenantEmail a tenantMail
         <label>
           Email del Inquilino:
           <input
             type="email"
-            name="tenantEmail"
-            value={formData.tenantEmail}
+            name="tenantMail" // Cambiado de tenantEmail a tenantMail
+            value={formData.tenantMail} // Cambiado de tenantEmail a tenantMail
             onChange={handleChange}
             required
           />

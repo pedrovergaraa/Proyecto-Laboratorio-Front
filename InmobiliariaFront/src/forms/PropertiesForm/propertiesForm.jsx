@@ -25,11 +25,11 @@ const PropertiesForm = ({ onAdd }) => {
         value={formData.description}
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
       />
-      <label>ID Inquilino:</label>
+      <label>Email Propietario:</label>
       <input
-        type="number"
-        value={formData.landlordId}
-        onChange={(e) => setFormData({ ...formData, landlordId: e.target.value })}
+        type="email"
+        value={formData.landlordMail}
+        onChange={(e) => setFormData({ ...formData, landlordMail: e.target.value })}
       />
       <button type="submit">Añadir Propiedad</button>
     </form>
