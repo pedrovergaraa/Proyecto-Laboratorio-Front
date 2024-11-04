@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
 const PropertiesForm = ({ onAdd }) => {
-  const [formData, setFormData] = useState({ adress: '', description: '', landlordId: '' });
+  const [formData, setFormData] = useState({ adress: '', description: '', landlordMail: '',tenantMail: '', ownerMail:'owner@hotmail.com' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onAdd(formData); // Llama a la función pasada como prop
-    setFormData({ adress: '', description: '', landlordId: '' }); // Reinicia el formulario
+    setFormData({ adress: '', description: '', landlordMail: '',tenantMail: '', ownerMail:'owner@hotmail.com' }); 
   };
 
   return (
@@ -30,6 +30,12 @@ const PropertiesForm = ({ onAdd }) => {
         type="email"
         value={formData.landlordMail}
         onChange={(e) => setFormData({ ...formData, landlordMail: e.target.value })}
+      />
+       <label>Email Inquilino:</label>
+      <input
+        type="email"
+        value={formData.tenantMail}
+        onChange={(e) => setFormData({ ...formData, tenantMail: e.target.value })}
       />
       <button type="submit">Añadir Propiedad</button>
     </form>
