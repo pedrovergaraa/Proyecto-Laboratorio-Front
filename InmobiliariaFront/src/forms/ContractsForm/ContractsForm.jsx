@@ -1,34 +1,43 @@
-// src/forms/ContractsForm/ContractsForm.jsx
-
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const ContractsForm = ({ contract, onSubmit, fields = [] }) => { // Valor por defecto para fields
+const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
   const initialFormData = {
-    date: '',         // Cambiado de startDate a date
-    endDate: '',
-    landlordMail: '', // Cambiado de ownerEmail a landlordMail
-    tenantMail: '',   // Cambiado de tenantEmail a tenantMail
-    rentAmount: '',
-    ...contract,
+    date: contract?.date?.slice(0, 10) || '',
+    endDate: contract?.endDate?.slice(0, 10) || '',
+    tenantMail: contract?.tenantMail || '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
     if (contract) {
-      setFormData(contract);
+      setFormData({
+        date: contract.date?.slice(0, 10) || '',
+        endDate: contract.endDate?.slice(0, 10) || '',
+        tenantMail: contract.tenantMail || '',
+      });
+    } else {
+      setFormData(initialFormData);
     }
   }, [contract]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    try {
+      await onSubmit(formData);
+      showSuccessToast('Contrato guardado con éxito');
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error("Error al guardar el contrato:", error);
+      // Podrías agregar un toast de error aquí si lo deseas
+    }
   };
 
   return (
@@ -57,18 +66,6 @@ const ContractsForm = ({ contract, onSubmit, fields = [] }) => { // Valor por de
           />
         </label>
       )}
-      {fields.includes('landlordMail') && (
-        <label>
-          Email del Propietario:
-          <input
-            type="email"
-            name="landlordMail"
-            value={formData.landlordMail}
-            onChange={handleChange}
-            required
-          />
-        </label>
-      )}
       {fields.includes('tenantMail') && (
         <label>
           Email del Inquilino:
@@ -76,18 +73,6 @@ const ContractsForm = ({ contract, onSubmit, fields = [] }) => { // Valor por de
             type="email"
             name="tenantMail"
             value={formData.tenantMail}
-            onChange={handleChange}
-            required
-          />
-        </label>
-      )}
-      {fields.includes('rentAmount') && (
-        <label>
-          Monto:
-          <input
-            type="number"
-            name="rentAmount"
-            value={formData.rentAmount}
             onChange={handleChange}
             required
           />
@@ -105,7 +90,7 @@ ContractsForm.propTypes = {
 };
 
 ContractsForm.defaultProps = {
-  fields: [], // Valor predeterminado si fields no está definido
+  fields: [],
 };
 
 export default ContractsForm;

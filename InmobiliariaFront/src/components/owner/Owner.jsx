@@ -37,12 +37,13 @@ const Owner = () => {
 
   const handleEdit = async (editedOwner) => {
     try {
-      await updateOwner(editedOwner);
+      await updateOwner(editedOwner.id, editedOwner);
       loadOwners();
     } catch (error) {
       console.error("Error updating owner", error);
     }
   };
+  
 
   const handleDelete = async (id) => {
     try {
@@ -54,12 +55,12 @@ const Owner = () => {
   };
 
   const columns = [
-    { Header: 'ID', accessor: 'id' },
+    { Header: 'Nombre', accessor: 'name' },
     { Header: 'Email', accessor: 'mail' },
   ];
 
   return (
-    <Card title="Lista de Inmobiliarias" allowAdd={true} FormComponent={OwnersForm} onAdd={handleCreate}>
+    <Card title="Usuarios inmobiliaria" allowAdd={true} FormComponent={OwnersForm} onAdd={handleCreate}>
       <Table 
         columns={columns} 
         data={owners} 

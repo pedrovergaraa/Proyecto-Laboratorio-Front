@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './Table.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SearchBar from '../searchBar/SearchBar';
 
 const Table = ({ columns, data, onEdit, onDelete }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -11,13 +12,11 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
   const [rowToEdit, setRowToEdit] = useState(null);
   const [editedRow, setEditedRow] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
-  const [searchTerm, setSearchTerm] = useState(''); // Almacena el término de búsqueda
 
   useEffect(() => {
-    setFilteredData(data); // Actualiza los datos filtrados cuando los datos originales cambian
+    setFilteredData(data);
   }, [data]);
 
-  // Handle Edit Modal
   const handleEdit = (row) => {
     setRowToEdit(row);
     setEditedRow(row);
@@ -45,7 +44,7 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
     setEditedRow(null);
     setShowEditModal(false);
   };
-  
+
   const cancelEdit = () => {
     setRowToEdit(null);
     setEditedRow(null);
@@ -60,41 +59,19 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
     });
   };
 
-  const handleSearchInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  // Filtrado y ordenación de datos según el término de búsqueda y orden descendente
-  const handleSearch = () => {
+  const handleSearch = (searchTerm) => {
     const lowercasedTerm = searchTerm.toLowerCase();
-
-    const filtered = data
-      .filter((row) =>
-        Object.values(row).some(
-          (value) => String(value).toLowerCase().includes(lowercasedTerm)
-        )
+    const filtered = data.filter((row) =>
+      Object.values(row).some(
+        (value) => String(value).toLowerCase().includes(lowercasedTerm)
       )
-      .sort((a, b) => {
-        const firstValue = String(a.email || a.entityType || '').toLowerCase();
-        const secondValue = String(b.email || b.entityType || '').toLowerCase();
-        return secondValue.localeCompare(firstValue); // Orden descendente
-      });
-
+    );
     setFilteredData(filtered);
   };
 
   return (
     <div className="table-container">
-      {/* Barra de búsqueda y botón de búsqueda */}
-      <div className="search-bar">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchInputChange}
-          placeholder="Buscar..."
-        />
-        <button id='search-button' onClick={handleSearch}>Buscar</button>
-      </div>
+      <SearchBar onSearch={handleSearch} />
 
       <table>
         <thead>
@@ -105,30 +82,30 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
             <th>Acciones</th>
           </tr>
         </thead>
-      
         <tbody>
-          {filteredData.map((row) => (
-            <tr key={row.id}>
-              {columns.map((column) => (
-                <td key={column.accessor}>
-                  {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
-                </td>
-              ))}
-              <td className="action-icons">
-                <EditIcon
-                  className="edit-icon"
-                  onClick={() => handleEdit(row)}
-                  style={{ cursor: 'pointer', color: '#1976d2' }}
-                />
-                <DeleteIcon
-                  className="delete-icon"
-                  onClick={() => handleDelete(row)}
-                  style={{ cursor: 'pointer', color: '#d32f2f' }}
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
+  {filteredData.map((row) => (
+    <tr key={row.id}>
+      {columns.map((column) => (
+        <td key={column.accessor}>
+          {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
+        </td>
+      ))}
+      <td className="action-icons">
+        <EditIcon
+          className="edit-icon"
+          onClick={() => handleEdit(row)}
+          style={{ cursor: 'pointer', color: '#1976d2' }}
+        />
+        <DeleteIcon
+          className="delete-icon"
+          onClick={() => handleDelete(row)}
+          style={{ cursor: 'pointer', color: '#d32f2f' }}
+        />
+      </td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
 
       {showDeleteModal && (
