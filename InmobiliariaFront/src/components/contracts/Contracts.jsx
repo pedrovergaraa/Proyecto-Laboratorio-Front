@@ -69,7 +69,6 @@ const Contracts = () => {
   };
 
   const columns = [
-    { Header: 'Email del Propietario', accessor: 'landlordMail' },
     { Header: 'Email del Inquilino', accessor: 'tenantMail' },
     { 
       Header: 'Fecha de Inicio', 
@@ -90,7 +89,7 @@ const Contracts = () => {
         <ContractsForm 
           onSubmit={selectedContract ? handleEditContract : handleAddContract} 
           contract={selectedContract} 
-          fields={['date', 'endDate', 'landlordMail', 'tenantMail']} 
+          fields={['date', 'endDate', 'tenantMail']} 
         />
       )}>
         <Table 

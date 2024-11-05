@@ -6,7 +6,6 @@ const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
   const initialFormData = {
     date: contract?.date?.slice(0, 10) || '',
     endDate: contract?.endDate?.slice(0, 10) || '',
-    landlordMail: contract?.landlordMail || '',
     tenantMail: contract?.tenantMail || '',
   };
 
@@ -17,7 +16,6 @@ const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
       setFormData({
         date: contract.date?.slice(0, 10) || '',
         endDate: contract.endDate?.slice(0, 10) || '',
-        landlordMail: contract.landlordMail || '',
         tenantMail: contract.tenantMail || '',
       });
     } else {
@@ -63,18 +61,6 @@ const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
             type="date"
             name="endDate"
             value={formData.endDate}
-            onChange={handleChange}
-            required
-          />
-        </label>
-      )}
-      {fields.includes('landlordMail') && (
-        <label>
-          Email del Propietario:
-          <input
-            type="email"
-            name="landlordMail"
-            value={formData.landlordMail}
             onChange={handleChange}
             required
           />

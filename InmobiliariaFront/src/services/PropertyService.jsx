@@ -66,19 +66,19 @@ export const updateProperty = async (property) => {
 
 // Eliminar una propiedad
 export const deleteProperty = async (id) => {
+  console.log("id: ",id)
   try {
     const response = await fetch(`${apiUrl}/property/${id}`, {
       method: 'DELETE',
-      headers: getAuthHeaders(),
+      headers: 
+        {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZWRyb0Bob3RtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczMDgzMTEzMiwiZXhwIjoxNzMwOTE3NTMyfQ.Fs62niJ4dDb4ElmWqI__u_gPBIhxsB31ISr1P3gFwEY`,  
+        }
     });
     if (!response.ok) {
       throw new Error(`Error deleting property: ${response.status}`);
     }
-    // Solo intenta parsear JSON si la respuesta tiene contenido JSON
-    if (response.headers.get("Content-Type")?.includes("application/json")) {
-      return await response.json();
-    }
-    return null; // o cualquier valor adecuado si no hay respuesta JSON
   } catch (error) {
     console.error('Error deleting property:', error);
     throw error;

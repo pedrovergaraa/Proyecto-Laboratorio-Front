@@ -4,7 +4,7 @@ import { createProperty } from '../../services/propertyService'; // Asegúrate d
 
 const PropertiesForm = ({ onAdd }) => {
   const [formData, setFormData] = useState({
-    adress: '',
+    address: '',
     description: '',
     landlordMail: '',
     tenantMail: '',
@@ -15,7 +15,7 @@ const PropertiesForm = ({ onAdd }) => {
     e.preventDefault();
     await handleAddClick(formData); // Llama a la función para agregar la propiedad
     setFormData({
-      adress: '',
+      address: '',
       description: '',
       landlordMail: '',
       tenantMail: '',
@@ -40,8 +40,8 @@ const PropertiesForm = ({ onAdd }) => {
       <label>Dirección:</label>
       <input
         type="text"
-        value={formData.adress}
-        onChange={(e) => setFormData({ ...formData, adress: e.target.value })}
+        value={formData.address}
+        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
       />
       <label>Descripción:</label>
       <input
@@ -55,6 +55,12 @@ const PropertiesForm = ({ onAdd }) => {
         value={formData.landlordMail}
         onChange={(e) => setFormData({ ...formData, landlordMail: e.target.value })}
       />
+      {/* <label>Email Inquilino:</label>
+      <input
+        type="email"
+        value={formData.tenantMail}
+        onChange={(e) => setFormData({ ...formData, tenantMail: e.target.value })}
+      /> */}
       <button type="submit">Añadir Propiedad</button>
       <ToastContainerComponent /> {/* Asegúrate de incluir el componente Toast */}
     </form>

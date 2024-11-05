@@ -1,4 +1,3 @@
-// src/components/OwnersForm.jsx
 import React, { useState } from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
@@ -42,10 +41,8 @@ const OwnersForm = ({ onAdd }) => {
           required
         />
       </div>
-      <button type="submit">
-        Agregar
-      </button>
-      <ToastContainerComponent />
+      <button type="submit">Agregar</button>
+      <ToastContainerComponent /> {/* Asegúrate de que esto esté aquí */}
     </form>
   );
 };
