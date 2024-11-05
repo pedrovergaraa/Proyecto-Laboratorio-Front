@@ -2,7 +2,7 @@
   // Obtener todos los usuarios
   export const getUsers = async () => {
     try {
-      const response = await fetch(`${apiUrl}/users`);
+      const response = await fetch(`${apiUrl}/user/all`);
       if (!response.ok) {
         throw new Error('Error al obtener los usuarios');
       }

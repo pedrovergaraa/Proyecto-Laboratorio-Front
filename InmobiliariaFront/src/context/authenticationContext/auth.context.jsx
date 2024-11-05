@@ -1,6 +1,9 @@
 import { createContext, useState, useEffect } from "react";
 
+
 export const AuthenticationContext = createContext();
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
@@ -26,8 +29,9 @@ export const AuthenticationContextProvider = ({ children }) => {
 
       const data = await response.json();
 
-      localStorage.setItem("token", JSON.stringify(data.token));
-      setUser({ token: data.token });
+      // Almacena el rol junto al token
+      localStorage.setItem("token", JSON.stringify({ token: data.token, role: data.role }));
+      setUser({ token: data.token, role: data.role }); // Guarda el rol en el estado
       setAuthError(null);
     } catch (error) {
       console.error("Error during login:", error);

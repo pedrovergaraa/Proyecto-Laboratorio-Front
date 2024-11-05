@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
 import ModalForm from '../modal/modalForm';
+import { useLocation } from 'react-router-dom';
 
 const Card = ({ title, children, FormComponent, formProps, allowAdd = true }) => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const location = useLocation();
+
 
   const handleAddClick = () => {
     setModalOpen(true);
@@ -15,20 +18,26 @@ const Card = ({ title, children, FormComponent, formProps, allowAdd = true }) =>
     setModalOpen(false);
   };
 
+  const isUserTenantRoute = location.pathname === '/user-tenant';
+  const isUserLandLordRoute = location.pathname === '/user-landlord';
+
   return (
     <div className="card">
       <div className="card-header">
         <h2>{title}</h2>
       </div>
       <div className="card-body">
-        <div className="card-content">{children}</div>
-
-        {/* Mostrar botón de agregar solo si allowAdd es true */}
-        {allowAdd && (
+        <div className="card-content">
+          {children}
+        </div>
+        
+        
+        {!isUserTenantRoute && !isUserLandLordRoute && (
           <button className="card-add-button" onClick={handleAddClick}>
             + Agregar
           </button>
         )}
+
       </div>
       {isModalOpen && allowAdd && (
         <ModalForm isOpen={isModalOpen} onClose={handleCloseModal}>
