@@ -1,31 +1,13 @@
-// src/services/OwnerService.js
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const getAuthHeaders = () => {
-  const token = JSON.parse(localStorage.getItem("token"));
-  if (!token) {
-    throw new Error("No token found");
-  }
+  const token = localStorage.getItem('token');
   return {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
   };
 };
 
-// CRUD para Owner
-export const createOwner = async (owner) => {
-  return await makeRequest(`${apiUrl}/owner/new`, 'POST', owner);
-};
-
-export const updateOwner = async (owner) => {
-  return await makeRequest(`${apiUrl}/owner/${owner.id}`, 'PUT', owner);
-};
-
-export const deleteOwner = async (id) => {
-  return await makeRequest(`${apiUrl}/owner/${id}`, 'DELETE');
-};
-
-// Obtener todos los owners
 export const fetchAllOwners = async () => {
   try {
     const response = await fetch(`${apiUrl}/owner/all`, {
@@ -42,20 +24,56 @@ export const fetchAllOwners = async () => {
   }
 };
 
-// Helper para simplificar las llamadas a la API
-const makeRequest = async (url, method, body = null) => {
+export const createOwner = async (ownerData) => {
   try {
-    const response = await fetch(url, {
-      method,
+    const response = await fetch(`${apiUrl}/owner/new`, {
+      method: 'POST',
       headers: getAuthHeaders(),
-      body: body ? JSON.stringify(body) : null,
+      body: JSON.stringify(owner),
     });
     if (!response.ok) {
-      throw new Error(`Error ${method} data: ${response.status}`);
+      throw new Error(`Error creating owner: ${response.status}`);
     }
-    return response.json();
+    return await response.json();
   } catch (error) {
-    console.error(`Error ${method} data:`, error);
+    console.error('Error creating owner:', error);
+    throw error;
+  }
+};
+
+export const updateOwner = async (id, ownerData) => {
+  try {
+    const response = await fetch(`${apiUrl}/owner/${owner.id}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(owner),
+    });
+    if (!response.ok) {
+      throw new Error(`Error updating owner: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating owner:', error);
+    throw error;
+  }
+};
+
+export const deleteOwner = async (id) => {
+  try {
+    const response = await fetch(`${apiUrl}/owner/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) {
+      throw new Error(`Error deleting owner: ${response.status}`);
+    }
+    // Solo intenta parsear JSON si la respuesta tiene contenido JSON
+    if (response.headers.get("Content-Type")?.includes("application/json")) {
+      return await response.json();
+    }
+    return null; // o cualquier valor adecuado si no hay respuesta JSON
+  } catch (error) {
+    console.error('Error deleting owner:', error);
     throw error;
   }
 };

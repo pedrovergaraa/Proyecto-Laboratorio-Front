@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ContractsForm from '../../forms/ContractsForm/ContractsForm';
-import Card from '../../shared-components/card/Card';
+import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
 import {
   fetchAllContracts,
@@ -11,6 +11,10 @@ import {
 
 const Contracts = () => {
   const [contracts, setContracts] = useState([]);
+
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [currentContract, setCurrentContract] = useState(null);
+
 
   useEffect(() => {
     const fetchContracts = async () => {
@@ -42,7 +46,6 @@ const Contracts = () => {
   const columns = [
     { Header: 'Email del Propietario', accessor: 'landlordMail' },
     { Header: 'Email del Inquilino', accessor: 'tenantMail' },
-    { Header: 'Monto del Alquiler', accessor: 'rentAmount' },
     { 
       Header: 'Fecha de Inicio', 
       accessor: 'date', 
@@ -58,22 +61,41 @@ const Contracts = () => {
 
   return (
     <div>
-      <Card
-        title="Contratos"
-        FormComponent={ContractsForm}
-        formProps={{
-          onSubmit: handleAddContract,
-          fields: ['date', 'endDate', 'landlordMail', 'tenantMail', 'rentAmount'],
-        }}
-      >
+
+      <Card title="Contratos" FormComponent={() => (
+        <ContractsForm
+          contract={currentContract}
+          onSubmit={currentContract ? handleEditContract : handleAddContract}
+          fields={['date', 'endDate', 'landlordMail', 'tenantMail']}
+        />
+      )}>
         <Table
           columns={columns}
           data={contracts}
-          onEdit={handleEditContract}
+          onEdit={setCurrentContract} // Para editar, pasamos el contrato seleccionado
           onDelete={handleDeleteContract}
           disableAddButton={true} // Deshabilitamos el botón de agregar en la tabla
         />
       </Card>
+
+      {showAddModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button
+              onClick={() => setShowAddModal(false)}
+              className="modal-close-button"
+            >
+              &times;
+            </button>
+            <h2>Agregar Nuevo Contrato</h2>
+            <ContractsForm
+              onSubmit={handleAddContract}
+              fields={['date', 'endDate', 'landlordMail', 'tenantMail']}
+            />
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

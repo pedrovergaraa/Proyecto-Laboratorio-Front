@@ -1,3 +1,5 @@
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const getAuthHeaders = () => {
   const token = JSON.parse(localStorage.getItem("token"));
   if (!token) {
@@ -9,7 +11,6 @@ const getAuthHeaders = () => {
   };
 };
 
-const apiUrl = import.meta.env.VITE_API_URL;
 
 // Obtener todos los landlords
 export const fetchAllLandlords = async () => {

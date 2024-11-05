@@ -2,8 +2,6 @@ import { createContext, useState, useEffect } from "react";
 
 export const AuthenticationContext = createContext();
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const token = localStorage.getItem("token");
