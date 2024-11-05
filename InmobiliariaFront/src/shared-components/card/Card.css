@@ -48,11 +48,13 @@
   transition: background-color 0.3s, transform 0.2s;
   margin-left: auto; /* Ajuste para alinearlo a la derecha */
   margin-right: 10px; /* Separación del borde */
+  margin-top: 20px; /* Espacio arriba del botón */
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
 }
+
 
 .card-add-button:hover {
   background-color: var(--button-hover-color);

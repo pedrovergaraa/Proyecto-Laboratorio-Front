@@ -58,7 +58,6 @@ body {
   margin-right: 30px;
 }
 
-/* Líneas entre ítems */
 .navItem:not(:last-child)::after {
   content: "";
   position: absolute;

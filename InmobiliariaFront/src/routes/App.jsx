@@ -16,6 +16,7 @@ import { AuthenticationContextProvider } from '../context/authenticationContext/
 
 import "./App.css";
 import Owner from '../components/owner/Owner';
+import Payments from '../components/payment/Payments';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -42,6 +43,10 @@ const App = () => {
         {
           path: "/landlord",
           element: <Landlord />,
+        },
+        {
+          path: "/payments",
+          element: <Payments />,
         },
         {
           path: "/user-tenant",
