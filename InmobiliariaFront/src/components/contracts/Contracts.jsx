@@ -74,14 +74,15 @@ const Contracts = () => {
     { 
       Header: 'Fecha de Inicio', 
       accessor: 'date', 
-      Cell: ({ value }) => new Date(value).toLocaleDateString()
+      Cell: ({ value }) => new Date(value).toLocaleDateString() // Muestra solo la fecha
     },
     { 
       Header: 'Fecha de Fin', 
       accessor: 'endDate', 
-      Cell: ({ value }) => new Date(value).toLocaleDateString()
+      Cell: ({ value }) => new Date(value).toLocaleDateString() // Muestra solo la fecha
     },
   ];
+  
 
   return (
     <div>

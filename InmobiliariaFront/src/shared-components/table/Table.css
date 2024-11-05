@@ -1,20 +1,20 @@
+/* Mantén la configuración general de la tabla y el contenedor */
 .table-container {
   margin-top: 20px;
   border-radius: 10px;
-  overflow-x: auto; /* Mantiene la tabla dentro del contenedor */
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: auto; 
+  table-layout: auto; /* Permite que las columnas se ajusten automáticamente */
 }
 
 th, td {
-  width: auto;
-  white-space: nowrap; /* Evita que el texto se ajuste */
+  white-space: nowrap;
   padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Bordes translúcidos */
+  border: 1px solid rgba(255, 255, 255, 0.1);
   text-align: left;
 }
 
@@ -24,19 +24,30 @@ th {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+/* Ajustes específicos para la celda de acciones */
+td.action-icons {
+  text-align: center;
+  padding: 8px;
+  /* Asegura que la columna se expanda si el resto de las columnas también lo hacen */
+  width: auto; 
+}
+
 .action-icons {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
+  /* Evita que los íconos se salgan de la celda */
+  flex-wrap: nowrap;
 }
 
 .edit-icon:hover {
-  color: #004ba0; /* Cambia color cuando se pasa el ratón sobre el icono de editar */
+  color: #004ba0;
 }
 
 .delete-icon:hover {
-  color: #a00000; /* Cambia color cuando se pasa el ratón sobre el icono de eliminar */
+  color: #a00000;
 }
+
 
 /* Estilos de los modales */
 .modal-form {
@@ -163,7 +174,6 @@ label {
 }
 
 .search-input:focus {
-  border-color: #1976d2; /* Color del borde al hacer foco */
   box-shadow: 0 0 5px rgba(25, 118, 210, 0.2); /* Sombra al hacer foco */
 }
 
@@ -181,4 +191,29 @@ label {
 
 #search-button:hover {
   background-color: #155a8a; /* Color de fondo al pasar el mouse */
+}
+.property-dropdown {
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.property-dropdown summary {
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.property-dropdown .property-item {
+  margin: 8px 0;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.property-dropdown .property-item p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #555;
 }

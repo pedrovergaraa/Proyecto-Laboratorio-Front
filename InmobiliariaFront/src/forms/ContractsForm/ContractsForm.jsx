@@ -4,8 +4,8 @@ import { showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
 const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
   const initialFormData = {
-    date: contract?.date ? contract.date.slice(0, 10) : '',
-    endDate: contract?.endDate ? contract.endDate.slice(0, 10) : '',
+    date: contract?.date?.slice(0, 10) || '',
+    endDate: contract?.endDate?.slice(0, 10) || '',
     landlordMail: contract?.landlordMail || '',
     tenantMail: contract?.tenantMail || '',
   };
@@ -15,27 +15,31 @@ const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
   useEffect(() => {
     if (contract) {
       setFormData({
-        date: contract.date.slice(0, 10),
-        endDate: contract.endDate.slice(0, 10),
+        date: contract.date?.slice(0, 10) || '',
+        endDate: contract.endDate?.slice(0, 10) || '',
         landlordMail: contract.landlordMail || '',
         tenantMail: contract.tenantMail || '',
       });
     } else {
-      // Restablecer el formulario si no hay contrato seleccionado (nuevo contrato)
       setFormData(initialFormData);
     }
   }, [contract]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
-    showSuccessToast('Contrato guardado con éxito');
-    setFormData(initialFormData); // Restablece el formulario después de guardar
+    try {
+      await onSubmit(formData);
+      showSuccessToast('Contrato guardado con éxito');
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error("Error al guardar el contrato:", error);
+      // Podrías agregar un toast de error aquí si lo deseas
+    }
   };
 
   return (

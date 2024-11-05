@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './Table.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SearchBar from '../searchBar/SearchBar';
 
 const Table = ({ columns, data, onEdit, onDelete }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -11,7 +12,6 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
   const [rowToEdit, setRowToEdit] = useState(null);
   const [editedRow, setEditedRow] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
-  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     setFilteredData(data);
@@ -59,11 +59,7 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
     });
   };
 
-  const handleSearchInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleSearch = () => {
+  const handleSearch = (searchTerm) => {
     const lowercasedTerm = searchTerm.toLowerCase();
     const filtered = data.filter((row) =>
       Object.values(row).some(
@@ -75,15 +71,7 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
 
   return (
     <div className="table-container">
-      <div className="search-bar">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchInputChange}
-          placeholder="Buscar..."
-        />
-        <button id='search-button' onClick={handleSearch}>Buscar</button>
-      </div>
+      <SearchBar onSearch={handleSearch} />
 
       <table>
         <thead>
@@ -95,28 +83,29 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
           </tr>
         </thead>
         <tbody>
-          {filteredData.map((row) => (
-            <tr key={row.id}>
-              {columns.map((column) => (
-                <td key={column.accessor}>
-                  {row[column.accessor]}
-                </td>
-              ))}
-              <td className="action-icons">
-                <EditIcon
-                  className="edit-icon"
-                  onClick={() => handleEdit(row)}
-                  style={{ cursor: 'pointer', color: '#1976d2' }}
-                />
-                <DeleteIcon
-                  className="delete-icon"
-                  onClick={() => handleDelete(row)}
-                  style={{ cursor: 'pointer', color: '#d32f2f' }}
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
+  {filteredData.map((row) => (
+    <tr key={row.id}>
+      {columns.map((column) => (
+        <td key={column.accessor}>
+          {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
+        </td>
+      ))}
+      <td className="action-icons">
+        <EditIcon
+          className="edit-icon"
+          onClick={() => handleEdit(row)}
+          style={{ cursor: 'pointer', color: '#1976d2' }}
+        />
+        <DeleteIcon
+          className="delete-icon"
+          onClick={() => handleDelete(row)}
+          style={{ cursor: 'pointer', color: '#d32f2f' }}
+        />
+      </td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
 
       {showDeleteModal && (

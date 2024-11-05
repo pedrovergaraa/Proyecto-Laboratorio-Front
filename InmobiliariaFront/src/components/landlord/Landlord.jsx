@@ -16,30 +16,32 @@ const Landlord = () => {
     fetchLandlords();
   }, []);
 
-  // Definir las columnas para la tabla
   const columns = [
     { Header: 'Email', accessor: 'mail' },
     { Header: 'Propiedades', accessor: 'propertyList' },
   ];
 
-  // Función para renderizar las propiedades
-  const renderProperties = (properties) => {
+  const renderPropertiesDropdown = (properties) => {
     if (properties && properties.length > 0) {
-      return properties.map((property) => (
-        <div key={property.id} className="property-item">
-          <p><strong>Descripción:</strong> {property.description}</p>
-          <p><strong>Dirección:</strong> {property.adress || 'No hay una dirección cargada'}</p>
-        </div>
-      ));
+      return (
+        <details className="property-dropdown">
+          <summary>Ver Propiedades</summary>
+          {properties.map((property) => (
+            <div key={property.id} className="property-item">
+              <p><strong>Descripción:</strong> {property.description}</p>
+              <p><strong>Dirección:</strong> {property.address || 'No hay una dirección cargada'}</p>
+            </div>
+          ))}
+        </details>
+      );
     }
     return <p>No hay propiedades disponibles</p>;
   };
 
-  // Convertir landlords en un formato adecuado para la tabla
   const data = landlords.map(landlord => ({
     id: landlord.id,
     mail: landlord.mail,
-    propertyList: renderProperties(landlord.propertyList), // Renderizar propiedades aquí
+    propertyList: renderPropertiesDropdown(landlord.propertyList),
   }));
 
   const handleEdit = (updatedRow) => {
