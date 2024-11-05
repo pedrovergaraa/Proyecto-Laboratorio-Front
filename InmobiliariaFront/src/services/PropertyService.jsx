@@ -70,11 +70,7 @@ export const deleteProperty = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/property/${id}`, {
       method: 'DELETE',
-      headers: 
-        {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZWRyb0Bob3RtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczMDgzMTEzMiwiZXhwIjoxNzMwOTE3NTMyfQ.Fs62niJ4dDb4ElmWqI__u_gPBIhxsB31ISr1P3gFwEY`,  
-        }
+      headers: getAuthHeaders(),
     });
     if (!response.ok) {
       throw new Error(`Error deleting property: ${response.status}`);
