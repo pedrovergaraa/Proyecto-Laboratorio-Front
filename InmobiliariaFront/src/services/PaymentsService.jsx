@@ -14,7 +14,7 @@ const getAuthHeaders = () => {
 // Obtener todos los pagos
 export const fetchAllPayments = async () => {
   try {
-    const response = await fetch(`${apiUrl}/payment/all`, {
+    const response = await fetch(`${apiUrl}/payments/all`, {
       headers: getAuthHeaders(),
     });
     if (!response.ok) {
@@ -30,7 +30,7 @@ export const fetchAllPayments = async () => {
 // Crear un nuevo pago
 export const createPayment = async (payment) => {
   try {
-    const response = await fetch(`${apiUrl}/payment/new`, {
+    const response = await fetch(`${apiUrl}/payments/new`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(payment),

@@ -88,7 +88,7 @@ const Payments = () => {
         <PaymentsForm 
           onSubmit={selectedPayment ? handleEditPayment : handleAddPayment} 
           payment={selectedPayment} 
-          fields={['amount', 'landlordMail', 'paymentDate']} 
+          fields={['amount', 'landlordMail', 'date']} 
         />
       )}>
         <Table 
