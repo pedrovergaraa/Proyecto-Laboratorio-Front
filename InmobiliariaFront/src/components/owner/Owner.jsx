@@ -1,8 +1,7 @@
-// src/components/Owner.jsx
 import React, { useEffect, useState } from 'react';
 import Table from '../../shared-components/table/Table';
 import Card from '../../shared-components/card/Card';
-import OwnersForm from '../../forms/OwnersForm/OwnersForm'; // Asegúrate de importar correctamente OwnersForm
+import OwnersForm from '../../forms/OwnersForm/OwnersForm';
 import {
   fetchAllOwners,
   createOwner,
@@ -28,8 +27,8 @@ const Owner = () => {
 
   const handleCreate = async (newOwner) => {
     try {
-      await createOwner(newOwner);
-      loadOwners(); // Recargar la lista de owners
+      const createdOwner = await createOwner(newOwner);
+      setOwners((prevOwners) => [...prevOwners, createdOwner]); // Agrega el nuevo Owner directamente
     } catch (error) {
       console.error("Error creating owner", error);
     }
@@ -43,12 +42,11 @@ const Owner = () => {
       console.error("Error updating owner", error);
     }
   };
-  
 
   const handleDelete = async (id) => {
     try {
       await deleteOwner(id);
-      loadOwners();
+      setOwners((prevOwners) => prevOwners.filter((owner) => owner.id !== id));
     } catch (error) {
       console.error("Error deleting owner", error);
     }
@@ -60,7 +58,11 @@ const Owner = () => {
   ];
 
   return (
-    <Card title="Usuarios inmobiliaria" allowAdd={true} FormComponent={OwnersForm} onAdd={handleCreate}>
+    <Card 
+      title="Usuarios inmobiliaria" 
+      allowAdd={true} 
+      FormComponent={() => <OwnersForm onAdd={handleCreate} />} // Asegúrate de pasar `onAdd` correctamente
+    >
       <Table 
         columns={columns} 
         data={owners} 

@@ -66,7 +66,6 @@ export const updateProperty = async (property) => {
 
 // Eliminar una propiedad
 export const deleteProperty = async (id) => {
-  console.log("id: ",id)
   try {
     const response = await fetch(`${apiUrl}/property/${id}`, {
       method: 'DELETE',

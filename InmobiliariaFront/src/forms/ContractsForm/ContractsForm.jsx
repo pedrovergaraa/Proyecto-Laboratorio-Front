@@ -4,6 +4,7 @@ import { showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
 const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
   const initialFormData = {
+    // Obtiene solo la fecha (sin hora) con slice(0, 10)
     date: contract?.date?.slice(0, 10) || '',
     endDate: contract?.endDate?.slice(0, 10) || '',
     tenantMail: contract?.tenantMail || '',

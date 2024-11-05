@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
-import { createProperty } from '../../services/propertyService'; // Asegúrate de ajustar la ruta según tu estructura de carpetas
+import { createProperty } from '../../services/PropertyService'; // Asegúrate de ajustar la ruta según tu estructura de carpetas
 
 const PropertiesForm = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -55,12 +55,12 @@ const PropertiesForm = ({ onAdd }) => {
         value={formData.landlordMail}
         onChange={(e) => setFormData({ ...formData, landlordMail: e.target.value })}
       />
-      {/* <label>Email Inquilino:</label>
+      <label>Email Inquilino:</label>
       <input
         type="email"
         value={formData.tenantMail}
         onChange={(e) => setFormData({ ...formData, tenantMail: e.target.value })}
-      /> */}
+      />
       <button type="submit">Añadir Propiedad</button>
       <ToastContainerComponent /> {/* Asegúrate de incluir el componente Toast */}
     </form>
