@@ -37,12 +37,13 @@ const Owner = () => {
 
   const handleEdit = async (editedOwner) => {
     try {
-      await updateOwner(editedOwner);
+      await updateOwner(editedOwner.id, editedOwner);
       loadOwners();
     } catch (error) {
       console.error("Error updating owner", error);
     }
   };
+  
 
   const handleDelete = async (id) => {
     try {

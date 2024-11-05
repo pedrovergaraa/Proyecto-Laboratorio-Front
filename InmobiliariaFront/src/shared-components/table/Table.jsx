@@ -11,13 +11,12 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
   const [rowToEdit, setRowToEdit] = useState(null);
   const [editedRow, setEditedRow] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
-  const [searchTerm, setSearchTerm] = useState(''); // Almacena el término de búsqueda
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    setFilteredData(data); // Actualiza los datos filtrados cuando los datos originales cambian
+    setFilteredData(data);
   }, [data]);
 
-  // Handle Edit Modal
   const handleEdit = (row) => {
     setRowToEdit(row);
     setEditedRow(row);
@@ -45,7 +44,7 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
     setEditedRow(null);
     setShowEditModal(false);
   };
-  
+
   const cancelEdit = () => {
     setRowToEdit(null);
     setEditedRow(null);
@@ -64,28 +63,18 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filtrado y ordenación de datos según el término de búsqueda y orden descendente
   const handleSearch = () => {
     const lowercasedTerm = searchTerm.toLowerCase();
-
-    const filtered = data
-      .filter((row) =>
-        Object.values(row).some(
-          (value) => String(value).toLowerCase().includes(lowercasedTerm)
-        )
+    const filtered = data.filter((row) =>
+      Object.values(row).some(
+        (value) => String(value).toLowerCase().includes(lowercasedTerm)
       )
-      .sort((a, b) => {
-        const firstValue = String(a.email || a.entityType || '').toLowerCase();
-        const secondValue = String(b.email || b.entityType || '').toLowerCase();
-        return secondValue.localeCompare(firstValue); // Orden descendente
-      });
-
+    );
     setFilteredData(filtered);
   };
 
   return (
     <div className="table-container">
-      {/* Barra de búsqueda y botón de búsqueda */}
       <div className="search-bar">
         <input
           type="text"
@@ -105,13 +94,12 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
             <th>Acciones</th>
           </tr>
         </thead>
-      
         <tbody>
           {filteredData.map((row) => (
             <tr key={row.id}>
               {columns.map((column) => (
                 <td key={column.accessor}>
-                  {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
+                  {row[column.accessor]}
                 </td>
               ))}
               <td className="action-icons">

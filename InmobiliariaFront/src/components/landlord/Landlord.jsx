@@ -26,13 +26,13 @@ const Landlord = () => {
   const renderProperties = (properties) => {
     if (properties && properties.length > 0) {
       return properties.map((property) => (
-        <div key={property.id}>
-          <p> {property.description}</p>
-          <p> {property.adress || 'No hay una direccion cargada'}</p>
+        <div key={property.id} className="property-item">
+          <p><strong>Descripción:</strong> {property.description}</p>
+          <p><strong>Dirección:</strong> {property.adress || 'No hay una dirección cargada'}</p>
         </div>
       ));
     }
-    return <p>No properties available</p>;
+    return <p>No hay propiedades disponibles</p>;
   };
 
   // Convertir landlords en un formato adecuado para la tabla
@@ -42,10 +42,18 @@ const Landlord = () => {
     propertyList: renderProperties(landlord.propertyList), // Renderizar propiedades aquí
   }));
 
+  const handleEdit = (updatedRow) => {
+    // Lógica para manejar la edición de un propietario
+  };
+
+  const handleDelete = (id) => {
+    // Lógica para manejar la eliminación de un propietario
+  };
+
   return (
     <div>
       <Card title='Propietarios' FormComponent={LandlordForm}>
-        <Table columns={columns} data={data}></Table>
+        <Table columns={columns} data={data} onEdit={handleEdit} onDelete={handleDelete} />
       </Card>
     </div>
   );

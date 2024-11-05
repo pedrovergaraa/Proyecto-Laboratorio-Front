@@ -32,7 +32,7 @@ export const createOwner = async (ownerData) => {
     const response = await fetch(`${apiUrl}/owner/new`, {
       method: 'POST',
       headers: getAuthHeaders(),
-      body: JSON.stringify(owner),
+      body: JSON.stringify(ownerData),
     });
     if (!response.ok) {
       throw new Error(`Error creating owner: ${response.status}`);
@@ -44,12 +44,13 @@ export const createOwner = async (ownerData) => {
   }
 };
 
+
 export const updateOwner = async (id, ownerData) => {
   try {
-    const response = await fetch(`${apiUrl}/owner/${owner.id}`, {
+    const response = await fetch(`${apiUrl}/owner/${id}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
-      body: JSON.stringify(owner),
+      body: JSON.stringify(ownerData),
     });
     if (!response.ok) {
       throw new Error(`Error updating owner: ${response.status}`);
@@ -60,6 +61,7 @@ export const updateOwner = async (id, ownerData) => {
     throw error;
   }
 };
+
 
 export const deleteOwner = async (id) => {
   try {

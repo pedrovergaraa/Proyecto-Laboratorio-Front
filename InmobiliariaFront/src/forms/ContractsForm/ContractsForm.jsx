@@ -1,22 +1,28 @@
-// src/forms/ContractsForm/ContractsForm.jsx
-
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const ContractsForm = ({ contract, onSubmit, fields = [] }) => { // Valor por defecto para fields
+const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
   const initialFormData = {
-    date: '',         // Cambiado de startDate a date
-    endDate: '',
-    landlordMail: '', // Cambiado de ownerEmail a landlordMail
-    tenantMail: '',   // Cambiado de tenantEmail a tenantMail
-    ...contract,
+    date: contract?.date ? contract.date.slice(0, 10) : '',
+    endDate: contract?.endDate ? contract.endDate.slice(0, 10) : '',
+    landlordMail: contract?.landlordMail || '',
+    tenantMail: contract?.tenantMail || '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
     if (contract) {
-      setFormData(contract);
+      setFormData({
+        date: contract.date.slice(0, 10),
+        endDate: contract.endDate.slice(0, 10),
+        landlordMail: contract.landlordMail || '',
+        tenantMail: contract.tenantMail || '',
+      });
+    } else {
+      // Restablecer el formulario si no hay contrato seleccionado (nuevo contrato)
+      setFormData(initialFormData);
     }
   }, [contract]);
 
@@ -28,6 +34,8 @@ const ContractsForm = ({ contract, onSubmit, fields = [] }) => { // Valor por de
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
+    showSuccessToast('Contrato guardado con éxito');
+    setFormData(initialFormData); // Restablece el formulario después de guardar
   };
 
   return (
@@ -92,7 +100,7 @@ ContractsForm.propTypes = {
 };
 
 ContractsForm.defaultProps = {
-  fields: [], // Valor predeterminado si fields no está definido
+  fields: [],
 };
 
 export default ContractsForm;

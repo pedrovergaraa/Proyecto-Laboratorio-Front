@@ -1,7 +1,7 @@
 .table-container {
   margin-top: 20px;
   border-radius: 10px;
-  overflow-x: auto;
+  overflow-x: auto; /* Mantiene la tabla dentro del contenedor */
 }
 
 table {
@@ -12,7 +12,7 @@ table {
 
 th, td {
   width: auto;
-  white-space: nowrap;
+  white-space: nowrap; /* Evita que el texto se ajuste */
   padding: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1); /* Bordes translúcidos */
   text-align: left;
@@ -21,7 +21,7 @@ th, td {
 th {
   background-color: #f4f4f4;
   color: black;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .action-icons {
@@ -39,8 +39,6 @@ th {
 }
 
 /* Estilos de los modales */
-/* Estilos adicionales para el modal */
-
 .modal-form {
   display: flex;
   flex-direction: column;
@@ -62,12 +60,12 @@ label {
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease; /* Transición suave */
 }
 
 .modal-input:focus {
-  border-color: #1976d2;
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2);
+  border-color: #1976d2; /* Color del borde al hacer foco */
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2); /* Sombra al hacer foco */
 }
 
 .modal-overlay {
@@ -87,7 +85,7 @@ label {
   background-color: rgb(151, 151, 151);
   padding: 30px 25px;
   border-radius: 12px;
-  width: 420px;
+  width: 420px; /* Ancho fijo para el modal */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.3s ease-out;
 }
@@ -124,7 +122,7 @@ label {
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  transition:  transform 0.2s ease;
+  transition: transform 0.2s ease; /* Transición en el hover */
 }
 
 .accept-button {
@@ -133,7 +131,7 @@ label {
 }
 
 .accept-button:hover {
-  background-color: #004ba0;
+  background-color: #004ba0; /* Cambia color en hover */
   transform: scale(1.05);
 }
 
@@ -143,7 +141,7 @@ label {
 }
 
 .cancel-button:hover {
-  background-color: #a00000;
+  background-color: #a00000; /* Cambia color en hover */
   transform: scale(1.05);
 }
 
@@ -166,7 +164,7 @@ label {
 
 .search-input:focus {
   border-color: #1976d2; /* Color del borde al hacer foco */
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2); /* Sombra sutil al hacer foco */
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2); /* Sombra al hacer foco */
 }
 
 #search-button {
