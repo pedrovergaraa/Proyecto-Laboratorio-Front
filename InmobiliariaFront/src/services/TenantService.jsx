@@ -1,11 +1,13 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 
-// Función para obtener los encabezados de autorización
 const getAuthHeaders = () => {
-  const token = JSON.parse(localStorage.getItem("token"));
+  const tokenData = JSON.parse(localStorage.getItem("token"));
+  if (!tokenData || !tokenData.token) {
+    throw new Error("No token found");
+  }
   return {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
+    'Authorization': `Bearer ${tokenData.token}`,
   };
 };
 
@@ -114,7 +116,6 @@ export const updateTenant = async (tenant) => {
   }
 };
 
-// Eliminar un inquilino
 export const deleteTenant = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/tenant/${id}`, {

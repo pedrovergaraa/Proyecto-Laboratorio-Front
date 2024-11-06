@@ -1,13 +1,13 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const getAuthHeaders = () => {
-  const token = JSON.parse(localStorage.getItem("token"));
-  if (!token) {
+  const tokenData = JSON.parse(localStorage.getItem("token"));
+  if (!tokenData || !tokenData.token) {
     throw new Error("No token found");
   }
   return {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
+    'Authorization': `Bearer ${tokenData.token}`,
   };
 };
 
@@ -74,11 +74,6 @@ export const deleteProperty = async (id) => {
     if (!response.ok) {
       throw new Error(`Error deleting property: ${response.status}`);
     }
-    // Solo intenta parsear JSON si la respuesta tiene contenido JSON
-    if (response.headers.get("Content-Type")?.includes("application/json")) {
-      return await response.json();
-    }
-    return null; // o cualquier valor adecuado si no hay respuesta JSON
   } catch (error) {
     console.error('Error deleting property:', error);
     throw error;

@@ -15,7 +15,7 @@ const Tenants = () => {
         const data = await fetchAllTenants();
         setTenants(data);
       } catch (error) {
-        console.error(error); // Log el error para diagnosticar
+        console.error(error);
         toast.error("Error al cargar los inquilinos");
       }
     };
@@ -28,22 +28,18 @@ const Tenants = () => {
       setTenants([...tenants, newTenant]);
       toast.success("Inquilino añadido con éxito");
     } catch (error) {
-      console.error(error); // Log el error para diagnosticar
+      console.error(error);
       toast.error("Error al añadir el inquilino");
     }
   };
 
   const handleEditTenant = async (tenant) => {
-    if (!tenant.id) {
-      toast.error("Inquilino no válido para edición");
-      return;
-    }
     try {
       const updatedTenant = await updateTenant(tenant);
       setTenants(tenants.map(t => (t.id === tenant.id ? updatedTenant : t)));
       toast.success("Inquilino actualizado con éxito");
     } catch (error) {
-      console.error(error); // Log el error para diagnosticar
+      console.error(error);
       toast.error("Error al actualizar el inquilino");
     }
   };
@@ -54,15 +50,18 @@ const Tenants = () => {
       setTenants(tenants.filter(tenant => tenant.id !== id));
       toast.success("Inquilino eliminado con éxito");
     } catch (error) {
-      console.error(error); // Log el error para diagnosticar
+      console.error(error);
       toast.error("Error al eliminar el inquilino");
     }
   };
 
+  const handleSelectTenant = (tenant) => {
+    setSelectedTenant(tenant);
+  };
+
   const columns = [
+    { Header: 'Nombre', accessor: 'name' },
     { Header: 'Email', accessor: 'mail' },
-    { Header: 'Dirección', accessor: 'property.adress' }, 
-    { Header: 'Descripción', accessor: 'property.description' }
   ];
 
   return (
@@ -75,7 +74,12 @@ const Tenants = () => {
           clearSelectedTenant={() => setSelectedTenant(null)} 
         />
       )}>
-        <Table columns={columns} data={tenants} onEdit={handleEditTenant} onDelete={handleDeleteTenant} />
+        <Table 
+          columns={columns} 
+          data={tenants} 
+          onEdit={handleSelectTenant} 
+          onDelete={handleDeleteTenant} 
+        />
       </Card>
       <ToastContainer />
     </div>
