@@ -2,6 +2,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 const getAuthHeaders = () => {
   const tokenData = JSON.parse(localStorage.getItem("token"));
+  console.log("Token data:", tokenData); // Agrega esta línea para depuración
   if (!tokenData || !tokenData.token) {
     throw new Error("No token found");
   }
@@ -10,6 +11,7 @@ const getAuthHeaders = () => {
     'Authorization': `Bearer ${tokenData.token}`,
   };
 };
+
 
 // Obtener todas las propiedades
 export const fetchAllProperties = async () => {
@@ -48,7 +50,6 @@ export const createProperty = async (property) => {
 
 // Actualizar una propiedad existente
 export const updateProperty = async (property) => {
-  console.log("data", property)
   try {
     const response = await fetch(`${apiUrl}/property/${property.id}`, {
       method: 'PUT',

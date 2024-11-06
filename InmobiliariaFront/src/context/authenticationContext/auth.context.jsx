@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 // Función para decodificar el JWT sin usar una librería externa
 const parseJwt = (token) => {
@@ -23,15 +23,18 @@ export const AuthenticationContext = createContext();
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const AuthenticationContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const token = localStorage.getItem("token");
+    return token ? { token: JSON.parse(token) } : null;
+  });
   const [authError, setAuthError] = useState(null);
 
   const handleLogin = async (mail, password) => {
     try {
       const response = await fetch(`${apiUrl}/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ mail, password }),
       });
@@ -42,17 +45,10 @@ export const AuthenticationContextProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      const decodedToken = parseJwt(data.token);
 
-      if (!decodedToken) {
-        throw new Error("Failed to decode token");
-      }
-
-      // Guardamos el token en localStorage
-      localStorage.setItem("token", JSON.stringify(data.token));
-      
-      // Aquí puedes establecer el usuario con el email directamente desde la respuesta
-      setUser({ mail: mail, ...decodedToken });
+      // Almacena el rol junto al token
+      localStorage.setItem("token", JSON.stringify({ token: data.token, role: data.role }));
+      setUser({ token: data.token, role: data.role }); // Guarda el rol en el estado
       setAuthError(null);
     } catch (error) {
       console.error("Error during login:", error);
@@ -64,6 +60,14 @@ export const AuthenticationContextProvider = ({ children }) => {
     localStorage.removeItem("token");
     setUser(null);
   };
+
+  // useEffect para cargar el token desde localStorage en el montaje del componente
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUser({ token: JSON.parse(token) });
+    }
+  }, []);
 
   return (
     <AuthenticationContext.Provider value={{ user, handleLogin, handleLogout, authError }}>
