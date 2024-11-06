@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+// propertiesForm.jsx
+import React, { useState, useEffect } from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 import { createProperty } from '../../services/PropertyService'; // Asegúrate de ajustar la ruta según tu estructura de carpetas
+import { fetchAllOwners } from '../../services/OwnerService'; // Asegúrate de ajustar la ruta
 
 const PropertiesForm = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -8,8 +10,26 @@ const PropertiesForm = ({ onAdd }) => {
     description: '',
     landlordMail: '',
     tenantMail: '',
-    ownerMail: '',
+    ownerMail: 'owner@hotmail.com',
   });
+
+  const [landlordMails, setLandlordMails] = useState([]); // Estado para correos de landlords
+  const [tenantMails, setTenantMails] = useState([]); // Estado para correos de tenants
+
+  // Obtener landlords y tenants al cargar el formulario
+  useEffect(() => {
+    const fetchmails = async () => {
+      try {
+        const { landlordMails, tenantMails } = await fetchAllOwners();
+        setLandlordMails(landlordMails);
+        setTenantMails(tenantMails);
+      } catch (error) {
+        console.error('Error fetching owner mails:', error);
+      }
+    };
+
+    fetchmails();
+  }, []); // Solo se ejecuta una vez cuando el componente se monta
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +39,7 @@ const PropertiesForm = ({ onAdd }) => {
       description: '',
       landlordMail: '',
       tenantMail: '',
-      ownerMail: '',
+      ownerMail: 'owner@hotmail.com',
     });
   };
 
@@ -49,24 +69,35 @@ const PropertiesForm = ({ onAdd }) => {
         value={formData.description}
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
       />
+      
+      {/* Dropdown para seleccionar el mail del propietario (landlord) */}
       <label>Email Propietario:</label>
-      <input
-        type="email"
+      <select
         value={formData.landlordMail}
         onChange={(e) => setFormData({ ...formData, landlordMail: e.target.value })}
-      />
+      >
+        <option value="">Seleccionar propietario</option>
+        {landlordMails.map((mail, index) => (
+          <option key={index} value={mail}>
+            {mail}
+          </option>
+        ))}
+      </select>
+
+      {/* Dropdown para seleccionar el mail del inquilino (tenant) */}
       <label>Email Inquilino:</label>
-      <input
-        type="email"
+      <select
         value={formData.tenantMail}
         onChange={(e) => setFormData({ ...formData, tenantMail: e.target.value })}
-      />
-       <label>Email Inmobiliaria:</label>
-      <input
-        type="email"
-        value={formData.ownerMail}
-        onChange={(e) => setFormData({ ...formData, ownerMail: e.target.value })}
-      />
+      >
+        <option value="">Seleccionar inquilino</option>
+        {tenantMails.map((mail, index) => (
+          <option key={index} value={mail}>
+            {mail}
+          </option>
+        ))}
+      </select>
+
       <button type="submit">Añadir Propiedad</button>
       <ToastContainerComponent /> {/* Asegúrate de incluir el componente Toast */}
     </form>
