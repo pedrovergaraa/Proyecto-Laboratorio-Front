@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchBar from '../searchBar/SearchBar';
 
-const Table = ({ columns, data, onEdit, onDelete }) => {
+const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [rowToDelete, setRowToDelete] = useState(null);
@@ -79,33 +79,35 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
             {columns.map((column) => (
               <th key={column.accessor}>{column.Header}</th>
             ))}
-            <th>Acciones</th>
+            {showActions && <th>Acciones</th>} {/* Mostrar solo si showActions es true */}
           </tr>
         </thead>
         <tbody>
-  {filteredData.map((row) => (
-    <tr key={row.id}>
-      {columns.map((column) => (
-        <td key={column.accessor}>
-          {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
-        </td>
-      ))}
-      <td className="action-icons">
-        <EditIcon
-          className="edit-icon"
-          onClick={() => handleEdit(row)}
-          style={{ cursor: 'pointer', color: '#1976d2' }}
-        />
-        <DeleteIcon
-          className="delete-icon"
-          onClick={() => handleDelete(row)}
-          style={{ cursor: 'pointer', color: '#d32f2f' }}
-        />
-      </td>
-    </tr>
-  ))}
-</tbody>
 
+          {filteredData.map((row) => (
+            <tr key={row.id}>
+              {columns.map((column) => (
+                <td key={column.accessor}>
+                  {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
+                </td>
+              ))}
+              {showActions && ( /* Mostrar solo si showActions es true */
+                <td className="action-icons">
+                  <EditIcon
+                    className="edit-icon"
+                    onClick={() => handleEdit(row)}
+                    style={{ cursor: 'pointer', color: '#1976d2' }}
+                  />
+                  <DeleteIcon
+                    className="delete-icon"
+                    onClick={() => handleDelete(row)}
+                    style={{ cursor: 'pointer', color: '#d32f2f' }}
+                  />
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
       </table>
 
       {showDeleteModal && (
@@ -160,6 +162,7 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  showActions: PropTypes.bool, // Prop para controlar la visibilidad de la columna de acciones
 };
 
 export default Table;

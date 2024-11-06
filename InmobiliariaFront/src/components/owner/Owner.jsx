@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../../shared-components/table/Table';
+
 import Card from '../../shared-components/card/Card';
 import OwnersForm from '../../forms/OwnersForm/OwnersForm';
+
 import {
   fetchAllOwners,
   createOwner,
