@@ -8,7 +8,7 @@ const PropertiesForm = ({ onAdd }) => {
     description: '',
     landlordMail: '',
     tenantMail: '',
-    ownerMail: 'owner@hotmail.com',
+    ownerMail: '',
   });
 
   const handleSubmit = async (e) => {
@@ -19,7 +19,7 @@ const PropertiesForm = ({ onAdd }) => {
       description: '',
       landlordMail: '',
       tenantMail: '',
-      ownerMail: 'owner@hotmail.com',
+      ownerMail: '',
     });
   };
 
@@ -60,6 +60,12 @@ const PropertiesForm = ({ onAdd }) => {
         type="email"
         value={formData.tenantMail}
         onChange={(e) => setFormData({ ...formData, tenantMail: e.target.value })}
+      />
+       <label>Email Inmobiliaria:</label>
+      <input
+        type="email"
+        value={formData.ownerMail}
+        onChange={(e) => setFormData({ ...formData, ownerMail: e.target.value })}
       />
       <button type="submit">Añadir Propiedad</button>
       <ToastContainerComponent /> {/* Asegúrate de incluir el componente Toast */}

@@ -77,7 +77,7 @@ const Payments = () => {
     { Header: 'Email del Propietario', accessor: 'landlordMail' },
     { 
       Header: 'Fecha de Pago', 
-      accessor: 'paymentDate', 
+      accessor: 'date', 
       Cell: ({ value }) => new Date(value).toLocaleDateString() // Muestra solo la fecha
     },
   ];

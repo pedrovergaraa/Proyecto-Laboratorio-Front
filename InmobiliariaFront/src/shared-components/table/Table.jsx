@@ -126,18 +126,21 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
           <div className="modal">
             <h2>Editar Registro</h2>
             <form className="modal-form">
-              {columns.map((column) => (
+              {columns.map((column) => {
+                
+               // console.log("hola", column.accessor)
+                return(
                 <label key={column.accessor}>
                   {column.Header}:
                   <input
-                    type="text"
+                    type={column.accessor === 'date' ||column.accessor === 'endDate' ? 'date' : 'text' }
                     name={column.accessor}
                     value={editedRow[column.accessor] || ''}
                     onChange={handleInputChange}
                     className="modal-input"
                   />
                 </label>
-              ))}
+              )})}
               <div className="modal-buttons">
                 <button type="button" onClick={confirmEdit} className="accept-button">Guardar</button>
                 <button type="button" onClick={cancelEdit} className="cancel-button">Cancelar</button>
