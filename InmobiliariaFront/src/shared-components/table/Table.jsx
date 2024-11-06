@@ -4,23 +4,33 @@ import './Table.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchBar from '../searchBar/SearchBar';
+import EditModal from '../editModal/EditModal';  // Importa el modal de edición
+import DeleteModal from '../deleteModal/DeleteModal';  // Importa el modal de eliminación
 
 const Table = ({ columns, data, onEdit, onDelete }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [rowToDelete, setRowToDelete] = useState(null);
   const [rowToEdit, setRowToEdit] = useState(null);
-  const [editedRow, setEditedRow] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
 
   useEffect(() => {
     setFilteredData(data);
   }, [data]);
 
+
+
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
+
+  console.log("sdsa", currentRows)
   const handleEdit = (row) => {
-    setRowToEdit(row);
-    setEditedRow(row);
-    setShowEditModal(true);
+    setRowToEdit(row);  
+    setShowEditModal(true);  
   };
 
   const handleDelete = (row) => {
@@ -38,26 +48,13 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
     setShowDeleteModal(false);
   };
 
-  const confirmEdit = () => {
-    onEdit(editedRow);
-    setRowToEdit(null);
-    setEditedRow(null);
-    setShowEditModal(false);
-  };
-
-  const cancelEdit = () => {
-    setRowToEdit(null);
-    setEditedRow(null);
-    setShowEditModal(false);
-  };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedRow({
-      ...editedRow,
-      [name]: value,
-    });
-  };
+    setData((prevData) => ({
+        ...prevData,
+        [name]: value
+    }));
+};
 
   const handleSearch = (searchTerm) => {
     const lowercasedTerm = searchTerm.toLowerCase();
@@ -67,12 +64,24 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
       )
     );
     setFilteredData(filtered);
+    setCurrentPage(1);
   };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+
+  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
   return (
     <div className="table-container">
       <SearchBar onSearch={handleSearch} />
-
+      
       <table>
         <thead>
           <tr>
@@ -83,72 +92,52 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
           </tr>
         </thead>
         <tbody>
-  {filteredData.map((row) => (
-    <tr key={row.id}>
-      {columns.map((column) => (
-        <td key={column.accessor}>
-          {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
-        </td>
-      ))}
-      <td className="action-icons">
-        <EditIcon
-          className="edit-icon"
-          onClick={() => handleEdit(row)}
-          style={{ cursor: 'pointer', color: '#1976d2' }}
-        />
-        <DeleteIcon
-          className="delete-icon"
-          onClick={() => handleDelete(row)}
-          style={{ cursor: 'pointer', color: '#d32f2f' }}
-        />
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+          {currentRows.map((row) => (
+            <tr key={row.id}>
+              {columns.map((column) => {
+                console.log("pene", row[column.accessor])
+                return(
+                <td key={column.accessor}>
+                  {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
+                </td>
+              )})}
+              <td className="action-icons">
+                <EditIcon
+                  className="edit-icon"
+                  onClick={() => handleEdit(row)}
+                  style={{ cursor: 'pointer', color: '#1976d2' }}
+                />
+                <DeleteIcon
+                  className="delete-icon"
+                  onClick={() => handleDelete(row)}
+                  style={{ cursor: 'pointer', color: '#d32f2f' }}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
 
-      {showDeleteModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Confirmar Eliminación</h2>
-            <p>¿Estás seguro de que deseas eliminar este registro?</p>
-            <div className="modal-buttons">
-              <button onClick={confirmDelete} className="accept-button">Aceptar</button>
-              <button onClick={cancelDelete} className="cancel-button">Cancelar</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <div className="pagination-controls">
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>Anterior</button>
+        <span>Página {currentPage} de {totalPages}</span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>Siguiente</button>
+      </div>
 
-      {showEditModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Editar Registro</h2>
-            <form className="modal-form">
-              {columns.map((column) => {
-                
-               // console.log("hola", column.accessor)
-                return(
-                <label key={column.accessor}>
-                  {column.Header}:
-                  <input
-                    type={column.accessor === 'date' ||column.accessor === 'endDate' ? 'date' : 'text' }
-                    name={column.accessor}
-                    value={editedRow[column.accessor] || ''}
-                    onChange={handleInputChange}
-                    className="modal-input"
-                  />
-                </label>
-              )})}
-              <div className="modal-buttons">
-                <button type="button" onClick={confirmEdit} className="accept-button">Guardar</button>
-                <button type="button" onClick={cancelEdit} className="cancel-button">Cancelar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Modales */}
+      <EditModal
+        showEditModal={showEditModal}
+        setShowEditModal={setShowEditModal}
+        rowToEdit={rowToEdit}
+        confirmEdit={() => onEdit(rowToEdit)} // Pasamos la función de edición desde el componente padre
+        cancelEdit={() => setShowEditModal(false)}  // Cerramos el modal sin guardar cambios
+      />
+      <DeleteModal
+        showDeleteModal={showDeleteModal}
+        setShowDeleteModal={setShowDeleteModal}
+        confirmDelete={confirmDelete}
+        cancelDelete={cancelDelete}
+      />
     </div>
   );
 };
