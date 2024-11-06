@@ -48,6 +48,7 @@ export const createProperty = async (property) => {
 
 // Actualizar una propiedad existente
 export const updateProperty = async (property) => {
+  console.log("data", property)
   try {
     const response = await fetch(`${apiUrl}/property/${property.id}`, {
       method: 'PUT',
