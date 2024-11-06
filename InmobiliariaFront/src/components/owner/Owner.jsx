@@ -1,7 +1,7 @@
 // src/components/Owner.jsx
 import React, { useEffect, useState } from 'react';
 import Table from '../../shared-components/table/Table';
-import Card from '../../shared-components/card/Card';
+import Card from '../../shared-components/card/card';
 import OwnersForm from '../../forms/OwnersForm/OwnersForm'; // Asegúrate de importar correctamente OwnersForm
 import {
   fetchAllOwners,

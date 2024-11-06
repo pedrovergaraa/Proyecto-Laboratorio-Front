@@ -73,7 +73,7 @@ const Properties = () => {
     <div>
       <Card title="Propiedades" FormComponent={() => 
         <PropertiesForm 
-          onAdd={addProperty} // Usa la función correcta aquí
+          onAdd={addProperty} 
         />
       }>
         {loading ? (
@@ -91,7 +91,7 @@ const Properties = () => {
           <p>No hay datos disponibles</p>
         )}
       </Card>
-      <ToastContainer /> {/* Contenedor de Toastify para notificaciones */}
+      <ToastContainer />
     </div>
   );
 };
