@@ -11,7 +11,6 @@ const getAuthHeaders = () => {
   };
 };
 
-
 // Obtener todos los landlords
 export const fetchAllLandlords = async () => {
   try {
@@ -35,4 +34,39 @@ export const fetchAllLandlords = async () => {
   }
 };
 
-// Los demás métodos (createLandlord, fetchLandlordById, updateLandlord, deleteLandlord) permanecen igual
+// Actualizar un landlord
+export const updateLandlord = async (landlord) => {
+  try {
+    const response = await fetch(`${apiUrl}/landlord/${landlord.id}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(landlord),
+    });
+    if (!response.ok) {
+      console.error('Error updating landlord:', response.status, response.statusText);
+      throw new Error('Error updating landlord');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating landlord:', error.message);
+    throw error;
+  }
+};
+
+// Eliminar un landlord
+export const deleteLandlord = async (id) => {
+  try {
+    const response = await fetch(`${apiUrl}/landlord/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) {
+      console.error('Error deleting landlord:', response.status, response.statusText);
+      throw new Error('Error deleting landlord');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting landlord:', error.message);
+    throw error;
+  }
+};

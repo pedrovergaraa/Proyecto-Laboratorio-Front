@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ContractsForm from '../../forms/ContractsForm/ContractsForm';
-import Card from '../../shared-components/card/card';
+import Card from '../../shared-components/card/Card';
 import Table from '../../shared-components/table/Table';
 import {
   fetchAllContracts,
@@ -34,6 +34,7 @@ const Contracts = () => {
       const newContract = await createContract(contractData);
       setContracts([...contracts, newContract]);
       toast.success("Contrato añadido con éxito");
+      setShowAddModal(false);  // Cierra el modal después de agregar
     } catch (error) {
       console.error(error);
       toast.error("Error al añadir el contrato");
@@ -47,6 +48,8 @@ const Contracts = () => {
         contracts.map((c) => (c.id === updatedContract.id ? contract : c))
       );
       toast.success("Contrato actualizado con éxito");
+      setShowAddModal(false); // Cierra el modal después de editar
+      setSelectedContract(null); // Reinicia el contrato seleccionado
     } catch (error) {
       console.error(error);
       toast.error("Error al actualizar el contrato");
@@ -66,6 +69,7 @@ const Contracts = () => {
 
   const handleSelectContract = (contract) => {
     setSelectedContract(contract);
+    setShowAddModal(true); // Abre el modal para editar
   };
 
   const columns = [
@@ -81,7 +85,6 @@ const Contracts = () => {
       Cell: ({ value }) => new Date(value).toLocaleDateString() // Muestra solo la fecha
     },
   ];
-  
 
   return (
     <div>
