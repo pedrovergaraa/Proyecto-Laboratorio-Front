@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ContractsForm from '../../forms/ContractsForm/ContractsForm';
-import Card from '../../shared-components/card/Card';
+import Card from '../../shared-components/card/card';
 import Table from '../../shared-components/table/Table';
 import {
   fetchAllContracts,
