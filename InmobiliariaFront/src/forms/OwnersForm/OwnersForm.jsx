@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const OwnersForm = ({ onAdd }) => {
+const OwnersForm = ({ onAdd, closeModal }) => {  // Recibe closeModal como prop para cerrar el modal
   const [ownerData, setOwnerData] = useState({
     name: '',
     mail: '',
     adminId: '1',
-    password: '' 
+    password: ''
   });
 
   const handleInputChange = (event) => {
@@ -17,9 +17,10 @@ const OwnersForm = ({ onAdd }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (onAdd) {
-      onAdd(ownerData);
-      showSuccessToast("Owner agregado con éxito!");
-      setOwnerData({ name: '', mail: '', adminId: '1', password: '' });
+      onAdd(ownerData);  // Agrega el nuevo propietario
+      showSuccessToast("Owner agregado con éxito!");  // Muestra la notificación de éxito
+      setOwnerData({ name: '', mail: '', adminId: '1', password: '' });  // Limpia los datos del formulario
+      closeModal();  // Cierra el modal después de agregar el propietario
     }
   };
 
