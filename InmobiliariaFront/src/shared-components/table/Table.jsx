@@ -27,7 +27,7 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
 
-  console.log("sdsa", currentRows)
+  // console.log("sdsa", currentRows)
   const handleEdit = (row) => {
     setRowToEdit(row);  
     setShowEditModal(true);  
@@ -47,14 +47,6 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
     setRowToDelete(null);
     setShowDeleteModal(false);
   };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-        ...prevData,
-        [name]: value
-    }));
-};
 
   const handleSearch = (searchTerm) => {
     const lowercasedTerm = searchTerm.toLowerCase();
@@ -95,7 +87,7 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
           {currentRows.map((row) => (
             <tr key={row.id}>
               {columns.map((column) => {
-                console.log("pene", row[column.accessor])
+                // console.log("csgo", row[column.accessor])
                 return(
                 <td key={column.accessor}>
                   {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
@@ -126,12 +118,13 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
 
       {/* Modales */}
       <EditModal
-        showEditModal={showEditModal}
-        setShowEditModal={setShowEditModal}
-        rowToEdit={rowToEdit}
-        confirmEdit={() => onEdit(rowToEdit)} // Pasamos la función de edición desde el componente padre
-        cancelEdit={() => setShowEditModal(false)}  // Cerramos el modal sin guardar cambios
-      />
+  showEditModal={showEditModal}
+  setShowEditModal={setShowEditModal}
+  rowToEdit={rowToEdit}
+  setRowToEdit={setRowToEdit} 
+  handleSave={onEdit}  // Pasamos onEdit como handleSave
+  cancelEdit={() => setShowEditModal(false)}
+/>
       <DeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}

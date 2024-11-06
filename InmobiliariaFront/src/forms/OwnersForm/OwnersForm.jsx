@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
 const OwnersForm = ({ onAdd }) => {
-  // Incluye password con un valor predeterminado
   const [ownerData, setOwnerData] = useState({
     name: '',
     mail: '',
@@ -59,7 +58,6 @@ const OwnersForm = ({ onAdd }) => {
       <button type="submit">Agregar</button>
       <ToastContainerComponent />
     </form>
-    
   );
 };
 

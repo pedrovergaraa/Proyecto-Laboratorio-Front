@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../../shared-components/table/Table';
 import Card from '../../shared-components/card/Card';
-import EditModal from '../../shared-components/editModal/EditModal'; // Asegúrate de tener la ruta correcta
+import EditModal from '../../shared-components/editModal/EditModal';
+import OwnersForm from '../../forms/OwnersForm/OwnersForm'; // Importar el formulario para agregar propietarios
 import {
   fetchAllOwners,
   createOwner,
@@ -11,8 +12,8 @@ import {
 
 const Owner = () => {
   const [owners, setOwners] = useState([]);
-  const [editingOwner, setEditingOwner] = useState(null);  // Estado para manejar el propietario que se está editando
-  const [showEditModal, setShowEditModal] = useState(false); // Para mostrar el modal de edición
+  const [editingOwner, setEditingOwner] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
     loadOwners();
@@ -37,16 +38,16 @@ const Owner = () => {
   };
 
   const handleEdit = (owner) => {
-    setEditingOwner(owner);  // Establecemos el propietario para editar
-    setShowEditModal(true);  // Mostramos el modal
+    setEditingOwner(owner);
+    setShowEditModal(true);
   };
 
   const handleSaveEdit = async (editedOwner) => {
     try {
-      await updateOwner(editedOwner.id, editedOwner); // Asegúrate de que el id esté presente
-      loadOwners();  // Recargamos los datos después de la edición
-      setShowEditModal(false);  // Cerramos el modal
-      setEditingOwner(null);  // Limpiamos el estado de edición
+      await updateOwner(editedOwner.id, editedOwner);
+      loadOwners();  // Vuelve a cargar los datos de los propietarios
+      setShowEditModal(false);  // Cierra el modal
+      setEditingOwner(null);  // Limpia el estado de la fila editada
     } catch (error) {
       console.error("Error updating owner", error);
     }
@@ -78,7 +79,7 @@ const Owner = () => {
     <Card 
       title="Usuarios inmobiliaria" 
       allowAdd={true} 
-      FormComponent={() => <OwnersForm onAdd={handleCreate} />} 
+      FormComponent={() => <OwnersForm onAdd={handleCreate} />}
     >
       <Table 
         columns={columns} 
@@ -86,19 +87,18 @@ const Owner = () => {
         onEdit={handleEdit} 
         onDelete={handleDelete} 
       />
-
-      {/* Aquí mostramos el modal de edición si hay un propietario para editar */}
       {showEditModal && (
-        <EditModal
-        handleInputChange={handleInputChange}
-          showEditModal={showEditModal}
-          setShowEditModal={setShowEditModal}
-          rowToEdit={editingOwner}
-          handleSave={handleSaveEdit}
-          confirmEdit={handleSaveEdit}
-          cancelEdit={() => setShowEditModal(false)} // Al cancelar, cerramos el modal
-        />
-      )}
+  <EditModal
+    // handleInputChange={handleInputChange}
+    showEditModal={showEditModal}
+    setShowEditModal={setShowEditModal}
+    rowToEdit={editingOwner}
+    setRowToEdit={setEditingOwner}
+    handleSave={handleSaveEdit} // Ahora pasamos handleSaveEdit como handleSave
+    cancelEdit={() => setShowEditModal(false)}
+  />
+)}
+
     </Card>
   );
 };
