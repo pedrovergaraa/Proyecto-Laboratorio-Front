@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PaymentsForm from '../../forms/PaymentsForm/PaymentsForm'; 
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
@@ -34,7 +34,7 @@ const Payments = () => {
     try {
       const newPayment = await createPayment(paymentData);
       setPayments([...payments, newPayment]);
-      toast.success("Pago añadido con éxito");
+      showSuccessToast("Pago añadido con éxito"); // Usar showSuccessToast para notificación
       setShowAddModal(false); 
     } catch (error) {
       console.error(error);
@@ -48,7 +48,7 @@ const Payments = () => {
       setPayments(
         payments.map((p) => (p.id === updatedPayment.id ? payment : p))
       );
-      toast.success("Pago actualizado con éxito");
+      showSuccessToast("Pago actualizado con éxito"); // Usar showSuccessToast para notificación
       setShowAddModal(false); 
       setSelectedPayment(null); 
     } catch (error) {
@@ -61,7 +61,7 @@ const Payments = () => {
     try {
       await deletePayment(paymentId);
       setPayments(payments.filter((payment) => payment.id !== paymentId));
-      toast.success("Pago eliminado con éxito");
+      showSuccessToast("Pago eliminado con éxito"); // Usar showSuccessToast para notificación
     } catch (error) {
       console.error(error);
       toast.error("Error al eliminar el pago");
@@ -75,12 +75,7 @@ const Payments = () => {
 
   const columns = [
     { Header: 'Monto', accessor: 'amount' },
-    { Header: 'Email del Propietario', accessor: 'landlordMail' },
-    { 
-      Header: 'Fecha de Pago', 
-      accessor: 'date', 
-      Cell: ({ value }) => new Date(value).toLocaleDateString() 
-    },
+    { Header: 'Email del Inquilino', accessor: 'tenantMail' },
   ];
 
   return (
@@ -99,7 +94,7 @@ const Payments = () => {
           onDelete={handleDeletePayment} 
         />
       </Card>
-      <ToastContainerComponent />
+      <ToastContainerComponent /> 
     </div>
   );
 };

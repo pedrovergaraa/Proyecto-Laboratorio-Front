@@ -4,8 +4,7 @@ import { ToastContainerComponent, showSuccessToast } from '../../shared-componen
 const PaymentsForm = ({ onSubmit, onClose, payment }) => {
   const [formData, setFormData] = useState({
     amount: '',
-    landlordMail: '',
-    date: ''
+    tenantMail: ''
   });
 
   useEffect(() => {
@@ -21,10 +20,12 @@ const PaymentsForm = ({ onSubmit, onClose, payment }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    const formattedAmount = parseFloat(formData.amount.replace(',', '.'));
+    onSubmit({ ...formData, amount: formattedAmount });
     showSuccessToast("Pago realizado con éxito!");
     if (onClose) onClose();
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -39,21 +40,11 @@ const PaymentsForm = ({ onSubmit, onClose, payment }) => {
         />
       </div>
       <div>
-        <label>Email del Propietario</label>
+        <label>Email del Inquilino</label>
         <input
           type="email"
-          name="landlordMail"
-          value={formData.landlordMail}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Fecha</label>
-        <input
-          type="date"
-          name="date"
-          value={formData.date}
+          name="tenantMail"
+          value={formData.tenantMail}
           onChange={handleChange}
           required
         />

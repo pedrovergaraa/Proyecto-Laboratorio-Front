@@ -89,7 +89,7 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
                   {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
                 </td>
               ))}
-              {showActions && (
+
                 <td className="action-icons">
                   <EditIcon
                     className="edit-icon"
@@ -102,7 +102,6 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
                     style={{ cursor: 'pointer', color: '#d32f2f' }}
                   />
                 </td>
-              )}
             </tr>
           ))}
         </tbody>

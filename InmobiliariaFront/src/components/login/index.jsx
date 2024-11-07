@@ -96,9 +96,6 @@ function Login() {
                 <p className="pt-2 ps-2 text-danger">La contraseña es obligatoria</p>
               )}
             </div>
-            <p>
-              ¿No tienes cuenta? 
-            </p>
             <button type="submit" className="btn btn-primary btn-block">
               Iniciar sesión
             </button>

@@ -35,6 +35,7 @@ export const createPayment = async (payment) => {
       headers: getAuthHeaders(),
       body: JSON.stringify(payment),
     });
+    console.log("payment",payment)
     if (!response.ok) {
       throw new Error('Error creating payment');
     }
@@ -64,7 +65,7 @@ export const fetchPaymentById = async (id) => {
 
 export const updatePayment = async (id, updatedPayment) => {
   try {
-    const response = await fetch(`${apiUrl}/payment/${id}`, {
+    const response = await fetch(`${apiUrl}/payments/${id}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
       body: JSON.stringify(updatedPayment),
@@ -79,19 +80,16 @@ export const updatePayment = async (id, updatedPayment) => {
   }
 };
 
-
 export const deletePayment = async (id) => {
-  try {
-    const response = await fetch(`${apiUrl}/payment/${id}`, {
-      method: 'DELETE',
-      headers: getAuthHeaders(),
-    });
-    if (!response.ok) {
-      throw new Error(`Error deleting payment with ID ${id}`);
+    try {
+      const response = await fetch(`${apiUrl}/payments/${id}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders(),
+      });
+      
+    } catch (error) {
+      console.error(`Error deleting payment with ID ${id}:`, error);
+      throw error;
     }
-    return await response.json();
-  } catch (error) {
-    console.error(`Error deleting payment with ID ${id}:`, error);
-    throw error;
-  }
-};
+  };
+  

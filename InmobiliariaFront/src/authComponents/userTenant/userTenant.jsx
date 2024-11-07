@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import Card from "../../shared-components/card/card";
+import Card from "../../shared-components/card/Card";
 import './userTenant.css';
 import PaymentsFormTenant from "../paymentTenant/PaymentFormTenant"; 
 import ModalForm from "../../shared-components/modal/modalForm"; 
