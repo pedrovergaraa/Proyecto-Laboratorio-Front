@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PaymentsForm from '../../forms/PaymentsForm/PaymentsForm'; // Asegúrate de crear este formulario
+import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 import Card from '../../shared-components/card/Card';
 import Table from '../../shared-components/table/Table';
 import {
@@ -98,7 +99,7 @@ const Payments = () => {
           onDelete={handleDeletePayment} 
         />
       </Card>
-      <ToastContainer />
+      <ToastContainerComponent />
     </div>
   );
 };

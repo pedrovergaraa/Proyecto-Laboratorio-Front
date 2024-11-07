@@ -80,7 +80,6 @@ export const fetchAllTenants = async () => {
 
 // Crear un nuevo inquilino
 export const createTenant = async (tenant) => {
-  console.log("tenantService",tenant)
   try {
     const response = await fetch(`${apiUrl}/tenant/new`, {
       method: 'POST',

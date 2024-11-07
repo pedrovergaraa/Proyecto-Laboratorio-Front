@@ -90,7 +90,7 @@ function Login() {
               )}
             </div>
             <p>
-              No tienes cuenta? <Link to="/register">Registrate</Link>
+              ¿No tienes cuenta? 
             </p>
             <button type="submit" className="btn btn-primary btn-block">
               Iniciar sesión

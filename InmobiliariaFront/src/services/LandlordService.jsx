@@ -15,24 +15,38 @@ const getAuthHeaders = () => {
 export const fetchAllLandlords = async () => {
   try {
     const response = await fetch(`${apiUrl}/landlord/all`, {
+      method: 'GET',
       headers: getAuthHeaders(),
     });
     if (!response.ok) {
-      console.error('Error fetching landlords:', response.status, response.statusText);
-      throw new Error('Error fetching landlords');
+      throw new Error(`Error fetching landlords: ${response.status}`);
     }
-    const data = await response.json();
-
-    return data.map(landlord => ({
-      id: landlord.id,
-      mail: landlord.mail,
-      propertyList: landlord.propertyList || [],
-    }));
+    return await response.json();
   } catch (error) {
-    console.error('Error fetching landlords:', error.message);
+    console.error('Error fetching landlords:', error);
     throw error;
   }
 };
+
+export const createLandlord = async (landlord) => {
+  try {
+    const response = await fetch(`${apiUrl}/landlord`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(landlord),
+    });
+
+    if (!response.ok) {
+      console.error('Error creating landlord:', response.status, response.statusText);
+      throw new Error('Error creating landlord');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating landlord:', error.message);
+    throw error;
+  }
+};
+
 
 export const updateLandlord = async (landlord) => {
   try {

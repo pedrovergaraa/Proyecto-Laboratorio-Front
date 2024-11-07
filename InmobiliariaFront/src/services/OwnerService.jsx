@@ -11,50 +11,13 @@ const getAuthHeaders = () => {
   };
 };
 
-
-export const fetchAllOwners = async () => {
+// Create Owner
+export const createOwner = async (owner) => {
   try {
-    const response = await fetch(`${apiUrl}/owner/all`, {
-      method: 'GET',
-      headers: getAuthHeaders(),
-    });
-    if (!response.ok) {
-      throw new Error(`Error fetching owners: ${response.status}`);
-    }
-    const owners = await response.json();
-    
-
-    // const landlordMails = owners.flatMap(owner => 
-    //   owner.landlordList.map(landlord => landlord.mail)
-    // );
-    // const tenantMails = owners.flatMap(owner => 
-    //   owner.tenantList.map(tenant => tenant.mail)
-    // );
-    
-    // return { landlordMails, tenantMails }; 
-    return owners
-  } catch (error) {
-    console.error('Error fetching owners:', error);
-    throw error;
-  }
-};
-
-
-export const createOwner = async (ownerData, landlordList, tenantList) => {
-  try {
-    const landlordEmails = landlordList.map(landlord => landlord.mail);
-    const tenantEmails = tenantList.map(tenant => tenant.mail);
-
-    const updatedOwnerData = {
-      ...ownerData,
-      landlordEmails,
-      tenantEmails,
-    };
-
     const response = await fetch(`${apiUrl}/owner/new`, {
       method: 'POST',
       headers: getAuthHeaders(),
-      body: JSON.stringify(updatedOwnerData),
+      body: JSON.stringify(owner),
     });
     if (!response.ok) {
       throw new Error(`Error creating owner: ${response.status}`);
@@ -66,22 +29,30 @@ export const createOwner = async (ownerData, landlordList, tenantList) => {
   }
 };
 
-
-export const updateOwner = async (id, ownerData, landlordList, tenantList) => {
+// Fetch All Owners
+export const fetchAllOwners = async () => {
   try {
-    const landlordmails = landlordList.map(landlord => landlord.mail);
-    const tenantmails = tenantList.map(tenant => tenant.mail);
+    const response = await fetch(`${apiUrl}/owner/all`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) {
+      throw new Error(`Error fetching owners: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching owners:', error);
+    throw error;
+  }
+};
 
-    const updatedOwnerData = {
-      ...ownerData,
-      landlordmails,
-      tenantmails,
-    };
-
-    const response = await fetch(`${apiUrl}/owner/${id}`, {
+// Update Owner
+export const updateOwner = async (owner) => {
+  try {
+    const response = await fetch(`${apiUrl}/owner/${owner.id}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
-      body: JSON.stringify(updatedOwnerData),
+      body: JSON.stringify(owner),
     });
     if (!response.ok) {
       throw new Error(`Error updating owner: ${response.status}`);
@@ -93,25 +64,20 @@ export const updateOwner = async (id, ownerData, landlordList, tenantList) => {
   }
 };
 
+// Delete Owner
 export const deleteOwner = async (id) => {
   try {
-    const response = await fetch(`${apiUrl}/owner/${id}`, {
+    const response = await fetch(`${apiUrl}/owners/${id}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
     if (!response.ok) {
-      throw new Error(`Error deleting owner: ${response.status}`);
+      throw new Error(`Error deleting owner: ${response.statusText}`);
     }
-
-    if (response.headers.get("Content-Type")?.includes("application/json")) {
-      return await response.json();
-    }
-    return null; 
+    return true; // Devuelve `true` para indicar que fue exitoso
   } catch (error) {
     console.error('Error deleting owner:', error);
     throw error;
   }
 };
 
-export const tenantList = [];
-export const landlordList = [];

@@ -2,7 +2,6 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Login from '../components/login';
-import Register from '../components/register/Register';
 import Properties from '../components/properties/Properties';
 import Tenants from '../components/tenants/Tenants';
 import Contracts from '../components/contracts/Contracts';
@@ -61,10 +60,6 @@ const App = () => {
     {
       path: "/login",
       element: <Login />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
     },
     {
       path: "*",

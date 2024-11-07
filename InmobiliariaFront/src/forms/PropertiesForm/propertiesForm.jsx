@@ -10,7 +10,7 @@ const PropertiesForm = ({ onAdd }) => {
     description: '',
     landlordMail: '',
     tenantMail: '',
-    ownerMail: 'owner@hotmail.com',
+    ownerId: 4,
   });
 
   // const [landlordMails, setLandlordMails] = useState([]); 
@@ -56,7 +56,7 @@ const PropertiesForm = ({ onAdd }) => {
       description: '',
       landlordMail: '',
       tenantMail: '',
-      ownerMail: 'owner@hotmail.com',
+      ownerId: 4,
     });
   };
 
