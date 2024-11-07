@@ -40,7 +40,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(verifiedUser)
   const [authError, setAuthError] = useState(null);
 
-  console.log("dsdsd",user)
+  console.log("USER DEL BACK",user)
   // Función para obtener los encabezados de autenticación
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
