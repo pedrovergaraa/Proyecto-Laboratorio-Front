@@ -26,7 +26,7 @@ const ContractsForm = ({ onAdd, closeModal }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Cliente:</label>
+        <label>Email Inquilino:</label>
         <input
           type="email"
           name="tenantMail"

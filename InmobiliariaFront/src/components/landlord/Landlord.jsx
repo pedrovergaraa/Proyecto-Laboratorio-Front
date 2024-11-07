@@ -44,7 +44,7 @@ const Landlord = () => {
       id: updatedLandlord.id,
       mail: updatedLandlord.mail,
       name: updatedLandlord.name,
-      password: updatedLandlord.password,
+      password: '',
       ownerId: 4
     };
   
