@@ -13,21 +13,19 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
   const [rowToDelete, setRowToDelete] = useState(null);
   const [rowToEdit, setRowToEdit] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
-  
   const [currentPage, setCurrentPage] = useState(1);
+
   const rowsPerPage = 7;
 
   useEffect(() => {
     setFilteredData(data);
   }, [data]);
 
-
-
+  // Manejo de paginación
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
 
-  // console.log("sdsa", currentRows)
   const handleEdit = (row) => {
     setRowToEdit(row);  
     setShowEditModal(true);  
@@ -48,6 +46,7 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
     setShowDeleteModal(false);
   };
 
+  // Búsqueda de datos
   const handleSearch = (searchTerm) => {
     const lowercasedTerm = searchTerm.toLowerCase();
     const filtered = data.filter((row) =>
@@ -59,14 +58,14 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
     setCurrentPage(1);
   };
 
+  // Control de paginación
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
   const handlePreviousPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-
 
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
@@ -86,13 +85,11 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
         <tbody>
           {currentRows.map((row) => (
             <tr key={row.id}>
-              {columns.map((column) => {
-                // console.log("csgo", row[column.accessor])
-                return(
+              {columns.map((column) => (
                 <td key={column.accessor}>
                   {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
                 </td>
-              )})}
+              ))}
               <td className="action-icons">
                 <EditIcon
                   className="edit-icon"
@@ -118,13 +115,13 @@ const Table = ({ columns, data, onEdit, onDelete }) => {
 
       {/* Modales */}
       <EditModal
-  showEditModal={showEditModal}
-  setShowEditModal={setShowEditModal}
-  rowToEdit={rowToEdit}
-  setRowToEdit={setRowToEdit} 
-  handleSave={onEdit}  // Pasamos onEdit como handleSave
-  cancelEdit={() => setShowEditModal(false)}
-/>
+        showEditModal={showEditModal}
+        setShowEditModal={setShowEditModal}
+        rowToEdit={rowToEdit}
+        setRowToEdit={setRowToEdit} 
+        handleSave={onEdit}
+        cancelEdit={() => setShowEditModal(false)}
+      />
       <DeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}

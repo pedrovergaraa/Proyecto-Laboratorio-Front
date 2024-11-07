@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
-import { showSuccessToast } from '../../shared-components/notifiaction/AddUser'; // Asegúrate de que esta función esté bien definida
+import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const TenantForm = ({ onAdd }) => {
-
-  const [tenantData, setTenantData] = useState({ name: '', mail: '', password: '', ownerId: '4' });
-
+const TenantForm = ({ tenantData, onAdd, onEdit, onDelete }) => {
+  const [formData, setFormData] = useState(tenantData || { name: '', mail: '', password: '', ownerId: '4' });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setTenantData({ ...tenantData, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (onAdd) {
-      onAdd(tenantData);
+    if (tenantData) { 
+      onEdit(formData); 
+      showSuccessToast("Inquilino editado con éxito!");
+    } else {
+      onAdd(formData); 
+      showSuccessToast("Inquilino agregado con éxito!");
     }
-    showSuccessToast("Inquilino agregado con éxito!"); 
-    setTenantData({ name: '', mail: '', password: '' , ownerId: '4'}); 
+    setFormData({ name: '', mail: '', password: '', ownerId: '4' }); 
+  };
+
+  const handleDelete = () => {
+    if (tenantData && onDelete) {
+      onDelete(tenantData.id); 
+      showSuccessToast("Inquilino eliminado con éxito!");
+    }
   };
 
   return (
@@ -28,7 +35,7 @@ const TenantForm = ({ onAdd }) => {
         <input
           type="text"
           name="name"
-          value={tenantData.name}
+          value={formData.name}
           onChange={handleInputChange}
           required
         />
@@ -38,7 +45,7 @@ const TenantForm = ({ onAdd }) => {
         <input
           type="email"
           name="mail"
-          value={tenantData.mail}
+          value={formData.mail}
           onChange={handleInputChange}
           required
         />
@@ -48,12 +55,18 @@ const TenantForm = ({ onAdd }) => {
         <input
           type="password"
           name="password"
-          value={tenantData.password}
+          value={formData.password}
           onChange={handleInputChange}
           required
         />
       </div>
-      <button type="submit">Agregar Inquilino</button>
+      <button type="submit">{tenantData ? 'Editar Inquilino' : 'Agregar Inquilino'}</button>
+      {tenantData && (
+        <button type="button" onClick={handleDelete} style={{ backgroundColor: 'red', color: 'white' }}>
+          Eliminar Inquilino
+        </button>
+      )}
+      <ToastContainerComponent /> 
     </form>
   );
 };

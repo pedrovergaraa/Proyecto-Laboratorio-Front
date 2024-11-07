@@ -11,7 +11,7 @@ const getAuthHeaders = () => {
   };
 };
 
-// Obtener todas las propiedades
+
 export const fetchAllProperties = async () => {
   try {
     const response = await fetch(`${apiUrl}/property/all`, {
@@ -28,8 +28,8 @@ export const fetchAllProperties = async () => {
   }
 };
 
-// Crear una nueva propiedad
 export const createProperty = async (property) => {
+  console.log("propertyService",property)
   try {
     const response = await fetch(`${apiUrl}/property/new`, {
       method: 'POST',
@@ -46,7 +46,7 @@ export const createProperty = async (property) => {
   }
 };
 
-// Actualizar una propiedad existente
+
 export const updateProperty = async (property) => {
   try {
     const response = await fetch(`${apiUrl}/property/${property.id}`, {
@@ -64,7 +64,7 @@ export const updateProperty = async (property) => {
   }
 };
 
-// Eliminar una propiedad
+
 export const deleteProperty = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/property/${id}`, {

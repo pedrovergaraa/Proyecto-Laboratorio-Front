@@ -11,7 +11,7 @@ const getAuthHeaders = () => {
   };
 };
 
-// Obtener todos los pagos
+
 export const fetchAllPayments = async () => {
   try {
     const response = await fetch(`${apiUrl}/payments/all`, {
@@ -27,7 +27,7 @@ export const fetchAllPayments = async () => {
   }
 };
 
-// Crear un nuevo pago
+
 export const createPayment = async (payment) => {
   try {
     const response = await fetch(`${apiUrl}/payments/new`, {
@@ -45,7 +45,7 @@ export const createPayment = async (payment) => {
   }
 };
 
-// Obtener un pago por ID
+
 export const fetchPaymentById = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/payment/${id}`, {
@@ -61,7 +61,7 @@ export const fetchPaymentById = async (id) => {
   }
 };
 
-// Actualizar un pago existente
+
 export const updatePayment = async (id, updatedPayment) => {
   try {
     const response = await fetch(`${apiUrl}/payment/${id}`, {
@@ -79,7 +79,7 @@ export const updatePayment = async (id, updatedPayment) => {
   }
 };
 
-// Eliminar un pago
+
 export const deletePayment = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/payment/${id}`, {

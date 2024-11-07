@@ -11,7 +11,6 @@ const getAuthHeaders = () => {
   };
 };
 
-// Obtener propiedades de un inquilino
 export const fetchTenantProperty = async (tenantId) => {
   try {
     const response = await fetch(`${apiUrl}/tenants/${tenantId}/property`, {
@@ -28,7 +27,6 @@ export const fetchTenantProperty = async (tenantId) => {
   }
 };
 
-// Obtener contratos de un inquilino
 export const fetchTenantContract = async (tenantId) => {
   try {
     const response = await fetch(`${apiUrl}/tenants/${tenantId}/contract`, {
@@ -45,7 +43,7 @@ export const fetchTenantContract = async (tenantId) => {
   }
 };
 
-// Pagar renta
+
 export const tenantPayRent = async (tenantId, paymentData) => {
   try {
     const response = await fetch(`${apiUrl}/tenants/${tenantId}/pay`, {
@@ -63,7 +61,7 @@ export const tenantPayRent = async (tenantId, paymentData) => {
   }
 };
 
-// Obtener todos los inquilinos
+
 export const fetchAllTenants = async () => {
   try {
     const response = await fetch(`${apiUrl}/tenant/all`, {
@@ -82,6 +80,7 @@ export const fetchAllTenants = async () => {
 
 // Crear un nuevo inquilino
 export const createTenant = async (tenant) => {
+  console.log("tenantService",tenant)
   try {
     const response = await fetch(`${apiUrl}/tenant/new`, {
       method: 'POST',
@@ -98,9 +97,9 @@ export const createTenant = async (tenant) => {
   }
 };
 
-// Actualizar un inquilino
 export const updateTenant = async (tenant) => {
   try {
+    console.log('Tenant data:', tenant); 
     const response = await fetch(`${apiUrl}/tenant/${tenant.id}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
@@ -116,16 +115,17 @@ export const updateTenant = async (tenant) => {
   }
 };
 
+
 export const deleteTenant = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/tenant/${id}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
+    
     if (!response.ok) {
-      throw new Error('Error deleting tenant');
+      throw new Error(`Error deleting tenant: ${response.status}`);
     }
-    return await response.json();
   } catch (error) {
     console.error('Error deleting tenant:', error);
     throw error;

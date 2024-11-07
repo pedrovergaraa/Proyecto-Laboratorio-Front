@@ -11,7 +11,7 @@ const getAuthHeaders = () => {
   };
 };
 
-// Obtener todos los landlords
+
 export const fetchAllLandlords = async () => {
   try {
     const response = await fetch(`${apiUrl}/landlord/all`, {
@@ -34,7 +34,6 @@ export const fetchAllLandlords = async () => {
   }
 };
 
-// Actualizar un landlord
 export const updateLandlord = async (landlord) => {
   try {
     const response = await fetch(`${apiUrl}/landlord/${landlord.id}`, {
@@ -53,7 +52,6 @@ export const updateLandlord = async (landlord) => {
   }
 };
 
-// Eliminar un landlord
 export const deleteLandlord = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/landlord/${id}`, {

@@ -4,7 +4,6 @@ import { showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
 const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
   const initialFormData = {
-    // Obtiene solo la fecha (sin hora) con slice(0, 10)
     date: contract?.date?.slice(0, 10) || '',
     endDate: contract?.endDate?.slice(0, 10) || '',
     tenantMail: contract?.tenantMail || '',
@@ -37,7 +36,6 @@ const ContractsForm = ({ contract, onSubmit, fields = [] }) => {
       setFormData(initialFormData);
     } catch (error) {
       console.error("Error al guardar el contrato:", error);
-      // Podrías agregar un toast de error aquí si lo deseas
     }
   };
 

@@ -13,7 +13,7 @@ const LandlordsForm = ({ onAdd }) => {
     if (onAdd) {
       await onAdd(newLandlord);
       showSuccessToast("Usuario agregado con éxito!");
-      setName(''); // Limpiar los campos
+      setName(''); 
       setMail('');
     }
   };

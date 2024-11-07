@@ -22,7 +22,6 @@ const EditModal = ({
   };
 
   const dataForForm = preparedData(rowToEdit);
-
   return (
     <div className="modal-overlay">
       <div className="modal">
@@ -49,7 +48,7 @@ const EditModal = ({
           <div className="modal-buttons">
            <button
             type="button"
-            onClick={() => handleSave(rowToEdit)} // Llama a handleSave, que es onEdit desde Table
+            onClick={() => handleSave(rowToEdit)} 
             className="accept-button"
           >
             Guardar

@@ -1,4 +1,3 @@
-// ExampleForm.js
 import React from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 
@@ -13,7 +12,7 @@ const PaymentsForm = ({ onAdd, onClose }) => {
     showSuccessToast("Pago realizado con exito!");
 
     if (onClose) {
-      onClose(); // Cierra el modal padre
+      onClose(); 
     }
   };
 

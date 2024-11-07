@@ -1,5 +1,5 @@
   const apiUrl = import.meta.env.VITE_API_URL;
-  // Obtener todos los usuarios
+
   export const getUsers = async () => {
     try {
       const response = await fetch(`${apiUrl}/user/all`);
@@ -9,11 +9,11 @@
       return await response.json();
     } catch (error) {
       console.error('Error fetching users:', error);
-      throw error; // Puedes manejar el error en el lugar donde llamas a esta función
+      throw error; 
     }
   };
 
-  // Crear un nuevo usuario (Registro)
+
   export const createUser = async (user) => {
     try {
       const response = await fetch(`${apiUrl}/register/new`, {
@@ -35,7 +35,6 @@
     }
   };
 
-  // Autenticar un usuario (Login)
   export const loginUser = async (mail, password) => {
     try {
       const response = await fetch(`${apiUrl}/login`, { 
@@ -43,15 +42,15 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ mail, password }), // Enviar mail y password
+        body: JSON.stringify({ mail, password }),
       });
 
       if (!response.ok) {
         throw new Error('Error al iniciar sesión');
       }
 
-      const data = await response.json(); // Obtén la respuesta en formato JSON
-      return data; // Devuelve la respuesta, que puede incluir el token o info del usuario
+      const data = await response.json(); 
+      return data; 
     } catch (error) {
       console.error('Error logging in:', error);
       throw error;

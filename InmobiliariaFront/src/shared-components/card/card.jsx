@@ -53,7 +53,7 @@ Card.propTypes = {
   children: PropTypes.node,
   FormComponent: PropTypes.elementType,
   formProps: PropTypes.object,
-  allowAdd: PropTypes.bool, // Prop para habilitar/deshabilitar el botón de agregar
+  allowAdd: PropTypes.bool, 
 };
 
 export default Card;

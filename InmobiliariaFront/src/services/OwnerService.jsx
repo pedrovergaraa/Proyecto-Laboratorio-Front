@@ -11,7 +11,6 @@ const getAuthHeaders = () => {
   };
 };
 
-// services/OwnerService.jsx
 
 export const fetchAllOwners = async () => {
   try {
@@ -24,15 +23,16 @@ export const fetchAllOwners = async () => {
     }
     const owners = await response.json();
     
-    // Extraemos los correos de landlordList y tenantList
-    const landlordMails = owners.flatMap(owner => 
-      owner.landlordList.map(landlord => landlord.mail)
-    );
-    const tenantMails = owners.flatMap(owner => 
-      owner.tenantList.map(tenant => tenant.mail)
-    );
+
+    // const landlordMails = owners.flatMap(owner => 
+    //   owner.landlordList.map(landlord => landlord.mail)
+    // );
+    // const tenantMails = owners.flatMap(owner => 
+    //   owner.tenantList.map(tenant => tenant.mail)
+    // );
     
-    return { landlordMails, tenantMails }; // Retornamos los correos de los landlords e inquilinos
+    // return { landlordMails, tenantMails }; 
+    return owners
   } catch (error) {
     console.error('Error fetching owners:', error);
     throw error;
@@ -40,14 +40,11 @@ export const fetchAllOwners = async () => {
 };
 
 
-// Crear un nuevo propietario, ahora recibiendo las listas de landlord y tenant
 export const createOwner = async (ownerData, landlordList, tenantList) => {
   try {
-    // Obtener los correos de los landlords y tenants desde las listas
     const landlordEmails = landlordList.map(landlord => landlord.mail);
     const tenantEmails = tenantList.map(tenant => tenant.mail);
 
-    // Incluir los correos en el objeto de datos del propietario
     const updatedOwnerData = {
       ...ownerData,
       landlordEmails,
@@ -69,14 +66,12 @@ export const createOwner = async (ownerData, landlordList, tenantList) => {
   }
 };
 
-// Actualizar un propietario, también recibiendo las listas de landlords y tenants
+
 export const updateOwner = async (id, ownerData, landlordList, tenantList) => {
   try {
-    // Obtener los correos de los landlords y tenants desde las listas
     const landlordmails = landlordList.map(landlord => landlord.mail);
     const tenantmails = tenantList.map(tenant => tenant.mail);
 
-    // Incluir los correos en el objeto de datos del propietario
     const updatedOwnerData = {
       ...ownerData,
       landlordmails,
@@ -98,7 +93,6 @@ export const updateOwner = async (id, ownerData, landlordList, tenantList) => {
   }
 };
 
-// Eliminar un propietario
 export const deleteOwner = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/owner/${id}`, {
@@ -108,11 +102,11 @@ export const deleteOwner = async (id) => {
     if (!response.ok) {
       throw new Error(`Error deleting owner: ${response.status}`);
     }
-    // Solo intenta parsear JSON si la respuesta tiene contenido JSON
+
     if (response.headers.get("Content-Type")?.includes("application/json")) {
       return await response.json();
     }
-    return null; // o cualquier valor adecuado si no hay respuesta JSON
+    return null; 
   } catch (error) {
     console.error('Error deleting owner:', error);
     throw error;
