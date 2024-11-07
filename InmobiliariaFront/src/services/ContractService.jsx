@@ -33,15 +33,22 @@ export const createContract = async (contract) => {
       headers: getAuthHeaders(), 
       body: JSON.stringify(contract),
     });
+
     if (!response.ok) {
       throw new Error('Error creating contract');
     }
+
     return await response.json();
   } catch (error) {
     console.error('Error creating contract:', error);
+
+    // Mostrar notificación de error en caso de que ocurra un error
+    showErrorToast("No se pudo agregar el contrato. Intente nuevamente.");
+
     throw error;
   }
 };
+
 
 export const fetchContractById = async (id) => {
   try {

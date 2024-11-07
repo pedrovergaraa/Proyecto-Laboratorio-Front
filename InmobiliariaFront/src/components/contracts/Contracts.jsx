@@ -79,11 +79,6 @@ const Contract = () => {
   const columns = [
     { Header: 'Email del Inquilino', accessor: 'tenantMail' },
     { 
-      Header: 'Fecha de Inicio', 
-      accessor: 'date', 
-      Cell: ({ value }) => new Date(value).toLocaleDateString() 
-    },
-    { 
       Header: 'Fecha de Fin', 
       accessor: 'endDate', 
       Cell: ({ value }) => new Date(value).toLocaleDateString()
