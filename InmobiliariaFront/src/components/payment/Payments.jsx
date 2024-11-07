@@ -95,7 +95,7 @@ const Payments = () => {
         <Table 
           columns={columns} 
           data={payments} 
-          onEdit={handleSelectPayment} 
+          onEdit={handleEditPayment} 
           onDelete={handleDeletePayment} 
         />
       </Card>

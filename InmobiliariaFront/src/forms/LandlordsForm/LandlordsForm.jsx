@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const LandlordsForm = ({ onAdd, closeModal }) => {
+const LandlordsForm = ({ onAdd }) => {
   const [landlordData, setLandlordData] = useState({
     name: '',
     mail: '',
@@ -17,7 +17,6 @@ const LandlordsForm = ({ onAdd, closeModal }) => {
       onAdd(landlordData);
       showSuccessToast("Propietario agregado con éxito!");
       setLandlordData({ name: '', mail: '', password: '', propertyList: [] });
-      closeModal();
     }
   };
   const handleInputChange = (event) => {

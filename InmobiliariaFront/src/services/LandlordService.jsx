@@ -30,7 +30,7 @@ export const fetchAllLandlords = async () => {
 
 export const createLandlord = async (landlord) => {
   try {
-    const response = await fetch(`${apiUrl}/landlord`, {
+    const response = await fetch(`${apiUrl}/landlord/new`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(landlord),
@@ -66,19 +66,21 @@ export const updateLandlord = async (landlord) => {
   }
 };
 
+// Delete Landlord
 export const deleteLandlord = async (id) => {
   try {
+    // Cambia la URL para reflejar la ruta correcta del 'landlord' (similar a la de 'owner')
     const response = await fetch(`${apiUrl}/landlord/${id}`, {
       method: 'DELETE',
-      headers: getAuthHeaders(),
+      headers: getAuthHeaders(), // Agrega los encabezados de autenticación si es necesario
     });
+
     if (!response.ok) {
-      console.error('Error deleting landlord:', response.status, response.statusText);
-      throw new Error('Error deleting landlord');
+      throw new Error(`Error deleting landlord: ${response.statusText}`);
     }
-    return await response.json();
+    return true; // Devuelve `true` si la eliminación fue exitosa
   } catch (error) {
-    console.error('Error deleting landlord:', error.message);
+    console.error('Error deleting landlord:', error);
     throw error;
   }
 };

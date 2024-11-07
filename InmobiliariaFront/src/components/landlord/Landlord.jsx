@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Card from '../../shared-components/card/Card';
 import Table from '../../shared-components/table/Table';
 import LandlordForm from '../../forms/LandlordsForm/LandlordsForm';
-import EditModal from '../../shared-components/editModal/EditModal';
 import { ToastContainer, toast } from 'react-toastify';
 import { fetchAllLandlords, createLandlord, updateLandlord, deleteLandlord } from '../../services/LandlordService';
 
 const Landlord = () => {
   const [landlords, setLandlords] = useState([]);
-  const [editingLandlord, setEditingLandlord] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showAddModal, setShowAddModal] = useState(false);  // Estado para mostrar el modal de agregar propietario
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     loadLandlords();
@@ -19,50 +17,65 @@ const Landlord = () => {
   const loadLandlords = async () => {
     try {
       const data = await fetchAllLandlords();
-      console.log("Datos recibidos desde la API:", data);  // Log para verificar la respuesta
       setLandlords(data);
+      setError(null); // Limpiamos el error en caso de éxito
     } catch (error) {
+      setError("Error fetching landlords");
       toast.error("Error al cargar los propietarios");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleCreate = async (landlordData) => {
     try {
-      await createLandlord(landlordData);  // Asegúrate de que esta función esté funcionando correctamente
-      showSuccessToast("Propietario agregado con éxito!");
-      loadLandlords();  // Si necesitas recargar la lista de propietarios
+      const newLandlord = await createLandlord(landlordData);
+      setLandlords((prev) => [...prev, newLandlord]);
+      toast.success("Propietario agregado con éxito");
     } catch (error) {
+      console.error("Error adding landlord:", error);
       toast.error("Error al agregar propietario");
     }
   };
-  const handleEdit = (landlord) => {
-    setEditingLandlord(landlord);
-    setShowEditModal(true);
-  };
 
-  const handleSaveEdit = async (editedLandlord) => {
+  const handleEdit = async (updatedLandlord) => {
+    // Filtra solo los campos necesarios
+    const cleanLandlord = {
+      id: updatedLandlord.id,
+      mail: updatedLandlord.mail,
+      name: updatedLandlord.name,
+      password: updatedLandlord.password,
+      ownerId: 4
+    };
+  
+    console.log("Updated landlord data:", cleanLandlord); // Verifica los datos limpios
+  
     try {
-      await updateLandlord(editedLandlord.id, editedLandlord);
-      loadLandlords();  // Vuelve a cargar los datos de los propietarios
-      setShowEditModal(false);  // Cierra el modal
-      setEditingLandlord(null);  // Limpia el estado de la fila editada
-      toast.success("Propietario actualizado con éxito");  // Notificación de éxito
+      await updateLandlord(cleanLandlord);
+      setLandlords((prev) =>
+        prev.map((landlord) =>
+          landlord.id === updatedLandlord.id ? updatedLandlord : landlord
+        )
+      );
+      toast.success("Propietario actualizado con éxito");
     } catch (error) {
+      console.error("Error editing landlord:", error);
       toast.error("Error al actualizar el propietario");
     }
   };
+  
+  
 
   const handleDelete = async (id) => {
-    console.log("Eliminando propietario con id:", id);  // Para verificar que se está recibiendo el id correctamente
     try {
       await deleteLandlord(id);
-      setLandlords((prevLandlords) => prevLandlords.filter((landlord) => landlord.id !== id));
+      setLandlords((prev) => prev.filter((landlord) => landlord.id !== id));
       toast.success("Propietario eliminado con éxito");
     } catch (error) {
+      console.error("Error deleting landlord:", error);
       toast.error("Error al eliminar el propietario");
     }
   };
-  
 
   const columns = [
     { Header: 'Nombre', accessor: 'name' },
@@ -87,7 +100,8 @@ const Landlord = () => {
     return <p>No hay propiedades disponibles</p>;
   };
 
-  const data = landlords.map(landlord => ({
+  const dataLandlords = landlords.map(landlord => ({
+    name: landlord.name,
     id: landlord.id,
     mail: landlord.mail,
     propertyList: renderPropertiesDropdown(landlord.propertyList),
@@ -95,31 +109,25 @@ const Landlord = () => {
 
   return (
     <div>
-      <Card title='Propietarios' FormComponent={LandlordForm} onAdd={handleCreate}>
-        <Table columns={columns} data={data} onEdit={handleEdit} onDelete={handleDelete} />
+      <Card title="Propietarios" FormComponent={() => 
+        <LandlordForm onAdd={handleCreate} />
+      }>
+        {loading ? (
+          <p>Cargando propietarios...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : landlords.length > 0 ? (
+          <Table
+            columns={columns}
+            data={dataLandlords}  
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        ) : (
+          <p>No hay datos disponibles</p>
+        )}
       </Card>
-
-      {/* Modal para agregar un propietario */}
-      {showAddModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <LandlordForm onAdd={handleCreate} closeModal={() => setShowAddModal(false)} />
-          </div>
-        </div>
-      )}
-
-      {showEditModal && (
-        <EditModal
-          showEditModal={showEditModal}
-          setShowEditModal={setShowEditModal}
-          rowToEdit={editingLandlord}
-          setRowToEdit={setEditingLandlord}
-          handleSave={handleSaveEdit}  // Pasamos handleSaveEdit como handleSave
-          cancelEdit={() => setShowEditModal(false)}
-        />
-      )}
-
-      <ToastContainer /> {/* Contenedor de Toastify para las notificaciones */}
+      <ToastContainer /> {/* Contenedor de Toastify para notificaciones */}
     </div>
   );
 };
