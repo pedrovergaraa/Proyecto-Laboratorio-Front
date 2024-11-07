@@ -35,7 +35,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Botón de cierre */
 .modal-close-button {
   background: none;
   color: var(--button-text-color);
@@ -63,18 +62,18 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem; /* Reducir el espacio entre los elementos del formulario */
+  gap: 0.8rem; 
 }
 
 .modal-content form label {
   font-weight: 600;
   color: var(--label-color);
-  margin-bottom: 0.2rem; /* Reducir el margen inferior */
+  margin-bottom: 0.2rem; 
 }
 
 .modal-content form input,
 .modal-content form select {
-  padding: 0.6rem; /* Reducir el padding dentro del input */
+  padding: 0.6rem; 
   border-radius: 6px;
   border: 1px solid var(--input-border-color);
   font-size: 0.9rem;
@@ -101,14 +100,14 @@
   border-radius: 6px;
   border: 1px solid var(--input-border-color);
   font-size: 0.9rem;
-  background-color: #fff; /* Puedes ajustar el color de fondo según el tema */
-  color: #333; /* El color del texto dentro del select */
+  background-color: #fff; 
+  color: #333; 
 }
 
 .modal-content form select:focus {
   outline: none;
-  border-color: var(--button-color); /* Color de borde al hacer foco */
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Resaltado del borde */
+  border-color: var(--button-color); 
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); 
 }
 
 

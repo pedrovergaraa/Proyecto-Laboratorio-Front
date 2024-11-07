@@ -29,7 +29,7 @@ const Properties = () => {
   const addProperty = async (property) => {
     try {
       const newProperty = await createProperty(property);
-      setProperties((prev) => [...prev, newProperty]); // Usa el estado anterior para añadir la nueva propiedad
+      setProperties((prev) => [...prev, newProperty]); 
       toast.success("Propiedad añadida con éxito");
     } catch (error) {
       console.error("Error adding property:", error);

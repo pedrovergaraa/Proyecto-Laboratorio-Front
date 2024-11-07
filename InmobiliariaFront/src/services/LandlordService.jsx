@@ -64,19 +64,17 @@ export const updateLandlord = async (landlord) => {
   }
 };
 
-// Delete Landlord
 export const deleteLandlord = async (id) => {
   try {
-    // Cambia la URL para reflejar la ruta correcta del 'landlord' (similar a la de 'owner')
     const response = await fetch(`${apiUrl}/landlord/${id}`, {
       method: 'DELETE',
-      headers: getAuthHeaders(), // Agrega los encabezados de autenticación si es necesario
+      headers: getAuthHeaders(), 
     });
 
     if (!response.ok) {
       throw new Error(`Error deleting landlord: ${response.statusText}`);
     }
-    return true; // Devuelve `true` si la eliminación fue exitosa
+    return true; 
   } catch (error) {
     console.error('Error deleting landlord:', error);
     throw error;

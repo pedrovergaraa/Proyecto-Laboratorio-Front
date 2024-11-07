@@ -22,7 +22,6 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
     setFilteredData(data);
   }, [data]);
 
-  // Manejo de paginación
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
@@ -47,7 +46,6 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
     setShowDeleteModal(false);
   };
 
-  // Búsqueda de datos
   const handleSearch = (searchTerm) => {
     const lowercasedTerm = searchTerm.toLowerCase();
     const filtered = data.filter((row) =>

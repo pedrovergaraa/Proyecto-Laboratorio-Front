@@ -18,7 +18,7 @@ const Landlord = () => {
     try {
       const data = await fetchAllLandlords();
       setLandlords(data);
-      setError(null); // Limpiamos el error en caso de éxito
+      setError(null); 
     } catch (error) {
       setError("Error fetching landlords");
       toast.error("Error al cargar los propietarios");
@@ -39,7 +39,6 @@ const Landlord = () => {
   };
 
   const handleEdit = async (updatedLandlord) => {
-    // Filtra solo los campos necesarios
     const cleanLandlord = {
       id: updatedLandlord.id,
       mail: updatedLandlord.mail,
@@ -48,7 +47,7 @@ const Landlord = () => {
       ownerId: 4
     };
   
-    console.log("Updated landlord data:", cleanLandlord); // Verifica los datos limpios
+    console.log("Updated landlord data:", cleanLandlord); 
   
     try {
       await updateLandlord(cleanLandlord);
@@ -127,7 +126,7 @@ const Landlord = () => {
           <p>No hay datos disponibles</p>
         )}
       </Card>
-      <ToastContainer /> {/* Contenedor de Toastify para notificaciones */}
+      <ToastContainer /> 
     </div>
   );
 };

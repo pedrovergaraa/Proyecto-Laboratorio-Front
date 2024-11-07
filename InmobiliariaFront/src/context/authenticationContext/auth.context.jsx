@@ -40,8 +40,6 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(verifiedUser)
   const [authError, setAuthError] = useState(null);
 
-  console.log("USER DEL BACK",user)
-  // Función para obtener los encabezados de autenticación
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -53,7 +51,6 @@ export const AuthenticationContextProvider = ({ children }) => {
     };
   };
 
-  // Manejo del login
   const handleLogin = async (mail, password) => {
     try {
       const response = await fetch(`${apiUrl}/login`, {
@@ -71,18 +68,16 @@ export const AuthenticationContextProvider = ({ children }) => {
 
       const data = await response.json();
 
-      // Decodificar el token y verificar
       const decodedToken = parseJwt(data.token);
       if (!decodedToken) {
         throw new Error("Failed to decode token");
       }
 
-      // Guardar el token y otros datos en localStorage
-      localStorage.setItem("token", JSON.stringify(data.token));  // Guardar token en localStorage
-      localStorage.setItem("mail", mail);  // Guardar el mail en localStorage
-      localStorage.setItem("role", decodedToken.role); // Almacenar el rol del usuario
+      localStorage.setItem("token", JSON.stringify(data.token));  
+      localStorage.setItem("mail", mail);  
+      localStorage.setItem("role", decodedToken.role); 
 
-      // Establecer el usuario en el estado
+    
       setUser({ mail, ...decodedToken, role: decodedToken.role });
 
       setAuthError(null);
@@ -92,11 +87,10 @@ export const AuthenticationContextProvider = ({ children }) => {
     }
   };
 
-  // Manejo del logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("mail");
-    localStorage.removeItem("role");  // Eliminar el rol del localStorage al cerrar sesión
+    localStorage.removeItem("role");  
     setUser(null);
   };
 

@@ -3,8 +3,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Table from '../../shared-components/table/Table';
 import Card from '../../shared-components/card/Card';
 import EditModal from '../../shared-components/editModal/EditModal';
-import ContractsForm from '../../forms/ContractsForm/ContractsForm'; // Asegúrate de importar el formulario para agregar contratos
-import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; // Asegúrate de importar la notificación
+import ContractsForm from '../../forms/ContractsForm/ContractsForm'; 
+import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 import {
   fetchAllContracts,
   createContract,
@@ -16,7 +16,7 @@ const Contract = () => {
   const [contracts, setContracts] = useState([]);
   const [editingContract, setEditingContract] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showAddModal, setShowAddModal] = useState(false);  // Estado para mostrar el modal de agregar contrato
+  const [showAddModal, setShowAddModal] = useState(false);  
 
   useEffect(() => {
     loadContracts();
@@ -35,8 +35,8 @@ const Contract = () => {
     try {
       const createdContract = await createContract(newContract);
       setContracts((prevContracts) => [...prevContracts, createdContract]);
-      setShowAddModal(false);  // Cierra el modal después de agregar el contrato
-      showSuccessToast("Contrato agregado con éxito!"); // Notificación de éxito
+      setShowAddModal(false);  
+      showSuccessToast("Contrato agregado con éxito!"); 
     } catch (error) {
       console.error("Error creating contract", error);
     }

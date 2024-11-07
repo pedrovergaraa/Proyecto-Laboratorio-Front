@@ -182,33 +182,33 @@ label {
 }
 
 .search-input {
-  width: 300px; /* Ancho del input */
-  padding: 10px; /* Espaciado interno */
-  border-radius: 8px; /* Bordes redondeados */
-  border: 1px solid #ccc; /* Color del borde */
-  font-size: 1rem; /* Tamaño de fuente */
-  outline: none; /* Sin contorno al hacer foco */
-  transition: border-color 0.3s ease; /* Transición suave al cambiar el borde */
+  width: 300px; 
+  padding: 10px; 
+  border-radius: 8px; 
+  border: 1px solid #ccc; 
+  font-size: 1rem; 
+  outline: none; 
+  transition: border-color 0.3s ease; 
 }
 
 .search-input:focus {
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2); /* Sombra al hacer foco */
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2); 
 }
 
 #search-button {
-  padding: 10px 15px; /* Espaciado interno del botón */
-  margin-left: 10px; /* Espaciado a la izquierda del input */
-  border: none; /* Sin borde */
-  border-radius: 8px; /* Bordes redondeados */
-  background-color: #1976d2; /* Color de fondo del botón */
-  color: white; /* Color del texto */
-  font-size: 1rem; /* Tamaño de fuente */
-  cursor: pointer; /* Cursor de puntero al pasar el mouse */
-  transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
+  padding: 10px 15px; 
+  margin-left: 10px; 
+  border: none; 
+  border-radius: 8px; 
+  background-color: #1976d2; 
+  color: white; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
 }
 
 #search-button:hover {
-  background-color: #155a8a; /* Color de fondo al pasar el mouse */
+  background-color: #155a8a; 
 }
 .property-dropdown {
   font-size: 0.9rem;

@@ -3,7 +3,7 @@ import Table from '../../shared-components/table/Table';
 import Card from '../../shared-components/card/Card';
 import OwnersForm from '../../forms/OwnersForm/OwnersForm';
 import EditModal from '../../shared-components/editModal/EditModal';
-import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; // Asegúrate de importar la notificación
+import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 import {
   fetchAllOwners,
   createOwner,
@@ -15,7 +15,7 @@ const Owner = () => {
   const [owners, setOwners] = useState([]);
   const [editingOwner, setEditingOwner] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showAddModal, setShowAddModal] = useState(false);  // Estado para mostrar el modal de agregar propietario
+  const [showAddModal, setShowAddModal] = useState(false);  
 
   useEffect(() => {
     loadOwners();
@@ -49,9 +49,8 @@ const Owner = () => {
 
   const handleSaveEdit = async (editedOwner) => {
     try {
-      // Asegura que adminId esté siempre en 1
       const ownerData = { ...editedOwner, adminId: 1 };
-      await updateOwner(ownerData); // Pasa el objeto completo
+      await updateOwner(ownerData); 
       loadOwners();
       setShowEditModal(false);
       setEditingOwner(null);
@@ -65,7 +64,7 @@ const Owner = () => {
     try {
       await deleteOwner(id);
       setOwners((prevOwners) => prevOwners.filter((owner) => owner.id !== id));
-      showSuccessToast("Owner eliminado con éxito!"); // Notificación de éxito
+      showSuccessToast("Owner eliminado con éxito!"); 
     } catch (error) {
       console.error("Error deleting owner", error);
     }
@@ -88,7 +87,7 @@ const Owner = () => {
     <Card 
       title="Usuarios inmobiliaria" 
       allowAdd={true} 
-      FormComponent={() => <OwnersForm onAdd={handleCreate} closeModal={() => setShowAddModal(false)} />} // Le pasamos la función para cerrar el modal
+      FormComponent={() => <OwnersForm onAdd={handleCreate} closeModal={() => setShowAddModal(false)} />} 
     >
       <Table 
         columns={columns} 
@@ -97,7 +96,6 @@ const Owner = () => {
         onDelete={handleDelete} 
       />
       
-      {/* Modal para agregar un propietario */}
       {showAddModal && (
         <div className="modal">
           <div className="modal-content">
@@ -112,11 +110,11 @@ const Owner = () => {
           setShowEditModal={setShowEditModal}
           rowToEdit={editingOwner}
           setRowToEdit={setEditingOwner}
-          handleSave={handleSaveEdit} // Ahora pasamos handleSaveEdit como handleSave
+          handleSave={handleSaveEdit} 
           cancelEdit={() => setShowEditModal(false)}
         />
       )}
-      <ToastContainerComponent /> {/* Aquí se coloca el contenedor de las notificaciones */}
+      <ToastContainerComponent /> 
     </Card>
   );
 };

@@ -17,7 +17,7 @@ const EditModal = ({
   };
 
   const preparedData = (data) => {
-    const { id, tenantList, propertyList , landlordList, password, role,property, ...filteredData } = data;
+    const { id, tenantList, propertyList , landlordList, role,property, ...filteredData } = data;
     return filteredData;
   };
 

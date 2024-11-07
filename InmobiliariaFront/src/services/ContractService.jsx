@@ -85,12 +85,11 @@ export const deleteContract = async (id) => {
       throw new Error(`Error deleting contract with ID ${id}`);
     }
 
-    // Verifica si la respuesta tiene contenido
     const contentType = response.headers.get("Content-Type");
     if (contentType && contentType.includes("application/json")) {
-      return await response.json();  // Si es JSON, lo parseamos
+      return await response.json();  
     } else {
-      const text = await response.text();  // Si no es JSON, leemos el texto
+      const text = await response.text();  
       console.error("Unexpected response:", text);
       throw new Error("Unexpected response format");
     }

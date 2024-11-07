@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import './userLandLord.css';
-import Card from "../../shared-components/card/card";
+import Card from "../../shared-components/card/Card";
 import { AuthenticationContext } from "../../context/authenticationContext/auth.context";
 import { fetchContractByLandLordMail, fetchPaymentsByLandLordMail, fetchPropertyByLandLordMail } from "../../services/userLandLordService";
 import Table from "../../shared-components/table/Table"; 
@@ -39,7 +39,7 @@ const UserLandLord = () => {
 
   const formattedContracts = contract && contract.length > 0 
   ? contract.map(c => {
-      console.log("Contrato:", c);  // Verifica la estructura de cada contrato
+      console.log("Contrato:", c); 
       return {
         tenantMail: c.tenantMail,
         date: new Date(c.date).toLocaleDateString(),

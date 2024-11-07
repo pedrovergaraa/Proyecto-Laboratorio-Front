@@ -55,6 +55,7 @@ const Navbar = () => {
             <Link to="/payments" className={`navLink ${navLinkThemeClass}`}>PAGOS</Link>
           </li>
         </ul>
+        
       ) : isUserTenantRoute ? (
         <h2 className={`userTenantTitle ${navLinkThemeClass}`}>Bienvenido, Inquilino</h2>
       ) : isUserLandLordRoute ? (

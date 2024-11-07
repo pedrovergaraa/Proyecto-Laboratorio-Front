@@ -23,7 +23,6 @@ const SearchBar = ({ onSearch, showActions }) => {
         placeholder="Buscar..."
         />
       )}
-      {/* Renderizar el botón solo si showActions es verdadero */}
         {showActions && (
         <button id="search-button" onClick={() => onSearch(searchTerm)}>
           Buscar
@@ -35,7 +34,7 @@ const SearchBar = ({ onSearch, showActions }) => {
 
 SearchBar.propTypes = {
   onSearch: PropTypes.func.isRequired,
-  showActions: PropTypes.bool, // Añadimos showActions como prop
+  showActions: PropTypes.bool, 
 };
 
 export default SearchBar;

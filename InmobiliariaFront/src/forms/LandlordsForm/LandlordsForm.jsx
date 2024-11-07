@@ -12,7 +12,7 @@ const LandlordsForm = ({ onAdd }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Formulario enviado:', landlordData);  // Verifica los datos del formulario
+    console.log('Formulario enviado:', landlordData);  
     if (onAdd) {
       onAdd(landlordData);
       showSuccessToast("Propietario agregado con éxito!");
@@ -60,9 +60,8 @@ const LandlordsForm = ({ onAdd }) => {
           required
         />
       </div>
-      {/* Aquí puedes agregar más campos, como las propiedades */}
       <button type="submit">Agregar</button>
-      <ToastContainerComponent /> {/* Contenedor de Toastify para las notificaciones */}
+      <ToastContainerComponent /> 
     </form>
   );
 };

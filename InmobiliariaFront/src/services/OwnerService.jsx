@@ -11,7 +11,6 @@ const getAuthHeaders = () => {
   };
 };
 
-// Create Owner
 export const createOwner = async (owner) => {
   try {
     const response = await fetch(`${apiUrl}/owner/new`, {
@@ -29,7 +28,6 @@ export const createOwner = async (owner) => {
   }
 };
 
-// Fetch All Owners
 export const fetchAllOwners = async () => {
   try {
     const response = await fetch(`${apiUrl}/owner/all`, {
@@ -46,7 +44,6 @@ export const fetchAllOwners = async () => {
   }
 };
 
-// Update Owner
 export const updateOwner = async (owner) => {
   try {
     const response = await fetch(`${apiUrl}/owner/${owner.id}`, {
@@ -64,7 +61,6 @@ export const updateOwner = async (owner) => {
   }
 };
 
-// Delete Owner
 export const deleteOwner = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/owner/${id}`, {
@@ -74,7 +70,7 @@ export const deleteOwner = async (id) => {
     if (!response.ok) {
       throw new Error(`Error deleting owner: ${response.statusText}`);
     }
-    return true; // Devuelve `true` para indicar que fue exitoso
+    return true; 
   } catch (error) {
     console.error('Error deleting owner:', error);
     throw error;

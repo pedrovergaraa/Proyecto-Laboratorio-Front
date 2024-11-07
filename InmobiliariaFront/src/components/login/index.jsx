@@ -26,7 +26,6 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validaciones del Formulario
     if (!mail || !isValidMail(mail)) {
       setErrors((prevErrors) => ({ ...prevErrors, mail: true }));
       return;
@@ -38,7 +37,6 @@ function Login() {
     }
 
     try {
-      // Llamar al login del contexto, que a su vez usará loginUser del servicio
       await handleLogin(mail, password);
       if(user){
         switch(user.role){
@@ -105,7 +103,6 @@ function Login() {
               Iniciar sesión
             </button>
           </form>
-          {/* Muestra el mensaje de error de autenticación */}
           {error && <p className="pt-2 ps-2 text-danger">{error}</p>}
           {authError && <p className="pt-2 ps-2 text-danger">{authError}</p>}
         </div>

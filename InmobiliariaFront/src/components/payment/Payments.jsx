@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PaymentsForm from '../../forms/PaymentsForm/PaymentsForm'; // Asegúrate de crear este formulario
+import PaymentsForm from '../../forms/PaymentsForm/PaymentsForm'; 
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser'; 
 import Card from '../../shared-components/card/Card';
 import Table from '../../shared-components/table/Table';
@@ -10,7 +10,7 @@ import {
   createPayment,
   updatePayment,
   deletePayment,
-} from '../../services/PaymentsService'; // Asegúrate de crear estos servicios
+} from '../../services/PaymentsService'; 
 
 const Payments = () => {
   const [payments, setPayments] = useState([]);
@@ -35,7 +35,7 @@ const Payments = () => {
       const newPayment = await createPayment(paymentData);
       setPayments([...payments, newPayment]);
       toast.success("Pago añadido con éxito");
-      setShowAddModal(false); // Cierra el modal después de agregar
+      setShowAddModal(false); 
     } catch (error) {
       console.error(error);
       toast.error("Error al añadir el pago");
@@ -49,8 +49,8 @@ const Payments = () => {
         payments.map((p) => (p.id === updatedPayment.id ? payment : p))
       );
       toast.success("Pago actualizado con éxito");
-      setShowAddModal(false); // Cierra el modal después de editar
-      setSelectedPayment(null); // Reinicia el pago seleccionado
+      setShowAddModal(false); 
+      setSelectedPayment(null); 
     } catch (error) {
       console.error(error);
       toast.error("Error al actualizar el pago");
@@ -70,7 +70,7 @@ const Payments = () => {
 
   const handleSelectPayment = (payment) => {
     setSelectedPayment(payment);
-    setShowAddModal(true); // Abre el modal para editar
+    setShowAddModal(true); 
   };
 
   const columns = [
@@ -79,7 +79,7 @@ const Payments = () => {
     { 
       Header: 'Fecha de Pago', 
       accessor: 'date', 
-      Cell: ({ value }) => new Date(value).toLocaleDateString() // Muestra solo la fecha
+      Cell: ({ value }) => new Date(value).toLocaleDateString() 
     },
   ];
 

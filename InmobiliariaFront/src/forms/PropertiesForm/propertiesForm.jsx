@@ -10,7 +10,7 @@ const PropertiesForm = ({ onAdd }) => {
     description: '',
     landlordMail: '',
     tenantMail: '',
-    ownerMail: '', // asumiendo que también tienes este campo en `formData`
+    ownerMail: '', 
   });
 
   const [landlord, setLandlord] = useState([]); 
