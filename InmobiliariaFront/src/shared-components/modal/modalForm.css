@@ -63,19 +63,22 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem; 
+  gap: 0.8rem; /* Reducir el espacio entre los elementos del formulario */
 }
 
 .modal-content form label {
   font-weight: 600;
   color: var(--label-color);
+  margin-bottom: 0.2rem; /* Reducir el margen inferior */
 }
 
-.modal-content form input {
-  padding: 0.8rem;
+.modal-content form input,
+.modal-content form select {
+  padding: 0.6rem; /* Reducir el padding dentro del input */
   border-radius: 6px;
   border: 1px solid var(--input-border-color);
   font-size: 0.9rem;
+  width: 50%; 
 }
 
 .modal-content form button {
@@ -92,6 +95,22 @@
 .modal-content form button:hover {
   background-color: var(--button-hover-color);
 }
+
+.modal-content form select {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid var(--input-border-color);
+  font-size: 0.9rem;
+  background-color: #fff; /* Puedes ajustar el color de fondo según el tema */
+  color: #333; /* El color del texto dentro del select */
+}
+
+.modal-content form select:focus {
+  outline: none;
+  border-color: var(--button-color); /* Color de borde al hacer foco */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Resaltado del borde */
+}
+
 
 .custom-add-button,
 .custom-payment-button {

@@ -16,27 +16,31 @@ const parseJwt = (token) => {
     return null;
   }
 };
+const verifiedUser = () => {
+  const token = localStorage.getItem("token");
+  const mail = localStorage.getItem("mail");
+
+  if (token) {
+    const decodedToken = parseJwt(JSON.parse(token));
+
+    if (decodedToken) {
+      return { mail: mail ,...decodedToken };
+    }
+    else{
+      return null
+    }
+}}
+
 
 export const AuthenticationContext = createContext();
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const AuthenticationContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(verifiedUser)
   const [authError, setAuthError] = useState(null);
 
-  // Obtener el token del localStorage cuando el componente se monta
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const storedMail = localStorage.getItem("mail");  // Recuperar el mail del localStorage
-    if (token) {
-      const decodedToken = parseJwt(JSON.parse(token));
-      if (decodedToken) {
-        setUser({ mail: storedMail, ...decodedToken, role: decodedToken.role });  // Usar el mail guardado junto con el token decodificado
-      }
-    }
-  }, []);
-
+  console.log("USER DEL BACK",user)
   // Función para obtener los encabezados de autenticación
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token");

@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import Card from "../../shared-components/card/card";
 import './userTenant.css';
-import PaymentsForm from "../../forms/PaymentsForm/PaymentsForm";
+import PaymentsFormTenant from "../paymentTenant/PaymentFormTenant"; 
 import ModalForm from "../../shared-components/modal/modalForm"; 
 import { AuthenticationContext } from "../../context/authenticationContext/auth.context";
 import { fetchContractByMail, fetchPropertyByMail, fetchPaymentsByMail, createPayment } from "../../services/userTenantService"; 
 import Table from "../../shared-components/table/Table"; 
+import { toast } from 'react-toastify'; // Importa toast de react-toastify
 
 const UserTenant = () => {
   const [contract, setContract] = useState(null);
   const [property, setProperty] = useState(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false); 
   const [payments, setPayments] = useState([]); 
-  const [editingPayment, setEditingPayment] = useState(null); // Para manejar la edición de pagos
   const { user } = useContext(AuthenticationContext); 
 
   useEffect(() => {
@@ -26,7 +26,6 @@ const UserTenant = () => {
   }, [user]);
 
   const handleOpenPaymentModal = () => {
-    setEditingPayment(null); // Reset cuando abrimos el modal
     setIsPaymentModalOpen(true);
   };
 
@@ -39,20 +38,16 @@ const UserTenant = () => {
       const newPayment = await createPayment(newPaymentData);
       if (newPayment) {
         setPayments((prevPayments) => [...prevPayments, newPayment]);
+        toast.success("¡Pago agregado con éxito!"); // Muestra la notificación de éxito
         handleClosePaymentModal();
       } else {
         console.error("Error al crear el pago");
       }
     } catch (error) {
       console.error("Error al crear el pago:", error);
+      toast.error("Hubo un error al agregar el pago."); // Notificación de error en caso de fallo
     }
   };
-
-  const handleEditPayment = (paymentToEdit) => {
-    setEditingPayment(paymentToEdit); // Establecer el pago a editar
-    setIsPaymentModalOpen(true); // Abrir el modal
-  };
-
 
   const contractColumns = [
     { Header: 'Fecha de Inicio', accessor: 'date' },
@@ -85,8 +80,6 @@ const UserTenant = () => {
           <Table
             columns={contractColumns}
             data={formattedContracts}
-            onEdit={() => {}}
-            onDelete={() => {}}
             showActions={false}
           />
         ) : (
@@ -110,8 +103,6 @@ const UserTenant = () => {
           <Table
             columns={paymentsColumns}
             data={formattedPayments}
-            onEdit={() => {}}
-            onDelete={() => {}}
             showActions={false}
           />
         ) : (
@@ -122,14 +113,11 @@ const UserTenant = () => {
 
       {isPaymentModalOpen && (
         <ModalForm isOpen={isPaymentModalOpen} onClose={handleClosePaymentModal}>
-        <PaymentsForm
-        onClose={handleClosePaymentModal}
-        tenantId={contract?.tenantId || ''}
-        propertyId={property?.id || ''}
-        landlordId={property?.landlordId || ''}
-        onAdd={handleSubmit}
-      />
-
+          <PaymentsFormTenant
+            onClose={handleClosePaymentModal}
+            tenantMail={user?.mail || ''} 
+            onAdd={handleSubmit}
+          />
         </ModalForm>
       )}
     </div>

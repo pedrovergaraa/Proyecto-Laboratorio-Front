@@ -14,6 +14,7 @@ const getAuthHeaders = () => {
 export const fetchAllPayments = async () => {
   try {
     const response = await fetch(`${apiUrl}/payments/all`, {
+      method: 'GET',
       headers: getAuthHeaders(),
     });
     if (!response.ok) {

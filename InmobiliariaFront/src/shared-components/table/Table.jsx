@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Table.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchBar from '../searchBar/SearchBar';
 
-import EditModal from '../editModal/EditModal';  // Importa el modal de edición
-import DeleteModal from '../deleteModal/DeleteModal';  // Importa el modal de eliminación
-
+import EditModal from '../editModal/EditModal';  
+import DeleteModal from '../deleteModal/DeleteModal';  
 
 const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -15,7 +14,6 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   const [rowToDelete, setRowToDelete] = useState(null);
   const [rowToEdit, setRowToEdit] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
-  const [searchTerm, setSearchTerm] = useState(''); 
   const [currentPage, setCurrentPage] = useState(1);
 
   const rowsPerPage = 7;
@@ -40,7 +38,7 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   };
 
   const confirmDelete = () => {
-    onDelete(rowToDelete.id);  // Llamada a la función onDelete pasada desde el componente padre
+    onDelete(rowToDelete.id);  
     setShowDeleteModal(false);
   };
 
@@ -74,7 +72,7 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
 
   return (
     <div className="table-container">
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} showActions={showActions} />
       
       <table>
         <thead>
@@ -112,11 +110,14 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
         </tbody>
       </table>
 
-      <div className="pagination-controls">
+          {showActions && (
+
+            <div className="pagination-controls">
         <button onClick={handlePreviousPage} disabled={currentPage === 1}>Anterior</button>
         <span>Página {currentPage} de {totalPages}</span>
         <button onClick={handleNextPage} disabled={currentPage === totalPages}>Siguiente</button>
       </div>
+      )}
 
       {/* Modales */}
       <EditModal

@@ -10,59 +10,35 @@ const PropertiesForm = ({ onAdd }) => {
     description: '',
     landlordMail: '',
     tenantMail: '',
-    ownerId: 4,
+    ownerMail: '', // asumiendo que también tienes este campo en `formData`
   });
-
-  // const [landlordMails, setLandlordMails] = useState([]); 
-  // const [tenantMails, setTenantMails] = useState([]); 
 
   const [landlord, setLandlord] = useState([]); 
   const [tenant, setTenant] = useState([]); 
+
   useEffect(() =>  {
-    // const fetchmails = async () => {
-    //   try {
-    //     const { landlordMails, tenantMails } = await fetchAllOwners();
-    //     setLandlordMails(landlordMails);
-    //     setTenantMails(tenantMails);
-    //   } catch (error) {
-    //     console.error('Error fetching owner mails:', error);
-    //   }
-    // };
-    const fetchTenants = async () =>{
-      const tenants = await fetchAllTenants()
-      if(tenants){
-        
-        setTenant(tenants)
+    const fetchTenants = async () => {
+      const tenants = await fetchAllTenants();
+      if (tenants) {
+        setTenant(tenants);
       }
-    }
+    };
 
-    const fetchLandlords = async () =>{
-      const landlords = await fetchAllLandlords()
-      if(landlords){
-        setLandlord(landlords)
+    const fetchLandlords = async () => {
+      const landlords = await fetchAllLandlords();
+      if (landlords) {
+        setLandlord(landlords);
       }
-    }
+    };
 
-   fetchTenants() 
-   fetchLandlords()
-
+    fetchTenants();
+    fetchLandlords();
   }, []); 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await handleAddClick(formData); 
-    setFormData({
-      address: '',
-      description: '',
-      landlordMail: '',
-      tenantMail: '',
-      ownerId: 4,
-    });
-  };
-
-  const handleAddClick = async (property) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const newProperty = await createProperty(property); 
+      const newProperty = await createProperty(formData); 
       showSuccessToast('Propiedad añadida exitosamente'); 
       onAdd(newProperty); 
     } catch (error) {
