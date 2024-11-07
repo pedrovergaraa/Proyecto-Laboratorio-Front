@@ -1,11 +1,5 @@
-import { createContext, useState, useEffect } from "react";
 
-
-
-
-
-
-// import { createContext, useState, useEffect } from "react";
+//import { createContext, useState, useEffect } from "react";
 
 // const parseJwt = (token) => {
 //   try {
@@ -88,12 +82,6 @@ import { createContext, useState, useEffect } from "react";
 //     </AuthenticationContext.Provider>
 //   );
 // };
-
-
-
-
-
-
 
 
 import { createContext, useState, useEffect } from "react";

@@ -4,6 +4,8 @@ import './Table.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchBar from '../searchBar/SearchBar';
+// import EditModal from '../editModal/EditModal';  // Importa el modal de edición
+// import DeleteModal from '../deleteModal/DeleteModal';  // Importa el modal de eliminación
 
 const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -12,12 +14,19 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   const [rowToEdit, setRowToEdit] = useState(null);
   const [editedRow, setEditedRow] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
-
   const [searchTerm, setSearchTerm] = useState(''); 
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const rowsPerPage = 7;
 
   useEffect(() => {
     setFilteredData(data);
   }, [data]);
+
+  // Manejo de paginación
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
 
   const handleEdit = (row) => {
     setRowToEdit(row);
