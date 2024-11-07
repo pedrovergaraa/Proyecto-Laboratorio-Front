@@ -11,10 +11,10 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   const [rowToEdit, setRowToEdit] = useState(null);
   const [editedRow, setEditedRow] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
-  const [searchTerm, setSearchTerm] = useState(''); // Almacena el término de búsqueda
+  const [searchTerm, setSearchTerm] = useState(''); 
 
   useEffect(() => {
-    setFilteredData(data); // Actualiza los datos filtrados cuando los datos originales cambian
+    setFilteredData(data); 
   }, [data]);
 
   // Handle Edit Modal
@@ -77,7 +77,7 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
       .sort((a, b) => {
         const firstValue = String(a.email || a.entityType || '').toLowerCase();
         const secondValue = String(b.email || b.entityType || '').toLowerCase();
-        return secondValue.localeCompare(firstValue); // Orden descendente
+        return secondValue.localeCompare(firstValue);
       });
 
     setFilteredData(filtered);
@@ -85,93 +85,96 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
 
   return (
     <div className="table-container">
-      {/* Barra de búsqueda y botón de búsqueda */}
-      <div className="search-bar">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchInputChange}
-          placeholder="Buscar..."
-        />
-        <button id='search-button' onClick={handleSearch}>Buscar</button>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            {columns.map((column) => (
-              <th key={column.accessor}>{column.Header}</th>
-            ))}
-            {showActions && <th>Acciones</th>} {/* Mostrar solo si showActions es true */}
-          </tr>
-        </thead>
-      
-        <tbody>
-          {filteredData.map((row) => (
-            <tr key={row.id}>
-              {columns.map((column) => (
-                <td key={column.accessor}>
-                  {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
-                </td>
-              ))}
-              {showActions && ( /* Mostrar solo si showActions es true */
-                <td className="action-icons">
-                  <EditIcon
-                    className="edit-icon"
-                    onClick={() => handleEdit(row)}
-                    style={{ cursor: 'pointer', color: '#1976d2' }}
-                  />
-                  <DeleteIcon
-                    className="delete-icon"
-                    onClick={() => handleDelete(row)}
-                    style={{ cursor: 'pointer', color: '#d32f2f' }}
-                  />
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {showDeleteModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Confirmar Eliminación</h2>
-            <p>¿Estás seguro de que deseas eliminar este registro?</p>
-            <div className="modal-buttons">
-              <button onClick={confirmDelete} className="accept-button">Aceptar</button>
-              <button onClick={cancelDelete} className="cancel-button">Cancelar</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showEditModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Editar Registro</h2>
-            <form className="modal-form">
-              {columns.map((column) => (
-                <label key={column.accessor}>
-                  {column.Header}:
-                  <input
-                    type="text"
-                    name={column.accessor}
-                    value={editedRow[column.accessor] || ''}
-                    onChange={handleInputChange}
-                    className="modal-input"
-                  />
-                </label>
-              ))}
-              <div className="modal-buttons">
-                <button type="button" onClick={confirmEdit} className="accept-button">Guardar</button>
-                <button type="button" onClick={cancelEdit} className="cancel-button">Cancelar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+  
+  {showActions && (
+    <div className="search-bar">
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleSearchInputChange}
+        placeholder="Buscar..."
+      />
+      <button id="search-button" onClick={handleSearch}>Buscar</button>
     </div>
+  )}
+
+  <table>
+    <thead>
+      <tr>
+        {columns.map((column) => (
+          <th key={column.accessor}>{column.Header}</th>
+        ))}
+        {showActions && <th>Acciones</th>} 
+      </tr>
+    </thead>
+
+    <tbody>
+      {filteredData.map((row) => (
+        <tr key={row.id}>
+          {columns.map((column) => (
+            <td key={column.accessor}>
+              {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
+            </td>
+          ))}
+          {showActions && ( 
+            <td className="action-icons">
+              <EditIcon
+                className="edit-icon"
+                onClick={() => handleEdit(row)}
+                style={{ cursor: 'pointer', color: '#1976d2' }}
+              />
+              <DeleteIcon
+                className="delete-icon"
+                onClick={() => handleDelete(row)}
+                style={{ cursor: 'pointer', color: '#d32f2f' }}
+              />
+            </td>
+          )}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  {showDeleteModal && (
+    <div className="modal-overlay">
+      <div className="modal">
+        <h2>Confirmar Eliminación</h2>
+        <p>¿Estás seguro de que deseas eliminar este registro?</p>
+        <div className="modal-buttons">
+          <button onClick={confirmDelete} className="accept-button">Aceptar</button>
+          <button onClick={cancelDelete} className="cancel-button">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {showEditModal && (
+    <div className="modal-overlay">
+      <div className="modal">
+        <h2>Editar Registro</h2>
+        <form className="modal-form">
+          {columns.map((column) => (
+            <label key={column.accessor}>
+              {column.Header}:
+              <input
+                type="text"
+                name={column.accessor}
+                value={editedRow[column.accessor] || ''}
+                onChange={handleInputChange}
+                className="modal-input"
+              />
+            </label>
+          ))}
+          <div className="modal-buttons">
+            <button type="button" onClick={confirmEdit} className="accept-button">Guardar</button>
+            <button type="button" onClick={cancelEdit} className="cancel-button">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )}
+</div>
+
   );
 };
 
@@ -185,7 +188,7 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  showActions: PropTypes.bool, // Prop para controlar la visibilidad de la columna de acciones
+  showActions: PropTypes.bool, 
 };
 
 export default Table;
