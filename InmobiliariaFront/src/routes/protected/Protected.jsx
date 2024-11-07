@@ -15,7 +15,7 @@ const Protected = () => {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
-  const isAuthPage = ["/login", "/register"].includes(location.pathname);
+  const isAuthPage = ["/login",].includes(location.pathname);
 
   const tenantRoutes = ['/user-tenant'];
   const landlordRoutes = ['/user-landlord'];

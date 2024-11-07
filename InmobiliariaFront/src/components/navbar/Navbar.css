@@ -1,10 +1,8 @@
-/* Fondo de pantalla */
 body {
   margin: 0;
   padding: 0;
 }
 
-/* Navbar */
 .navbar {
   display: flex;
   align-items: center;
@@ -15,15 +13,15 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
-  transition: background-color 0.3s ease; /* Transición suave entre temas */
+  transition: background-color 0.3s ease; 
 }
 .navbar-light {
   background-color: #F8EFE6;
 }
 
-/* Estilos para modo oscuro */
+
 .navbar-dark {
-  background-color: #333; /* Color gris oscuro para el modo oscuro */
+  background-color: #333; 
 }
 
 .logo {
@@ -40,7 +38,6 @@ body {
   object-fit: contain;
 }
 
-/* Lista de navegación */
 .navList {
   display: flex;
   justify-content: center;
@@ -58,7 +55,6 @@ body {
   margin-right: 30px;
 }
 
-/* Líneas entre ítems */
 .navItem:not(:last-child)::after {
   content: "";
   position: absolute;
@@ -67,14 +63,14 @@ body {
   bottom: 0;
   height: 100%;
   width: 1px;
-  background-color: #333; /* Cambia a blanco en modo oscuro */
+  background-color: #333; 
 }
 
 .navbar-dark .navItem:not(:last-child)::after {
-  background-color: #FFF; /* Línea blanca en modo oscuro */
+  background-color: #FFF;
 }
 
-/* Enlaces de navegación */
+
 .navLink {
   display: inline-block;
   text-align: center;
@@ -85,22 +81,20 @@ body {
   transition: color 0.3s ease;
 }
 
-/* Color del texto en modo claro */
+
 .navLink-light {
-  color: #333; /* Texto negro en modo claro */
+  color: #333; 
 }
 
-/* Color del texto en modo oscuro */
+
 .navLink-dark {
-  color: #FFF; /* Texto blanco en modo oscuro */
+  color: #FFF; 
 }
 
-/* Hover de los enlaces */
 .navLink:hover {
   color: rgb(107, 158, 202);
 }
 
-/* Estilos responsivos */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -149,25 +143,23 @@ body {
   cursor: pointer;
   color: var(--button-text-color);
   border: none;
-  border-radius: 8px; /* Bordes más redondeados */
+  border-radius: 8px; 
   font-weight: bold;
   transition: background-color 0.3s, transform 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
-/* Botón de cancelar */
 .cancel-btn {
   background-color: rgb(124, 123, 123);
 }
 
 .cancel-btn:hover {
-  background-color: rgb(100, 100, 100); /* Color más oscuro en hover */
+  background-color: rgb(100, 100, 100); 
 }
 
-/* Botón de confirmar */
 .confirm-btn {
   background-color: var(--button-color);
 }
@@ -176,10 +168,9 @@ body {
   background-color: var(--button-hover-color);
 }
 
-/* Texto dentro del modal */
 #modal-text {
   font-size: 1.2rem;
-  color: var(--text-color); /* Se adapta al tema */
+  color: var(--text-color); 
 }
 
 :root[data-bs-theme='light'] {

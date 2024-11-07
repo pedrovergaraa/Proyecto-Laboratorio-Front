@@ -41,18 +41,20 @@
   background-color: var(--button-color);
   color: var(--button-text-color);
   border: none;
-  border-radius: 8px; /* Bordes redondeados */
+  border-radius: 8px; 
   cursor: pointer;
   font-weight: bold;
   font-size: 1rem;
   transition: background-color 0.3s, transform 0.2s;
-  margin-left: auto; /* Ajuste para alinearlo a la derecha */
-  margin-right: 10px; /* Separación del borde */
+  margin-left: auto; 
+  margin-right: 10px; 
+  margin-top: 20px; 
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
 
 .card-add-button:hover {
   background-color: var(--button-hover-color);

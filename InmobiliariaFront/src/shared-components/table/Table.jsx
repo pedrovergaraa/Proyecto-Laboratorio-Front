@@ -4,15 +4,16 @@ import './Table.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchBar from '../searchBar/SearchBar';
-// import EditModal from '../editModal/EditModal';  // Importa el modal de edición
-// import DeleteModal from '../deleteModal/DeleteModal';  // Importa el modal de eliminación
+
+import EditModal from '../editModal/EditModal';  // Importa el modal de edición
+import DeleteModal from '../deleteModal/DeleteModal';  // Importa el modal de eliminación
+
 
 const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [rowToDelete, setRowToDelete] = useState(null);
   const [rowToEdit, setRowToEdit] = useState(null);
-  const [editedRow, setEditedRow] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
   const [searchTerm, setSearchTerm] = useState(''); 
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,9 +30,8 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
 
   const handleEdit = (row) => {
-    setRowToEdit(row);
-    setEditedRow(row);
-    setShowEditModal(true);
+    setRowToEdit(row);  
+    setShowEditModal(true);  
   };
 
   const handleDelete = (row) => {
@@ -40,7 +40,7 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   };
 
   const confirmDelete = () => {
-    onDelete(rowToDelete.id);
+    onDelete(rowToDelete.id);  // Llamada a la función onDelete pasada desde el componente padre
     setShowDeleteModal(false);
   };
 
@@ -49,27 +49,7 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
     setShowDeleteModal(false);
   };
 
-  const confirmEdit = () => {
-    onEdit(editedRow);
-    setRowToEdit(null);
-    setEditedRow(null);
-    setShowEditModal(false);
-  };
-
-  const cancelEdit = () => {
-    setRowToEdit(null);
-    setEditedRow(null);
-    setShowEditModal(false);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditedRow({
-      ...editedRow,
-      [name]: value,
-    });
-  };
-
+  // Búsqueda de datos
   const handleSearch = (searchTerm) => {
     const lowercasedTerm = searchTerm.toLowerCase();
     const filtered = data.filter((row) =>
@@ -81,7 +61,8 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
     setCurrentPage(1);
   };
 
-   const handleNextPage = () => {
+  // Control de paginación
+  const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
@@ -90,10 +71,9 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   };
 
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-  
-  
+
   return (
-   <div className="table-container">
+    <div className="table-container">
       <SearchBar onSearch={handleSearch} />
       
       <table>
@@ -102,29 +82,31 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
             {columns.map((column) => (
               <th key={column.accessor}>{column.Header}</th>
             ))}
-            <th>Acciones</th>
+            {showActions && <th>Acciones</th>}
           </tr>
         </thead>
         <tbody>
-          {currentRows.map((row) => (
-            <tr key={row.id}>
+          {currentRows.map((row, index) => (
+            <tr key={row.id || index}>
               {columns.map((column) => (
-                <td key={column.accessor}>
+                <td key={column.accessor + index}>
                   {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
                 </td>
               ))}
-              <td className="action-icons">
-                <EditIcon
-                  className="edit-icon"
-                  onClick={() => handleEdit(row)}
-                  style={{ cursor: 'pointer', color: '#1976d2' }}
-                />
-                <DeleteIcon
-                  className="delete-icon"
-                  onClick={() => handleDelete(row)}
-                  style={{ cursor: 'pointer', color: '#d32f2f' }}
-                />
-              </td>
+              {showActions && (
+                <td className="action-icons">
+                  <EditIcon
+                    className="edit-icon"
+                    onClick={() => handleEdit(row)}
+                    style={{ cursor: 'pointer', color: '#1976d2' }}
+                  />
+                  <DeleteIcon
+                    className="delete-icon"
+                    onClick={() => handleDelete(row)}
+                    style={{ cursor: 'pointer', color: '#d32f2f' }}
+                  />
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
@@ -152,7 +134,6 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
         cancelDelete={cancelDelete}
       />
     </div>
-
   );
 };
 

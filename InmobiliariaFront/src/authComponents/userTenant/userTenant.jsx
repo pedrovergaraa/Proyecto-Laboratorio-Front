@@ -12,6 +12,7 @@ const UserTenant = () => {
   const [property, setProperty] = useState(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false); 
   const [payments, setPayments] = useState([]); 
+  const [editingPayment, setEditingPayment] = useState(null); // Para manejar la edición de pagos
   const { user } = useContext(AuthenticationContext); 
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const UserTenant = () => {
   }, [user]);
 
   const handleOpenPaymentModal = () => {
+    setEditingPayment(null); // Reset cuando abrimos el modal
     setIsPaymentModalOpen(true);
   };
 
@@ -32,15 +34,12 @@ const UserTenant = () => {
     setIsPaymentModalOpen(false);
   };
 
-  const handleAddPayment = async (newPaymentData) => {
+  const handleSubmit = async (newPaymentData) => {
     try {
-      
       const newPayment = await createPayment(newPaymentData);
-      
       if (newPayment) {
-        
         setPayments((prevPayments) => [...prevPayments, newPayment]);
-        handleClosePaymentModal(); 
+        handleClosePaymentModal();
       } else {
         console.error("Error al crear el pago");
       }
@@ -49,19 +48,22 @@ const UserTenant = () => {
     }
   };
 
-  
+  const handleEditPayment = (paymentToEdit) => {
+    setEditingPayment(paymentToEdit); // Establecer el pago a editar
+    setIsPaymentModalOpen(true); // Abrir el modal
+  };
+
+
   const contractColumns = [
     { Header: 'Fecha de Inicio', accessor: 'date' },
     { Header: 'Fecha de Fin', accessor: 'endDate' },
   ];
 
-  
   const paymentsColumns = [
     { Header: 'Fecha', accessor: 'date' },
     { Header: 'Monto', accessor: 'amount' },
   ];
 
-  
   const formattedContracts = contract && contract.length > 0 
     ? contract.map(c => ({
         date: new Date(c.date).toLocaleDateString(),
@@ -69,7 +71,6 @@ const UserTenant = () => {
       }))
     : [];
 
-  
   const formattedPayments = Array.isArray(payments) && payments.length > 0 
     ? payments.map(p => ({
         date: new Date(p.date).toLocaleDateString(),
@@ -79,22 +80,20 @@ const UserTenant = () => {
 
   return (
     <div className="user-body">
-      
       <Card title="Contrato">
         {formattedContracts.length > 0 ? (
           <Table
             columns={contractColumns}
             data={formattedContracts}
-            onEdit={() => {}} 
+            onEdit={() => {}}
             onDelete={() => {}}
-            showActions={false} 
+            showActions={false}
           />
         ) : (
           <p>El contrato está vacío o no se encontró.</p>
         )}
       </Card>
 
-      
       <Card title="Propiedad">
         {property ? (
           <div>
@@ -106,15 +105,14 @@ const UserTenant = () => {
         )}
       </Card>
 
-      
       <Card title="Pagos">
         {formattedPayments.length > 0 ? (
           <Table
             columns={paymentsColumns}
             data={formattedPayments}
-            onEdit={() => {}} 
+            onEdit={() => {}}
             onDelete={() => {}}
-            showActions={false} 
+            showActions={false}
           />
         ) : (
           <p>No hay pagos registrados.</p>
@@ -122,16 +120,16 @@ const UserTenant = () => {
         <button className="button-user" onClick={handleOpenPaymentModal}>Realizar pago</button>
       </Card>
 
-      
       {isPaymentModalOpen && (
         <ModalForm isOpen={isPaymentModalOpen} onClose={handleClosePaymentModal}>
-          <PaymentsForm
-            onClose={handleClosePaymentModal}
-            tenantId={contract?.tenantId} 
-            propertyId={property?.id} 
-            landlordId={property?.landlordId} 
-            onAdd={handleAddPayment} 
-          />
+        <PaymentsForm
+        onClose={handleClosePaymentModal}
+        tenantId={contract?.tenantId || ''}
+        propertyId={property?.id || ''}
+        landlordId={property?.landlordId || ''}
+        onAdd={handleSubmit}
+      />
+
         </ModalForm>
       )}
     </div>

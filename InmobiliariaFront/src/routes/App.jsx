@@ -2,7 +2,6 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Login from '../components/login';
-import Register from '../components/register/Register';
 import Properties from '../components/properties/Properties';
 import Tenants from '../components/tenants/Tenants';
 import Contracts from '../components/contracts/Contracts';
@@ -16,6 +15,7 @@ import { AuthenticationContextProvider } from '../context/authenticationContext/
 
 import "./App.css";
 import Owner from '../components/owner/Owner';
+import Payments from '../components/payment/Payments';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -44,6 +44,10 @@ const App = () => {
           element: <Landlord />,
         },
         {
+          path: "/payments",
+          element: <Payments />,
+        },
+        {
           path: "/user-tenant",
           element: <UserTenant />,
         },
@@ -56,10 +60,6 @@ const App = () => {
     {
       path: "/login",
       element: <Login />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
     },
     {
       path: "*",

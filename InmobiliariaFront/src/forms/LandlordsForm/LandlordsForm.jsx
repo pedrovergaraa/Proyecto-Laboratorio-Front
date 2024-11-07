@@ -2,34 +2,67 @@ import React, { useState } from "react";
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
 const LandlordsForm = ({ onAdd }) => {
-  const [name, setName] = useState('');
-  const [mail, setMail] = useState('');
+  const [landlordData, setLandlordData] = useState({
+    name: '',
+    mail: '',
+    password: '',
+    propertyList: [] 
+  });
 
-  const handleAddClick = async (event) => {
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    const newLandlord = { name, mail };
-
+    console.log('Formulario enviado:', landlordData);  // Verifica los datos del formulario
     if (onAdd) {
-      await onAdd(newLandlord);
-      showSuccessToast("Usuario agregado con éxito!");
-      setName(''); // Limpiar los campos
-      setMail('');
+      onAdd(landlordData);
+      showSuccessToast("Propietario agregado con éxito!");
+      setLandlordData({ name: '', mail: '', password: '', propertyList: [] });
     }
   };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setLandlordData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         <label>Nombre:</label>
-        <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+        <input
+          type="text"
+          name="name"
+          value={landlordData.name}
+          onChange={handleInputChange}
+          required
+        />
       </div>
       <div>
-        <label>Mail:</label>
-        <input type="mail" name="mail" value={mail} onChange={(e) => setMail(e.target.value)} />
+        <label>Email:</label>
+        <input
+          type="email"
+          name="mail"
+          value={landlordData.mail}
+          onChange={handleInputChange}
+          required
+        />
       </div>
-      <button type="submit" onClick={handleAddClick}>Agregar</button>
-      <ToastContainerComponent />
+      <div>
+        <label>Contraseña:</label>
+        <input
+          type="password"
+          name="password"
+          value={landlordData.password}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      {/* Aquí puedes agregar más campos, como las propiedades */}
+      <button type="submit">Agregar</button>
+      <ToastContainerComponent /> {/* Contenedor de Toastify para las notificaciones */}
     </form>
   );
 };

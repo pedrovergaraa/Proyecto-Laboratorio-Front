@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import Card from '../../shared-components/card/card';
+import Card from '../../shared-components/card/Card';
 import Table from '../../shared-components/table/Table';
 import TenantsForm from '../../forms/TenantsForm/TenantsForm';
 import { fetchAllTenants, createTenant, updateTenant, deleteTenant } from '../../services/TenantService';
 
 const Tenants = () => {
   const [tenants, setTenants] = useState([]);
-  const [selectedTenant, setSelectedTenant] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchTenants = async () => {
@@ -15,49 +16,53 @@ const Tenants = () => {
         const data = await fetchAllTenants();
         setTenants(data);
       } catch (error) {
-        console.error(error);
+        setError("Error fetching tenants");
         toast.error("Error al cargar los inquilinos");
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchTenants();
   }, []);
 
-  const handleAddTenant = async (tenant) => {
+  const addTenant = async (tenant) => {
     try {
       const newTenant = await createTenant(tenant);
-      setTenants([...tenants, newTenant]);
+      setTenants((prev) => [...prev, newTenant]);
       toast.success("Inquilino añadido con éxito");
     } catch (error) {
-      console.error(error);
+      console.error("Error adding tenant:", error);
       toast.error("Error al añadir el inquilino");
     }
   };
 
-  const handleEditTenant = async (tenant) => {
+  const editTenant = async (updatedTenant) => {
     try {
-      const updatedTenant = await updateTenant(tenant);
-      setTenants(tenants.map(t => (t.id === tenant.id ? updatedTenant : t)));
+      await updateTenant(updatedTenant);
+      setTenants((prev) =>
+        prev.map((tenant) =>
+          tenant.id === updatedTenant.id ? updatedTenant : tenant
+        )
+      );
       toast.success("Inquilino actualizado con éxito");
     } catch (error) {
-      console.error(error);
+      console.error("Error editing tenant:", error);
       toast.error("Error al actualizar el inquilino");
     }
   };
 
-  const handleDeleteTenant = async (id) => {
+  const removeTenant = async (id) => {
     try {
-      await deleteTenant(id);
-      setTenants(tenants.filter(tenant => tenant.id !== id));
+      await deleteTenant(id);  
+      setTenants((prev) => prev.filter((tenant) => tenant.id !== id));  
       toast.success("Inquilino eliminado con éxito");
     } catch (error) {
-      console.error(error);
+      console.error("Error deleting tenant:", error);
       toast.error("Error al eliminar el inquilino");
     }
   };
-
-  const handleSelectTenant = (tenant) => {
-    setSelectedTenant(tenant);
-  };
+  
 
   const columns = [
     { Header: 'Nombre', accessor: 'name' },
@@ -66,22 +71,26 @@ const Tenants = () => {
 
   return (
     <div>
-      <Card title="Inquilinos" FormComponent={() => (
-        <TenantsForm 
-          onAdd={handleAddTenant} 
-          onEdit={handleEditTenant} 
-          selectedTenant={selectedTenant} 
-          clearSelectedTenant={() => setSelectedTenant(null)} 
-        />
-      )}>
-        <Table 
-          columns={columns} 
-          data={tenants} 
-          onEdit={handleSelectTenant} 
-          onDelete={handleDeleteTenant} 
-        />
+      <Card 
+        title="Inquilinos" 
+        FormComponent={() => <TenantsForm onAdd={addTenant} />} 
+      >
+        {loading ? (
+          <p>Cargando inquilinos...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : tenants.length > 0 ? (
+          <Table
+          columns={columns}
+          data={tenants}  
+          onEdit={editTenant}  
+          onDelete={removeTenant}  
+          />
+        ) : (
+          <p>No hay datos disponibles</p>
+        )}
       </Card>
-      <ToastContainer />
+      <ToastContainer /> 
     </div>
   );
 };

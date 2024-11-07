@@ -11,30 +11,43 @@ const getAuthHeaders = () => {
   };
 };
 
-// Obtener todos los landlords
+
 export const fetchAllLandlords = async () => {
   try {
     const response = await fetch(`${apiUrl}/landlord/all`, {
+      method: 'GET',
       headers: getAuthHeaders(),
     });
     if (!response.ok) {
-      console.error('Error fetching landlords:', response.status, response.statusText);
-      throw new Error('Error fetching landlords');
+      throw new Error(`Error fetching landlords: ${response.status}`);
     }
-    const data = await response.json();
-
-    return data.map(landlord => ({
-      id: landlord.id,
-      mail: landlord.mail,
-      propertyList: landlord.propertyList || [],
-    }));
+    return await response.json();
   } catch (error) {
-    console.error('Error fetching landlords:', error.message);
+    console.error('Error fetching landlords:', error);
     throw error;
   }
 };
 
-// Actualizar un landlord
+export const createLandlord = async (landlord) => {
+  try {
+    const response = await fetch(`${apiUrl}/landlord/new`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(landlord),
+    });
+
+    if (!response.ok) {
+      console.error('Error creating landlord:', response.status, response.statusText);
+      throw new Error('Error creating landlord');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating landlord:', error.message);
+    throw error;
+  }
+};
+
+
 export const updateLandlord = async (landlord) => {
   try {
     const response = await fetch(`${apiUrl}/landlord/${landlord.id}`, {
@@ -53,20 +66,21 @@ export const updateLandlord = async (landlord) => {
   }
 };
 
-// Eliminar un landlord
+// Delete Landlord
 export const deleteLandlord = async (id) => {
   try {
+    // Cambia la URL para reflejar la ruta correcta del 'landlord' (similar a la de 'owner')
     const response = await fetch(`${apiUrl}/landlord/${id}`, {
       method: 'DELETE',
-      headers: getAuthHeaders(),
+      headers: getAuthHeaders(), // Agrega los encabezados de autenticación si es necesario
     });
+
     if (!response.ok) {
-      console.error('Error deleting landlord:', response.status, response.statusText);
-      throw new Error('Error deleting landlord');
+      throw new Error(`Error deleting landlord: ${response.statusText}`);
     }
-    return await response.json();
+    return true; // Devuelve `true` si la eliminación fue exitosa
   } catch (error) {
-    console.error('Error deleting landlord:', error.message);
+    console.error('Error deleting landlord:', error);
     throw error;
   }
 };

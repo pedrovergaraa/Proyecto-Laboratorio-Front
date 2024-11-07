@@ -1,52 +1,67 @@
-// PaymentsForm.jsx
-import React, { useContext } from 'react';
-import { AuthenticationContext } from '../../context/authenticationContext/auth.context';
-import { createPayment } from '../../services/userTenantService'; 
+import React, { useState, useEffect } from 'react';
+import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const PaymentsForm = ({ onClose }) => {
-    const { user } = useContext(AuthenticationContext); 
-    const token = user?.token; 
-    const tenantMail = user?.mail; 
+const PaymentsForm = ({ onSubmit, onClose, payment }) => {
+  const [formData, setFormData] = useState({
+    amount: '',
+    landlordMail: '',
+    date: ''
+  });
 
-    const handleAddClick = async (event) => {
-        event.preventDefault();
+  useEffect(() => {
+    if (payment) {
+      setFormData(payment);
+    }
+  }, [payment]);
 
-        // Verificamos que el email esté definido
-        if (!tenantMail) {
-            console.error("Email no está disponible.");
-            return;
-        }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-        const paymentData = {
-            tenantMail, 
-            amount: parseFloat(event.target.price.value),
-            // date: event.target.date.value 
-        };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData);
+    showSuccessToast("Pago realizado con éxito!");
+    if (onClose) onClose();
+  };
 
-        console.log("Payment data:", paymentData); // Verificamos que el email se está enviando
-
-        const result = await createPayment(paymentData); // Llamamos a createPayment sin el token aquí
-        if (result) {
-            // showSuccessToast("Pago realizado con éxito!");
-            onClose(); 
-        } else {
-            console.error("Error al realizar el pago.");
-        }
-    };
-
-    return (
-        <form onSubmit={handleAddClick}>
-            <div>
-                <label>Total</label>
-                <input type="number" name="price" required />
-            </div>
-            {/* <div>
-                <label>Fecha</label>
-                <input type="date" name="date" required />
-            </div> */}
-            <button type="submit">Pagar</button>
-        </form>
-    );
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Monto</label>
+        <input
+          type="number"
+          name="amount"
+          value={formData.amount}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Email del Propietario</label>
+        <input
+          type="email"
+          name="landlordMail"
+          value={formData.landlordMail}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Fecha</label>
+        <input
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <button type="submit">Guardar</button>
+      <ToastContainerComponent />
+    </form>
+  );
 };
 
 export default PaymentsForm;

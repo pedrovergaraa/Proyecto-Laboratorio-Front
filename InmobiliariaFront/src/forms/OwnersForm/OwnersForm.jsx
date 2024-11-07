@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { showSuccessToast } from '../..//shared-components/notifiaction/AddUser';
+import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const OwnersForm = ({ onAdd }) => {
-  const [ownerData, setOwnerData] = useState({ name: '', email: '' });
+const OwnersForm = ({ onAdd, closeModal }) => { 
+  const [ownerData, setOwnerData] = useState({
+    name: '',
+    mail: '',
+    adminId: '1',
+    password: ''
+  });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -12,9 +17,10 @@ const OwnersForm = ({ onAdd }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (onAdd) {
-      onAdd(ownerData); // Llama a la función `onAdd` pasada como prop
-      showSuccessToast("Owner agregado con éxito!");
-      setOwnerData({ name: '', email: '' }); // Limpia el formulario
+      onAdd(ownerData); 
+      showSuccessToast("Owner agregado con éxito!");  
+      setOwnerData({ name: '', mail: '', adminId: '1', password: '' });  
+      closeModal(); 
     }
   };
 
@@ -34,13 +40,24 @@ const OwnersForm = ({ onAdd }) => {
         <label>Email:</label>
         <input
           type="email"
-          name="email"
-          value={ownerData.email}
+          name="mail"
+          value={ownerData.mail}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Contraseña:</label>
+        <input
+          type="password"
+          name="password"
+          value={ownerData.password}
           onChange={handleInputChange}
           required
         />
       </div>
       <button type="submit">Agregar</button>
+      <ToastContainerComponent />
     </form>
   );
 };

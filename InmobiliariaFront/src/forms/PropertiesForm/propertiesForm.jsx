@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
-import { createProperty } from '../../services/PropertyService'; // Asegúrate de ajustar la ruta según tu estructura de carpetas
+import { createProperty } from '../../services/PropertyService'; 
+import { fetchAllLandlords } from '../../services/LandlordService';
+import { fetchAllTenants } from '../../services/TenantService';
 
 const PropertiesForm = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -8,35 +10,68 @@ const PropertiesForm = ({ onAdd }) => {
     description: '',
     landlordMail: '',
     tenantMail: '',
-    ownerMail: 'owner@hotmail.com',
+    ownerId: 4,
   });
+
+  // const [landlordMails, setLandlordMails] = useState([]); 
+  // const [tenantMails, setTenantMails] = useState([]); 
+
+  const [landlord, setLandlord] = useState([]); 
+  const [tenant, setTenant] = useState([]); 
+  useEffect(() =>  {
+    // const fetchmails = async () => {
+    //   try {
+    //     const { landlordMails, tenantMails } = await fetchAllOwners();
+    //     setLandlordMails(landlordMails);
+    //     setTenantMails(tenantMails);
+    //   } catch (error) {
+    //     console.error('Error fetching owner mails:', error);
+    //   }
+    // };
+    const fetchTenants = async () =>{
+      const tenants = await fetchAllTenants()
+      if(tenants){
+        
+        setTenant(tenants)
+      }
+    }
+
+    const fetchLandlords = async () =>{
+      const landlords = await fetchAllLandlords()
+      if(landlords){
+        setLandlord(landlords)
+      }
+    }
+
+   fetchTenants() 
+   fetchLandlords()
+
+  }, []); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await handleAddClick(formData); // Llama a la función para agregar la propiedad
+    await handleAddClick(formData); 
     setFormData({
       address: '',
       description: '',
       landlordMail: '',
       tenantMail: '',
-      ownerMail: 'owner@hotmail.com',
+      ownerId: 4,
     });
   };
 
   const handleAddClick = async (property) => {
     try {
-      const newProperty = await createProperty(property); // Llama al servicio para crear la propiedad
-      showSuccessToast('Propiedad añadida exitosamente'); // Muestra la notificación de éxito
-      onAdd(newProperty); // Llama a la función onAdd pasada como prop para actualizar la lista de propiedades
+      const newProperty = await createProperty(property); 
+      showSuccessToast('Propiedad añadida exitosamente'); 
+      onAdd(newProperty); 
     } catch (error) {
       console.error('Error al añadir la propiedad:', error);
-      // Aquí podrías manejar la notificación de error si es necesario
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Aquí van tus campos de formulario */}
       <label>Dirección:</label>
       <input
         type="text"
@@ -49,20 +84,35 @@ const PropertiesForm = ({ onAdd }) => {
         value={formData.description}
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
       />
+      
       <label>Email Propietario:</label>
-      <input
-        type="email"
+      <select
         value={formData.landlordMail}
         onChange={(e) => setFormData({ ...formData, landlordMail: e.target.value })}
-      />
+      >
+        <option value="">Seleccionar propietario</option>
+        {landlord.map((item, index) => (
+          <option key={index} value={item.mail}>
+            {item.mail}
+          </option>
+        ))}
+      </select>
+
       <label>Email Inquilino:</label>
-      <input
-        type="email"
+      <select
         value={formData.tenantMail}
         onChange={(e) => setFormData({ ...formData, tenantMail: e.target.value })}
-      />
+      >
+        <option value="">Seleccionar inquilino</option>
+        {tenant.map((item, index) => (
+          <option key={index} value={item.mail}>
+            {item.mail}
+          </option>
+        ))}
+      </select>
+
       <button type="submit">Añadir Propiedad</button>
-      <ToastContainerComponent /> {/* Asegúrate de incluir el componente Toast */}
+      <ToastContainerComponent /> 
     </form>
   );
 };

@@ -51,6 +51,9 @@ const Navbar = () => {
           <li className="navItem">
             <Link to="/landlord" className={`navLink ${navLinkThemeClass}`}>PROPIETARIOS</Link>
           </li>
+          <li className="navItem">
+            <Link to="/payments" className={`navLink ${navLinkThemeClass}`}>PAGOS</Link>
+          </li>
         </ul>
       ) : isUserTenantRoute ? (
         <h2 className={`userTenantTitle ${navLinkThemeClass}`}>Bienvenido, Inquilino</h2>

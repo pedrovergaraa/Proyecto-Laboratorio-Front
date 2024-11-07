@@ -1,60 +1,74 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
 
-const TenantsForm = ({ onAdd, onEdit, selectedTenant, clearSelectedTenant }) => {
-  const [name, setName] = useState("");
-  const [mail, setMail] = useState("");
+const TenantForm = ({ tenantData, onAdd, onEdit, onDelete }) => {
+  const [formData, setFormData] = useState(tenantData || { name: '', mail: '', password: '', ownerId: '4' });
 
-  useEffect(() => {
-    if (selectedTenant) {
-      setName(selectedTenant.name || "");
-      setMail(selectedTenant.mail || "");
-    }
-  }, [selectedTenant]);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-  const handleAddClick = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const tenantData = { name, mail };
-
-    if (selectedTenant) {
-      onEdit({ ...tenantData, id: selectedTenant.id });
-      showSuccessToast("Inquilino actualizado con éxito!");
-      clearSelectedTenant();
+    if (tenantData) { 
+      onEdit(formData); 
+      showSuccessToast("Inquilino editado con éxito!");
     } else {
-      onAdd(tenantData);
+      onAdd(formData); 
       showSuccessToast("Inquilino agregado con éxito!");
     }
+    setFormData({ name: '', mail: '', password: '', ownerId: '4' }); 
+  };
 
-    setName("");
-    setMail("");
+  const handleDelete = () => {
+    if (tenantData && onDelete) {
+      onDelete(tenantData.id); 
+      showSuccessToast("Inquilino eliminado con éxito!");
+    }
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         <label>Nombre:</label>
-        <input 
-          type="text" 
-          name="name" 
-          value={name} 
-          onChange={(e) => setName(e.target.value)}
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          required
         />
       </div>
       <div>
         <label>Email:</label>
-        <input 
-          type="email" 
-          name="mail" 
-          value={mail} 
-          onChange={(e) => setMail(e.target.value)}
+        <input
+          type="email"
+          name="mail"
+          value={formData.mail}
+          onChange={handleInputChange}
+          required
         />
       </div>
-      <button type="submit" onClick={handleAddClick}>
-        {selectedTenant ? "Actualizar" : "Agregar"}
-      </button>
-      <ToastContainerComponent />
+      <div>
+        <label>Contraseña:</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <button type="submit">{tenantData ? 'Editar Inquilino' : 'Agregar Inquilino'}</button>
+      {tenantData && (
+        <button type="button" onClick={handleDelete} style={{ backgroundColor: 'red', color: 'white' }}>
+          Eliminar Inquilino
+        </button>
+      )}
+      <ToastContainerComponent /> 
     </form>
   );
 };
 
-export default TenantsForm;
+export default TenantForm;

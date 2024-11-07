@@ -1,20 +1,23 @@
 /* Mantén la configuración general de la tabla y el contenedor */
 .table-container {
-  margin-top: 20px;
-  border-radius: 10px;
   overflow-x: auto;
+  border-radius: 15px;
+  overflow: hidden; /* Evita que las esquinas se corten */
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: auto; /* Permite que las columnas se ajusten automáticamente */
+  width: 100%;/* Asegura un ancho uniforme en todas las columnas */
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden; /* Asegura el redondeado de esquinas */
 }
 
 th, td {
   white-space: nowrap;
   padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   text-align: left;
 }
 
@@ -24,12 +27,27 @@ th {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+/* Estilo para el borde redondeado superior e inferior */
+table tr:first-child th:first-child {
+  border-top-left-radius: 15px;
+}
+
+table tr:first-child th:last-child {
+  border-top-right-radius: 15px;
+}
+
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 15px;
+}
+
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 15px;
+}
+
 /* Ajustes específicos para la celda de acciones */
 td.action-icons {
   text-align: center;
-  padding: 8px;
-  /* Asegura que la columna se expanda si el resto de las columnas también lo hacen */
-  width: auto; 
+  padding: 12px;
 }
 
 .action-icons {
@@ -216,4 +234,30 @@ label {
   margin: 4px 0;
   font-size: 0.85rem;
   color: #555;
+}
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.pagination-controls button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:disabled {
+  background-color: #b0b0b0;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-size: 1rem;
 }
