@@ -1,15 +1,15 @@
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const getAuthHeaders = () => {
-  const token = JSON.parse(localStorage.getItem("token"));
-  if (!token) {
+  const tokenData = JSON.parse(localStorage.getItem("token"));
+  if (!tokenData || !tokenData.token) {
     throw new Error("No token found");
   }
   return {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
+    'Authorization': `Bearer ${tokenData.token}`,
   };
 };
-
-const apiUrl = import.meta.env.VITE_API_URL;
 
 // Obtener todos los landlords
 export const fetchAllLandlords = async () => {
@@ -18,70 +18,37 @@ export const fetchAllLandlords = async () => {
       headers: getAuthHeaders(),
     });
     if (!response.ok) {
+      console.error('Error fetching landlords:', response.status, response.statusText);
       throw new Error('Error fetching landlords');
     }
     const data = await response.json();
 
-    // Adaptar los datos si es necesario
     return data.map(landlord => ({
       id: landlord.id,
       mail: landlord.mail,
-      propertyList: landlord.propertyList || [], // Asegúrate de que existe
+      propertyList: landlord.propertyList || [],
     }));
   } catch (error) {
-    console.error('Error fetching landlords:', error);
-    throw error;
-  }
-};
-
-// Crear un nuevo landlord
-export const createLandlord = async (landlord) => {
-  try {
-    const response = await fetch(`${apiUrl}/landlord/new`, {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(landlord),
-    });
-    if (!response.ok) {
-      throw new Error('Error creating landlord');
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error creating landlord:', error);
-    throw error;
-  }
-};
-
-// Obtener un landlord por ID
-export const fetchLandlordById = async (id) => {
-  try {
-    const response = await fetch(`${apiUrl}/landlord/${id}`, {
-      headers: getAuthHeaders(),
-    });
-    if (!response.ok) {
-      throw new Error('Error fetching landlord');
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching landlord by ID:', error);
+    console.error('Error fetching landlords:', error.message);
     throw error;
   }
 };
 
 // Actualizar un landlord
-export const updateLandlord = async (id, updatedData) => {
+export const updateLandlord = async (landlord) => {
   try {
-    const response = await fetch(`${apiUrl}/landlord/${id}`, {
+    const response = await fetch(`${apiUrl}/landlord/${landlord.id}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
-      body: JSON.stringify(updatedData),
+      body: JSON.stringify(landlord),
     });
     if (!response.ok) {
+      console.error('Error updating landlord:', response.status, response.statusText);
       throw new Error('Error updating landlord');
     }
     return await response.json();
   } catch (error) {
-    console.error('Error updating landlord:', error);
+    console.error('Error updating landlord:', error.message);
     throw error;
   }
 };
@@ -94,11 +61,12 @@ export const deleteLandlord = async (id) => {
       headers: getAuthHeaders(),
     });
     if (!response.ok) {
+      console.error('Error deleting landlord:', response.status, response.statusText);
       throw new Error('Error deleting landlord');
     }
     return await response.json();
   } catch (error) {
-    console.error('Error deleting landlord:', error);
+    console.error('Error deleting landlord:', error.message);
     throw error;
   }
 };

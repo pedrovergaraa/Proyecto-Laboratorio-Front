@@ -1,4 +1,4 @@
-import Card from '../../shared-components/card/card';
+import Card from '../../shared-components/card/Card';
 import Table from '../../shared-components/table/Table';
 import React, { useState, useEffect } from 'react';
 import PropertiesForm from '../../forms/PropertiesForm/PropertiesForm';
@@ -64,9 +64,10 @@ const Properties = () => {
   };
 
   const columns = [
-    { Header: 'Dirección', accessor: 'adress' }, 
+    { Header: 'Dirección', accessor: 'address' }, 
     { Header: 'Descripción', accessor: 'description' },
     { Header: 'Email Propietario', accessor: 'landlordMail' },
+    { Header: 'Email Inquilino', accessor: 'tenantMail' },
   ];
 
   return (

@@ -1,3 +1,4 @@
+/* Mantén la configuración general de la tabla y el contenedor */
 .table-container {
   margin-top: 20px;
   border-radius: 10px;
@@ -7,40 +8,48 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: auto; 
+  table-layout: auto; /* Permite que las columnas se ajusten automáticamente */
 }
 
 th, td {
-  width: auto;
   white-space: nowrap;
   padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Bordes translúcidos */
+  border: 1px solid rgba(255, 255, 255, 0.1);
   text-align: left;
 }
 
 th {
   background-color: #f4f4f4;
   color: black;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* Ajustes específicos para la celda de acciones */
+td.action-icons {
+  text-align: center;
+  padding: 8px;
+  /* Asegura que la columna se expanda si el resto de las columnas también lo hacen */
+  width: auto; 
 }
 
 .action-icons {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
+  /* Evita que los íconos se salgan de la celda */
+  flex-wrap: nowrap;
 }
 
 .edit-icon:hover {
-  color: #004ba0; /* Cambia color cuando se pasa el ratón sobre el icono de editar */
+  color: #004ba0;
 }
 
 .delete-icon:hover {
-  color: #a00000; /* Cambia color cuando se pasa el ratón sobre el icono de eliminar */
+  color: #a00000;
 }
 
-/* Estilos de los modales */
-/* Estilos adicionales para el modal */
 
+/* Estilos de los modales */
 .modal-form {
   display: flex;
   flex-direction: column;
@@ -62,12 +71,12 @@ label {
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease; /* Transición suave */
 }
 
 .modal-input:focus {
-  border-color: #1976d2;
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2);
+  border-color: #1976d2; /* Color del borde al hacer foco */
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2); /* Sombra al hacer foco */
 }
 
 .modal-overlay {
@@ -87,7 +96,7 @@ label {
   background-color: rgb(151, 151, 151);
   padding: 30px 25px;
   border-radius: 12px;
-  width: 420px;
+  width: 420px; /* Ancho fijo para el modal */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.3s ease-out;
 }
@@ -124,7 +133,7 @@ label {
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  transition:  transform 0.2s ease;
+  transition: transform 0.2s ease; /* Transición en el hover */
 }
 
 .accept-button {
@@ -133,7 +142,7 @@ label {
 }
 
 .accept-button:hover {
-  background-color: #004ba0;
+  background-color: #004ba0; /* Cambia color en hover */
   transform: scale(1.05);
 }
 
@@ -143,7 +152,7 @@ label {
 }
 
 .cancel-button:hover {
-  background-color: #a00000;
+  background-color: #a00000; /* Cambia color en hover */
   transform: scale(1.05);
 }
 
@@ -165,8 +174,7 @@ label {
 }
 
 .search-input:focus {
-  border-color: #1976d2; /* Color del borde al hacer foco */
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2); /* Sombra sutil al hacer foco */
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.2); /* Sombra al hacer foco */
 }
 
 #search-button {
@@ -183,4 +191,29 @@ label {
 
 #search-button:hover {
   background-color: #155a8a; /* Color de fondo al pasar el mouse */
+}
+.property-dropdown {
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.property-dropdown summary {
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.property-dropdown .property-item {
+  margin: 8px 0;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.property-dropdown .property-item p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #555;
 }

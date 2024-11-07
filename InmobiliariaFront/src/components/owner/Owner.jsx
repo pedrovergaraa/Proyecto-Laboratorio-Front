@@ -1,8 +1,9 @@
-// src/components/Owner.jsx
 import React, { useEffect, useState } from 'react';
 import Table from '../../shared-components/table/Table';
-import Card from '../../shared-components/card/card';
-import OwnersForm from '../../forms/OwnersForm/OwnersForm'; // Asegúrate de importar correctamente OwnersForm
+
+import Card from '../../shared-components/card/Card';
+import OwnersForm from '../../forms/OwnersForm/OwnersForm';
+
 import {
   fetchAllOwners,
   createOwner,
@@ -28,8 +29,8 @@ const Owner = () => {
 
   const handleCreate = async (newOwner) => {
     try {
-      await createOwner(newOwner);
-      loadOwners(); // Recargar la lista de owners
+      const createdOwner = await createOwner(newOwner);
+      setOwners((prevOwners) => [...prevOwners, createdOwner]); // Agrega el nuevo Owner directamente
     } catch (error) {
       console.error("Error creating owner", error);
     }
@@ -37,7 +38,7 @@ const Owner = () => {
 
   const handleEdit = async (editedOwner) => {
     try {
-      await updateOwner(editedOwner);
+      await updateOwner(editedOwner.id, editedOwner);
       loadOwners();
     } catch (error) {
       console.error("Error updating owner", error);
@@ -47,19 +48,23 @@ const Owner = () => {
   const handleDelete = async (id) => {
     try {
       await deleteOwner(id);
-      loadOwners();
+      setOwners((prevOwners) => prevOwners.filter((owner) => owner.id !== id));
     } catch (error) {
       console.error("Error deleting owner", error);
     }
   };
 
   const columns = [
-    { Header: 'ID', accessor: 'id' },
+    { Header: 'Nombre', accessor: 'name' },
     { Header: 'Email', accessor: 'mail' },
   ];
 
   return (
-    <Card title="Lista de Inmobiliarias" allowAdd={true} FormComponent={OwnersForm} onAdd={handleCreate}>
+    <Card 
+      title="Usuarios inmobiliaria" 
+      allowAdd={true} 
+      FormComponent={() => <OwnersForm onAdd={handleCreate} />} // Asegúrate de pasar `onAdd` correctamente
+    >
       <Table 
         columns={columns} 
         data={owners} 

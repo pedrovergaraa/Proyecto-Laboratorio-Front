@@ -1,6 +1,5 @@
-// src/components/OwnersForm.jsx
 import React, { useState } from 'react';
-import { ToastContainerComponent, showSuccessToast } from '../../shared-components/notifiaction/AddUser';
+import { showSuccessToast } from '../..//shared-components/notifiaction/AddUser';
 
 const OwnersForm = ({ onAdd }) => {
   const [ownerData, setOwnerData] = useState({ name: '', email: '' });
@@ -10,18 +9,17 @@ const OwnersForm = ({ onAdd }) => {
     setOwnerData({ ...ownerData, [name]: value });
   };
 
-  const handleAddClick = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-
     if (onAdd) {
-      await onAdd(ownerData);
-      showSuccessToast("Owner agregado con éxito!"); // Muestra la notificación de éxito
-      setOwnerData({ name: '', email: '' }); // Limpia el formulario después de agregar
+      onAdd(ownerData); // Llama a la función `onAdd` pasada como prop
+      showSuccessToast("Owner agregado con éxito!");
+      setOwnerData({ name: '', email: '' }); // Limpia el formulario
     }
   };
 
   return (
-    <form onSubmit={handleAddClick}>
+    <form onSubmit={handleSubmit}>
       <div>
         <label>Nombre:</label>
         <input
@@ -42,10 +40,7 @@ const OwnersForm = ({ onAdd }) => {
           required
         />
       </div>
-      <button type="submit">
-        Agregar
-      </button>
-      <ToastContainerComponent />
+      <button type="submit">Agregar</button>
     </form>
   );
 };

@@ -8,19 +8,19 @@ const SearchBar = ({ onSearch }) => {
   const handleSearchInputChange = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
-    onSearch(value); // Llama a la función onSearch para pasar el término de búsqueda
+    onSearch(value);
   };
 
   return (
     <div className="search-bar">
       <input
-        className="search-input" // Asegúrate de que esta clase esté definida en tu CSS
+        className="search-input"
         type="text"
         value={searchTerm}
-        onChange={handleSearchInputChange} // Usa la función correcta
+        onChange={handleSearchInputChange}
         placeholder="Buscar..."
       />
-      <button id='search-button' onClick={() => onSearch(searchTerm)}>Buscar</button> {/* Ajuste aquí */}
+      <button id="search-button" onClick={() => onSearch(searchTerm)}>Buscar</button>
     </div>
   );
 };
