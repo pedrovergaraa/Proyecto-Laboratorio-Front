@@ -1,94 +1,121 @@
 import React, { useEffect, useState, useContext } from "react";
-import './UserLandLord.css';
+import './userLandLord.css';
 import Card from "../../shared-components/card/card";
-import PaymentsForm from "../../forms/PaymentsForm/PaymentsForm";
-import ModalForm from "../../shared-components/modal/modalForm"; // Importa tu modal
 import { AuthenticationContext } from "../../context/authenticationContext/auth.context";
-
+import { fetchContractByLandLordMail, fetchPaymentsByLandLordMail, fetchPropertyByLandLordMail } from "../../services/userLandLordService";
+import Table from "../../shared-components/table/Table"; 
 
 const UserLandLord = () => {
   const [contract, setContract] = useState(null);
   const [property, setProperty] = useState(null);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false); // Estado para el modal de pagos
-  const { user } = useContext(AuthenticationContext);
-
-  const fetchContract = async () => {
-    try {
-      const response = await fetch(`https://api.example.com/contracts/${user.id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setContract(data);
-      } else {
-        setContract(null);
-      }
-    } catch (error) {
-      console.error("Error fetching contract:", error);
-      setContract(null);
-    }
-  };
-
-  const fetchProperty = async () => {
-    try {
-      const response = await fetch(`https://api.example.com/properties/${user.id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setProperty(data);
-      } else {
-        setProperty(null);
-      }
-    } catch (error) {
-      console.error("Error fetching property:", error);
-      setProperty(null);
-    }
-  };
+  const [payments, setPayments] = useState(null)
+  const { user } = useContext(AuthenticationContext); 
 
   useEffect(() => {
-    fetchContract();
-    fetchProperty();
-  }, []);
+    if (user) { 
+      fetchContractByLandLordMail(user.mail).then(setContract);  
+      fetchPropertyByLandLordMail(user.mail).then(setProperty);   
+      fetchPaymentsByLandLordMail(user.mail).then(setPayments);
+    } else {
+      console.error("No se ha encontrado el correo del usuario.");
+    }
+  }, [user]);
 
-  const handleOpenPaymentModal = () => {
-    setIsPaymentModalOpen(true);
-  };
+  const contractColumns = [
+    {Header: 'Inquilino', accessor: 'tenantMail'},
+    { Header: 'Fecha de Inicio', accessor: 'date' },
+    { Header: 'Fecha de Fin', accessor: 'endDate' },
+  ];
 
-  const handleClosePaymentModal = () => {
-    setIsPaymentModalOpen(false);
-  };
+  const propertyColumns = [
+    { Header: 'Dirección', accessor: 'address' },
+    { Header: 'Descripción', accessor: 'description' },
+  ];
+
+ const paymentsColumns = [
+    {Header: 'Fecha de pago', accessor: 'date'},
+    {Header: 'Monto', accessor: 'amount'}
+  ]
+
+  const formattedContracts = contract && contract.length > 0 
+  ? contract.map(c => {
+      console.log("Contrato:", c);  // Verifica la estructura de cada contrato
+      return {
+        tenantMail: c.tenantMail,
+        date: new Date(c.date).toLocaleDateString(),
+        endDate: new Date(c.endDate).toLocaleDateString(),
+      };
+    })
+  : [];
+
+
+
+
+  const formattedProperties = property && property.length > 0 
+    ? property.map(p => ({
+        address: p.address,  
+        description: p.description,  
+      }))
+    : [];
+
+
+    const formattedPayments = Array.isArray(payments) && payments.length > 0 
+    ? payments.map(p => ({
+        date: new Date(p.date).toLocaleDateString(),
+        amount: p.amount,
+      }))
+    : [];
+
+
 
   return (
     <div className="user-body">
-
       <Card title="Contrato">
-        {contract ? (
-          <div>
-            <p><strong>Tipo de Contrato:</strong> {contract.type}</p>
-            <p><strong>Fecha de Inicio:</strong> {contract.startDate}</p>
-            <p><strong>Fecha de Fin:</strong> {contract.endDate}</p>
-          </div>
+        {formattedContracts.length > 0 ? (
+          <Table
+            columns={contractColumns}
+            data={formattedContracts}
+            onEdit={() => {}} 
+            onDelete={() => {}}
+            showActions={false} 
+          />
         ) : (
-          <p>El contrato está vacío.</p>
+          <p>El contrato está vacío o no se encontró.</p>
         )}
       </Card>
 
+
+
       <Card title="Propiedad">
-        {property ? (
-          <div>
-            <p><strong>Dirección:</strong> {property.address}</p>
-            <p><strong>Descripción:</strong> {property.description}</p>
-          </div>
+        {formattedProperties.length > 0 ? (
+          <Table
+            columns={propertyColumns}
+            data={formattedProperties}
+            onEdit={() => {}} 
+            onDelete={() => {}}
+            showActions={false} 
+          />
         ) : (
           <p>La propiedad está vacía.</p>
         )}
       </Card>
 
 
-      
-      {/* Modal para realizar el pago */}
-      {isPaymentModalOpen && (
-        <ModalForm isOpen={isPaymentModalOpen} onClose={handleClosePaymentModal}>
-          <PaymentsForm onClose={handleClosePaymentModal} /> {/* Asegúrate de que el formulario tenga esta prop */}
-        </ModalForm>
-      )}
+
+
+      <Card title="Pagos">
+        {formattedPayments.length > 0 ? (
+          <Table
+            columns={paymentsColumns}
+            data={formattedPayments}
+            onEdit={() => {}} 
+            onDelete={() => {}}
+            showActions={false} 
+          />
+        ) : (
+          <p>No hay pagos registrados.</p>
+        )}
+      </Card>
     </div>
   );
 };

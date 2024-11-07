@@ -13,6 +13,8 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
   const [editedRow, setEditedRow] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
 
+  const [searchTerm, setSearchTerm] = useState(''); 
+
   useEffect(() => {
     setFilteredData(data);
   }, [data]);
@@ -67,88 +69,81 @@ const Table = ({ columns, data, onEdit, onDelete, showActions = true }) => {
       )
     );
     setFilteredData(filtered);
+    setCurrentPage(1);
   };
 
-  return (
-    <div className="table-container">
-      <SearchBar onSearch={handleSearch} />
+   const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
 
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+  
+  
+  return (
+   <div className="table-container">
+      <SearchBar onSearch={handleSearch} />
+      
       <table>
         <thead>
           <tr>
             {columns.map((column) => (
               <th key={column.accessor}>{column.Header}</th>
             ))}
-            {showActions && <th>Acciones</th>} {/* Mostrar solo si showActions es true */}
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-
-          {filteredData.map((row) => (
+          {currentRows.map((row) => (
             <tr key={row.id}>
               {columns.map((column) => (
                 <td key={column.accessor}>
                   {column.Cell ? column.Cell({ value: row[column.accessor] }) : row[column.accessor]}
                 </td>
               ))}
-              {showActions && ( /* Mostrar solo si showActions es true */
-                <td className="action-icons">
-                  <EditIcon
-                    className="edit-icon"
-                    onClick={() => handleEdit(row)}
-                    style={{ cursor: 'pointer', color: '#1976d2' }}
-                  />
-                  <DeleteIcon
-                    className="delete-icon"
-                    onClick={() => handleDelete(row)}
-                    style={{ cursor: 'pointer', color: '#d32f2f' }}
-                  />
-                </td>
-              )}
+              <td className="action-icons">
+                <EditIcon
+                  className="edit-icon"
+                  onClick={() => handleEdit(row)}
+                  style={{ cursor: 'pointer', color: '#1976d2' }}
+                />
+                <DeleteIcon
+                  className="delete-icon"
+                  onClick={() => handleDelete(row)}
+                  style={{ cursor: 'pointer', color: '#d32f2f' }}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {showDeleteModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Confirmar Eliminación</h2>
-            <p>¿Estás seguro de que deseas eliminar este registro?</p>
-            <div className="modal-buttons">
-              <button onClick={confirmDelete} className="accept-button">Aceptar</button>
-              <button onClick={cancelDelete} className="cancel-button">Cancelar</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <div className="pagination-controls">
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>Anterior</button>
+        <span>Página {currentPage} de {totalPages}</span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>Siguiente</button>
+      </div>
 
-      {showEditModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Editar Registro</h2>
-            <form className="modal-form">
-              {columns.map((column) => (
-                <label key={column.accessor}>
-                  {column.Header}:
-                  <input
-                    type="text"
-                    name={column.accessor}
-                    value={editedRow[column.accessor] || ''}
-                    onChange={handleInputChange}
-                    className="modal-input"
-                  />
-                </label>
-              ))}
-              <div className="modal-buttons">
-                <button type="button" onClick={confirmEdit} className="accept-button">Guardar</button>
-                <button type="button" onClick={cancelEdit} className="cancel-button">Cancelar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Modales */}
+      <EditModal
+        showEditModal={showEditModal}
+        setShowEditModal={setShowEditModal}
+        rowToEdit={rowToEdit}
+        setRowToEdit={setRowToEdit} 
+        handleSave={onEdit}
+        cancelEdit={() => setShowEditModal(false)}
+      />
+      <DeleteModal
+        showDeleteModal={showDeleteModal}
+        setShowDeleteModal={setShowDeleteModal}
+        confirmDelete={confirmDelete}
+        cancelDelete={cancelDelete}
+      />
     </div>
+
   );
 };
 
@@ -162,7 +157,7 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  showActions: PropTypes.bool, // Prop para controlar la visibilidad de la columna de acciones
+  showActions: PropTypes.bool, 
 };
 
 export default Table;
