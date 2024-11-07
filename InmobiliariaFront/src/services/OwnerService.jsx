@@ -1,13 +1,13 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const getAuthHeaders = () => {
-  const tokenData = JSON.parse(localStorage.getItem("token"));
-  if (!tokenData || !tokenData.token) {
+  const token = JSON.parse(localStorage.getItem("token"));
+  if (!token) {
     throw new Error("No token found");
   }
   return {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${tokenData.token}`,
+    'Authorization': `Bearer ${token}`,
   };
 };
 
