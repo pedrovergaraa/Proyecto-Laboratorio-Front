@@ -32,10 +32,11 @@ const Owner = () => {
 
   const handleCreate = async (newOwner) => {
     try {
-      const createdOwner = await createOwner(newOwner);
+      const ownerData = { ...newOwner, adminId: 1 };
+      const createdOwner = await createOwner(ownerData);
       setOwners((prevOwners) => [...prevOwners, createdOwner]);
-      setShowAddModal(false);  // Cierra el modal después de agregar el propietario
-      showSuccessToast("Owner agregado con éxito!"); // Notificación de éxito
+      setShowAddModal(false);
+      showSuccessToast("Owner agregado con éxito!");
     } catch (error) {
       console.error("Error creating owner", error);
     }
@@ -48,10 +49,13 @@ const Owner = () => {
 
   const handleSaveEdit = async (editedOwner) => {
     try {
-      await updateOwner(editedOwner.id, editedOwner);
-      loadOwners();  // Vuelve a cargar los datos de los propietarios
-      setShowEditModal(false);  // Cierra el modal
-      setEditingOwner(null);  // Limpia el estado de la fila editada
+      // Asegura que adminId esté siempre en 1
+      const ownerData = { ...editedOwner, adminId: 1 };
+      await updateOwner(ownerData); // Pasa el objeto completo
+      loadOwners();
+      setShowEditModal(false);
+      setEditingOwner(null);
+      showSuccessToast("Owner actualizado con éxito!");
     } catch (error) {
       console.error("Error updating owner", error);
     }

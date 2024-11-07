@@ -67,7 +67,7 @@ export const updateOwner = async (owner) => {
 // Delete Owner
 export const deleteOwner = async (id) => {
   try {
-    const response = await fetch(`${apiUrl}/owners/${id}`, {
+    const response = await fetch(`${apiUrl}/owner/${id}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
